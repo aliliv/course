@@ -875,7 +875,7 @@ height: auto !important;
 	}
 }
 
-@media (max-width: 380px) {
+/* @media (max-width: 380px) {
 	.login-container {
 		width: 300px !important;
 	}
@@ -932,7 +932,7 @@ height: auto !important;
 	.pagination-select .form-select {
 		margin-right: auto !important;
 	}
-}
+} */
 
 /* DARK MODE */
 
@@ -1103,4 +1103,21 @@ body.dark .pagination-select select {
   }
 
   
+  .daily-attendance .thead > .tr > .td:first-child, .daily-attendance .tbody > .tr > .td:first-child{
+	  max-width: 175px;
+  }
 
+  .daily-attendance .nav-item{
+	  padding: 0 !important
+  }
+.daily-attendance .nav-link{
+	padding: 10px !important;
+	min-width: 50px;
+	text-align: center;
+}
+
+.daily-attendance .week-select {
+	margin-bottom: 0 !important;
+	margin-left: auto !important;
+	width: 100px;
+}
