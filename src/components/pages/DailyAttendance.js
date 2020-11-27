@@ -4,9 +4,9 @@ import axios from "axios";
 import * as Config from "../../config";
 import { connect } from "react-redux";
 import * as moment from "moment";
-import { Button } from "reactstrap";
+import { Button, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import alertify from "alertifyjs";
-
+import classnames from "classnames";
 class DailyAttendance extends Component {
   state = {
     Students: [],
@@ -16,6 +16,9 @@ class DailyAttendance extends Component {
     DataList: [],
     SessionId: 0,
     Loading: false,
+    lessonOptionArray: [1, 2, 3],
+    lessonTitles: ["1st Lesson", "2nd Lesson", "3rd Lesson"],
+    activeTab: "1",
   };
   IsEnabled(studentid, date, lesson) {
     for (let i = 0; i < this.state.DataList.length; i++) {
@@ -113,6 +116,11 @@ class DailyAttendance extends Component {
         console.log(error.response);
       });
   }
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({ activeTab: tab });
+    }
+  }
   async componentDidMount() {
     if (this.props.token) {
       if (history.location.state) {
@@ -153,323 +161,183 @@ class DailyAttendance extends Component {
   }
 
   render() {
+    let { activeTab } = this.state;
     return (
-      <div>
+      <div className="daily-attendance">
         <h1>Daily Attendance</h1>
         <div className="row">
           <div className="col-12">
-            <div className="table-wrapper">
-              <div className="table reponsive-table">
-                <div className="ttop">
-                  <div className="thead">
-                    <div className="tr">
-                      <div className="td">
-                        <div className="tr">
-                          <div className="td">
-                            Week:
-                            <select
-                              type="select"
-                              name="Week"
-                              value={this.state.Week}
-                              onChange={this.onChangeHandler}
-                            >
-                              {this.state.Weeks.map((week) => (
-                                <option key={week} value={week}>
-                                  {week}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        </div>
-                        <div className="tr">
-                          <div className="td">User</div>
-                        </div>
-                      </div>
-                      {this.state.Dates.map((data) => (
-                        <div className="td" key={data.date}>
-                          <div className="tr">
-                            <div className="td">
-                              {moment(data.date).format("MM/DD/YYYY")}
-                            </div>
-                          </div>
-                          {data.status === true ? (
-                            <div className="tr">
-                              <div className="td attandancetd">
-                                <div className="tr">
-                                  {" "}
-                                  <div className="td">1st Lesson</div>
-                                </div>
-                                <div className="tr">
-                                  <div className="td">P</div>
-                                  <div className="td">L</div>
-                                  <div className="td">A</div>
-                                </div>
-                              </div>
-                              <div className="td attandancetd">
-                                <div className="tr">
-                                  {" "}
-                                  <div className="td">2nd Lesson</div>
-                                </div>
-                                <div className="tr">
-                                  <div className="td">P</div>
-                                  <div className="td">L</div>
-                                  <div className="td">A</div>
-                                </div>
-                              </div>
-                              <div className="td attandancetd">
-                                <div className="tr">
-                                  {" "}
-                                  <div className="td">3rd Lesson</div>
-                                </div>
-                                <div className="tr">
-                                  <div className="td">P</div>
-                                  <div className="td">L</div>
-                                  <div className="td">A</div>
-                                </div>
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="tr">Holiday</div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="tbody">
-                    {this.state.Students.map((student) => (
-                      <div className="tr" key={student.id}>
-                        <div className="td">
-                          <img
-                            className="profile-img d-none d-xl-inline-block"
-                            src={student.imageName}
-                            alt=""
-                          />
-                          {student.firstName} {student.lastName}
-                        </div>
-                        {this.state.Dates.map((data) => (
-                          <div className="td" key={data.date}>
-                            {data.status === true ? (
-                              <div className="tr">
-                                <div className="td attandancetd">
-                                  {this.IsEnabled(student.id, data.date, 1) ===
-                                  true ? (
-                                    <div className="tr">
-                                      <div className="td">
-                                        <input
-                                          type="radio"
-                                          id="male"
-                                          name={student.id + "1" + data.date}
-                                          onChange={() =>
-                                            this.RadioChange(
-                                              student.id,
-                                              data.date,
-                                              1,
-                                              1
-                                            )
-                                          }
-                                          checked={this.IsChecked(
-                                            student.id,
-                                            data.date,
-                                            1,
-                                            1
-                                          )}
-                                        ></input>
-                                      </div>
-                                      <div className="td">
-                                        <input
-                                          type="radio"
-                                          id="male"
-                                          name={student.id + "1" + data.date}
-                                          onChange={() =>
-                                            this.RadioChange(
-                                              student.id,
-                                              data.date,
-                                              1,
-                                              2
-                                            )
-                                          }
-                                          checked={this.IsChecked(
-                                            student.id,
-                                            data.date,
-                                            1,
-                                            2
-                                          )}
-                                        ></input>
-                                      </div>
-                                      <div className="td">
-                                        <input
-                                          type="radio"
-                                          id="male"
-                                          name={student.id + "1" + data.date}
-                                          onChange={() =>
-                                            this.RadioChange(
-                                              student.id,
-                                              data.date,
-                                              1,
-                                              3
-                                            )
-                                          }
-                                          checked={this.IsChecked(
-                                            student.id,
-                                            data.date,
-                                            1,
-                                            3
-                                          )}
-                                        ></input>
-                                      </div>
-                                    </div>
-                                  ) : null}
-                                </div>
-                                <div className="td attandancetd">
-                                  {this.IsEnabled(student.id, data.date, 2) ===
-                                  true ? (
-                                    <div className="tr">
-                                      <div className="td">
-                                        <input
-                                          type="radio"
-                                          id="male"
-                                          name={student.id + "2" + data.date}
-                                          onChange={() =>
-                                            this.RadioChange(
-                                              student.id,
-                                              data.date,
-                                              2,
-                                              1
-                                            )
-                                          }
-                                          checked={this.IsChecked(
-                                            student.id,
-                                            data.date,
-                                            2,
-                                            1
-                                          )}
-                                        ></input>
-                                      </div>
-                                      <div className="td">
-                                        <input
-                                          type="radio"
-                                          id="male"
-                                          name={student.id + "2" + data.date}
-                                          onChange={() =>
-                                            this.RadioChange(
-                                              student.id,
-                                              data.date,
-                                              2,
-                                              2
-                                            )
-                                          }
-                                          checked={this.IsChecked(
-                                            student.id,
-                                            data.date,
-                                            2,
-                                            2
-                                          )}
-                                        ></input>
-                                      </div>
-                                      <div className="td">
-                                        <input
-                                          type="radio"
-                                          id="male"
-                                          name={student.id + "2" + data.date}
-                                          onChange={() =>
-                                            this.RadioChange(
-                                              student.id,
-                                              data.date,
-                                              2,
-                                              3
-                                            )
-                                          }
-                                          checked={this.IsChecked(
-                                            student.id,
-                                            data.date,
-                                            2,
-                                            3
-                                          )}
-                                        ></input>
-                                      </div>
-                                    </div>
-                                  ) : null}
-                                </div>
-                                <div className="td attandancetd">
-                                  {this.IsEnabled(student.id, data.date, 3) ===
-                                  true ? (
-                                    <div className="tr">
-                                      <div className="td">
-                                        <input
-                                          type="radio"
-                                          id="male"
-                                          name={student.id + "3" + data.date}
-                                          onChange={() =>
-                                            this.RadioChange(
-                                              student.id,
-                                              data.date,
-                                              3,
-                                              1
-                                            )
-                                          }
-                                          checked={this.IsChecked(
-                                            student.id,
-                                            data.date,
-                                            3,
-                                            1
-                                          )}
-                                        ></input>
-                                      </div>
-                                      <div className="td">
-                                        <input
-                                          type="radio"
-                                          id="male"
-                                          name={student.id + "3" + data.date}
-                                          onChange={() =>
-                                            this.RadioChange(
-                                              student.id,
-                                              data.date,
-                                              3,
-                                              2
-                                            )
-                                          }
-                                          checked={this.IsChecked(
-                                            student.id,
-                                            data.date,
-                                            3,
-                                            2
-                                          )}
-                                        ></input>
-                                      </div>
-                                      <div className="td">
-                                        <input
-                                          type="radio"
-                                          id="male"
-                                          name={student.id + "3" + data.date}
-                                          onChange={() =>
-                                            this.RadioChange(
-                                              student.id,
-                                              data.date,
-                                              3,
-                                              3
-                                            )
-                                          }
-                                          checked={this.IsChecked(
-                                            student.id,
-                                            data.date,
-                                            3,
-                                            3
-                                          )}
-                                        ></input>
-                                      </div>
-                                    </div>
-                                  ) : null}
-                                </div>
-                              </div>
-                            ) : null}
-                          </div>
-                        ))}
-                      </div>
+            <div className="row">
+              <div className="col-8 col-xs-9 col-md-10">
+                <Nav tabs>
+                  {this.state.Dates.map((day, index) => {
+                    return (
+                      <NavItem key={`${index}-day`}>
+                        <NavLink
+                          className={classnames({
+                            active: activeTab === String(index),
+                          })}
+                          onClick={() => {
+                            this.toggle(String(index));
+                          }}
+                        >
+                          {moment(day.date).format("MM/DD")}
+                        </NavLink>
+                      </NavItem>
+                    );
+                  })}
+                </Nav>
+              </div>
+              <div className="form-group week-select col-4 col-xs-3 col-md-2">
+                <div className="form-select">
+                  <select
+                    id="pagination-select"
+                    className="form-control"
+                    name="Week"
+                    value={this.state.Week}
+                    onChange={this.onChangeHandler}
+                  >
+                    {this.state.Weeks.map((week) => (
+                      <option key={week} value={week}>
+                        {week}
+                      </option>
                     ))}
-                  </div>
+                  </select>
                 </div>
               </div>
             </div>
+            <TabContent activeTab={activeTab}>
+              {this.state.Dates.map((date, index) => {
+                return (
+                  <TabPane key={`table-${index}`} tabId={String(index)}>
+                    <div className="table-wrapper">
+                      <div className="table reponsive-table">
+                        <div className="ttop">
+                          <div className="thead">
+                            <div className="tr">
+                              <div className="td d-flex align-items-center">
+                                <span>User</span>
+                              </div>
+
+                              <div className="td" key={date.date}>
+                                {date.status === true ? (
+                                  <div className="tr">
+                                    {this.state.lessonTitles.map(
+                                      (title, index) => {
+                                        return (
+                                          <div
+                                            key={`lesson-${index}`}
+                                            className="td attandancetd"
+                                          >
+                                            <div className="tr">
+                                              {" "}
+                                              <div className="td">{title}</div>
+                                            </div>
+                                            <div className="tr">
+                                              <div className="td">P</div>
+                                              <div className="td">L</div>
+                                              <div className="td">A</div>
+                                            </div>
+                                          </div>
+                                        );
+                                      }
+                                    )}
+                                  </div>
+                                ) : (
+                                  <div className="tr">Holiday</div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="tbody">
+                            {this.state.Students.map((student) => (
+                              <div className="tr" key={student.id}>
+                                <div className="td d-flex align-items-center">
+                                  <img
+                                    className="profile-img d-none d-xl-inline-block"
+                                    src={student.imageName}
+                                    alt=""
+                                  />
+                                  {student.firstName} {student.lastName}
+                                </div>
+
+                                <div className="td" key={date.date}>
+                                  {date.status === true ? (
+                                    <div className="tr">
+                                      {this.state.lessonOptionArray.map(
+                                        (order) => {
+                                          return (
+                                            <div
+                                              key={"lesson" + order}
+                                              className="td attandancetd"
+                                            >
+                                              {this.IsEnabled(
+                                                student.id,
+                                                date.date,
+                                                order
+                                              ) === true ? (
+                                                <div className="tr">
+                                                  {this.state.lessonOptionArray.map(
+                                                    (radioOrder) => {
+                                                      return (
+                                                        <div
+                                                          key={`radio${order}${radioOrder}`}
+                                                          className="td"
+                                                        >
+                                                          <div className="form-row form-group">
+                                                            <div className="col-12">
+                                                              <label className="form-csCheck remember-me">
+                                                                <input
+                                                                  className="form-check-input form-control validate"
+                                                                  type="radio"
+                                                                  id="male"
+                                                                  name={
+                                                                    student.id +
+                                                                    `${order}` +
+                                                                    date.date
+                                                                  }
+                                                                  onChange={() =>
+                                                                    this.RadioChange(
+                                                                      student.id,
+                                                                      date.date,
+                                                                      order,
+                                                                      radioOrder
+                                                                    )
+                                                                  }
+                                                                  checked={this.IsChecked(
+                                                                    student.id,
+                                                                    date.date,
+                                                                    order,
+                                                                    radioOrder
+                                                                  )}
+                                                                />
+                                                                <span className="form-csCheck-checkmark"></span>
+                                                              </label>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      );
+                                                    }
+                                                  )}
+                                                </div>
+                                              ) : null}
+                                            </div>
+                                          );
+                                        }
+                                      )}
+                                    </div>
+                                  ) : null}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </TabPane>
+                );
+              })}
+            </TabContent>
           </div>
         </div>
         <div className="row">
@@ -521,9 +389,9 @@ class DailyAttendance extends Component {
                 </tbody>
               </table>
             </div>
-        
+
             <div className="col-6">
-            <table>
+              <table>
                 <thead>
                   <tr>
                     <th>5-Day PM Programs:</th>
@@ -556,9 +424,7 @@ class DailyAttendance extends Component {
                   </tr>
                 </tbody>
               </table>
-              
             </div>
-        
           </div>
         </div>
       </div>
