@@ -1105,6 +1105,7 @@ body.dark .pagination-select select {
   
   .daily-attendance .thead > .tr > .td:first-child, .daily-attendance .tbody > .tr > .td:first-child{
 	  max-width: 175px;
+	  padding-left: 14px !important;
   }
 
   .daily-attendance .nav-item{
@@ -1120,4 +1121,31 @@ body.dark .pagination-select select {
 	margin-bottom: 0 !important;
 	margin-left: auto !important;
 	width: 100px;
+}
+
+.daily-attendance .nav-tabs{
+	border-bottom: none
+}
+
+#studenttable > tbody > tr > td:first-child,  #studenttable > thead > tr > td:first-child{
+	border-left: none !important;
+}
+#studenttable > tbody > tr > td:last-child, #studenttable > thead > tr > td:last-child{
+	border-right:  none !important;
+}
+
+#studenttable > tbody > tr:last-child > td {
+	border-bottom: none !important;
+}
+
+#studenttable > thead > tr:first-child > td {
+	border-top: none !important;
+}
+
+.studenttable-card {
+	overflow-x: auto;
+}
+
+.studenttable-card .react-datepicker-wrapper{
+	min-width: 110px;
 }
