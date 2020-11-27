@@ -1322,10 +1322,10 @@ class AddStudent extends Component {
                     </div>
                   </div>
                 )}
-                <div className="card mt-2">
+                <div className="card studenttable-card mt-2">
                   <div className="card-header ">Courses</div>
-                  <div className="card-body">
-                    <div className="row">
+                  <div className="card-body p-0">
+                    
                       <table id="studenttable">
                         <thead>
                           <tr>
@@ -1460,7 +1460,7 @@ class AddStudent extends Component {
                           ))}
                         </tbody>
                       </table>
-                    </div>
+                 
                   </div>
                 </div>
               </TabPane>
