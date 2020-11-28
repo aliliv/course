@@ -25,7 +25,7 @@ class StudentAttendance extends Component {
     return (
       <div className="row">
         <div className="col-12">
-          <table id="studenttable">
+          <table className="table table-responsive" id="studenttable">
             <thead>
               <tr>
                 <th>SessionName</th>

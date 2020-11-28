@@ -4,7 +4,14 @@ import alertify from "alertifyjs";
 import { connect } from "react-redux";
 import history from "../../history";
 import DatePicker from "react-datepicker";
-import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
+import {
+  TabContent,
+  TabPane,
+  Nav,
+  NavItem,
+  NavLink,
+  Collapse,
+} from "reactstrap";
 import classnames from "classnames";
 import { Button } from "reactstrap";
 import S3FileUpload from "react-s3";
@@ -12,6 +19,8 @@ import StudentAttendance from "../pages/StudentAttendance";
 import * as Config from "../../config";
 import * as moment from "moment";
 import { Confirm, Modal } from "semantic-ui-react";
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 // import { CognitoIdentityServiceProvider } from "aws-sdk";
 class AddStudent extends Component {
   state = {
@@ -65,6 +74,7 @@ class AddStudent extends Component {
     PaymentDescription: "",
     IsPayment: true,
     Payments: [],
+    isMobile: null,
   };
   gettotal(invoiceamount, invoiceid) {
     let total = 0;
@@ -281,7 +291,14 @@ class AddStudent extends Component {
   }
 
   async componentDidMount() {
-    console.log(this.props.token);
+      window.addEventListener('resize', () => {
+          this.setState({
+              isMobile: window.innerWidth < 641
+          });
+      }, false);
+      this.setState({
+        isMobile: window.innerWidth < 641
+    });
     this.setState({ BranchId: this.props.user.userBranches[0].id });
     await axios
       .get(
@@ -778,7 +795,7 @@ class AddStudent extends Component {
         console.log(error.response);
       });
   }
-  earlyleavingdatechange = async (date,id) => {
+  earlyleavingdatechange = async (date, id) => {
     let obj = {
       StudentCourseId: parseInt(id),
       Date: date,
@@ -792,9 +809,8 @@ class AddStudent extends Component {
       .catch((error) => {
         alertify.error(error.response.data, 4);
       });
-
   };
-  onAcademicWarningChange = async (e,id) => {
+  onAcademicWarningChange = async (e, id) => {
     let obj = {
       StudentCourseId: parseInt(id),
       Value: parseInt(e.target.value),
@@ -808,8 +824,8 @@ class AddStudent extends Component {
       .catch((error) => {
         alertify.error(error.response.data, 4);
       });
-  }
-  onBehavioralWarningChange = async (e,id) => {
+  };
+  onBehavioralWarningChange = async (e, id) => {
     let obj = {
       StudentCourseId: parseInt(id),
       Value: parseInt(e.target.value),
@@ -823,7 +839,7 @@ class AddStudent extends Component {
       .catch((error) => {
         alertify.error(error.response.data, 4);
       });
-  }
+  };
   close = () => this.setState({ open: false });
   render() {
     return (
@@ -943,109 +959,113 @@ class AddStudent extends Component {
           </Modal.Actions>
         </Modal>
 
-        <div className="row">
-          <div className="col-2 col-sm-2 col-lg-2">
-            <div>
-              <img
-                className="student-img d-none d-xl-inline-block"
-                src={this.state.User.imageName}
-                alt=""
-              />
-              <h4>
-                {this.state.User.firstName} {this.state.User.lastName}
-              </h4>
-            </div>
-            <Nav tabs vertical>
-              <NavItem>
-                <NavLink
-                  className={classnames({
-                    active: this.state.activeTab === "1",
-                  })}
-                  onClick={() => {
-                    this.setState({ activeTab: "1" });
-                  }}
-                >
-                  Student Information
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  className={classnames({
-                    active: this.state.activeTab === "2",
-                  })}
-                  onClick={() => {
-                    this.setState({ activeTab: "2" });
-                  }}
-                >
-                  Courses
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  className={classnames({
-                    active: this.state.activeTab === "3",
-                  })}
-                  onClick={() => {
-                    this.setState({ activeTab: "3" });
-                  }}
-                >
-                  Payments
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  className={classnames({
-                    active: this.state.activeTab === "4",
-                  })}
-                  onClick={() => {
-                    this.setState({ activeTab: "4" });
-                  }}
-                >
-                  Attendance
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  className={classnames({
-                    active: this.state.activeTab === "5",
-                  })}
-                  onClick={() => {
-                    this.setState({ activeTab: "5" });
-                  }}
-                >
-                  Applications
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  className={classnames({
-                    active: this.state.activeTab === "6",
-                  })}
-                  onClick={() => {
-                    this.setState({ activeTab: "6" });
-                  }}
-                >
-                  Files
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  className={classnames({
-                    active: this.state.activeTab === "7",
-                  })}
-                  onClick={() => {
-                    this.setState({ activeTab: "7" });
-                  }}
-                >
-                  Accomodation
-                </NavLink>
-              </NavItem>
-            </Nav>
+        <div className="row add-student">
+          <div className="col-12">
+            <h2 className="mb-3">Student</h2>
           </div>
-          <div className="col-10 col-sm-10 col-lg-10">
+          <div className="col-12">
+            <div className="student-nav d-flex">
+              <Nav tabs>
+                <NavItem>
+                  <NavLink
+                    className={classnames({
+                      active: this.state.activeTab === "1",
+                    })}
+                    onClick={() => {
+                      this.setState({ activeTab: "1" });
+                    }}
+                  >
+                    Student Information
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink
+                    className={classnames({
+                      active: this.state.activeTab === "2",
+                    })}
+                    onClick={() => {
+                      this.setState({ activeTab: "2" });
+                    }}
+                  >
+                    Courses
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink
+                    className={classnames({
+                      active: this.state.activeTab === "3",
+                    })}
+                    onClick={() => {
+                      this.setState({ activeTab: "3" });
+                    }}
+                  >
+                    Payments
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink
+                    className={classnames({
+                      active: this.state.activeTab === "4",
+                    })}
+                    onClick={() => {
+                      this.setState({ activeTab: "4" });
+                    }}
+                  >
+                    Attendance
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink
+                    className={classnames({
+                      active: this.state.activeTab === "5",
+                    })}
+                    onClick={() => {
+                      this.setState({ activeTab: "5" });
+                    }}
+                  >
+                    Applications
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink
+                    className={classnames({
+                      active: this.state.activeTab === "6",
+                    })}
+                    onClick={() => {
+                      this.setState({ activeTab: "6" });
+                    }}
+                  >
+                    Files
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink
+                    className={classnames({
+                      active: this.state.activeTab === "7",
+                    })}
+                    onClick={() => {
+                      this.setState({ activeTab: "7" });
+                    }}
+                  >
+                    Accomodation
+                  </NavLink>
+                </NavItem>
+              </Nav>
+              <div className="d-flex align-items-center ml-auto">
+                <img
+                  className="student-img"
+                  src={this.state.User.imageName}
+                  alt=""
+                />
+                <span>
+                  {this.state.User.firstName} {this.state.User.lastName}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="col-12">
             <TabContent activeTab={this.state.activeTab}>
               <TabPane tabId="1">
-                <h4>Student Information</h4>
                 <form onSubmit={this.onSubmitHandler}>
                   <div className="row">
                     <div className="form-group col-4 col-sm-4 col-lg-4">
@@ -1142,7 +1162,7 @@ class AddStudent extends Component {
                     </div>
                   </div>
                   <Button
-                    color="success"
+                    color="primary"
                     className="mr-3"
                     type="submit"
                     disabled={this.state.Loading}
@@ -1160,28 +1180,37 @@ class AddStudent extends Component {
                 </form>
               </TabPane>
               <TabPane tabId="2">
-                <h4>Courses</h4>
-                <div
-                  onClick={() => this.NewCourseVisibility()}
-                  className="btn btn-info"
-                >
-                  Enroll To A New Course
+                <div className="d-flex">
+                  <div
+                    className={
+                      "course-tab" +
+                      (this.state.IsVisibleNewCourse ? " active" : "")
+                    }
+                    onClick={() => this.NewCourseVisibility()}
+                  >
+                    Enroll To A New Course
+                  </div>
+                  <div
+                    onClick={() => this.TimeOffVisibility()}
+                    className={
+                      "ml-4 course-tab" +
+                      (this.state.IsVisibleTimeOff ? " active" : "")
+                    }
+                  >
+                    Time Off
+                  </div>
+                  <div
+                    onClick={() => this.OutOfCountryVisibility()}
+                    className={
+                      "ml-4 course-tab" +
+                      (this.state.IsVisibleOutOffCountry ? " active" : "")
+                    }
+                  >
+                    Out Of Country
+                  </div>
                 </div>
-                <div
-                  onClick={() => this.TimeOffVisibility()}
-                  className="btn btn-info ml-2"
-                >
-                  Time Off
-                </div>
-                <div
-                  onClick={() => this.OutOfCountryVisibility()}
-                  className="btn btn-info ml-2"
-                >
-                  Out Of Country
-                </div>
-                {this.state.IsVisibleNewCourse && (
+                <Collapse isOpen={this.state.IsVisibleNewCourse}>
                   <div className="card mt-2">
-                    <div className="card-header ">Enroll to a New Course</div>
                     <div className="card-body">
                       <div className="row">
                         <div className="form-group col-12 col-sm-6 col-lg-5">
@@ -1221,19 +1250,21 @@ class AddStudent extends Component {
                             </select>
                           </div>
                         </div>
-                        <div
-                          onClick={() => this.AddCourse()}
-                          className="col-12 col-sm-6 col-lg-2 btn btn-success mt-4"
-                        >
-                          Add
+                        <div className="form-group col-12 col-sm-6 col-lg-2">
+                          <button
+                            onClick={() => this.AddCourse()}
+                            className="btn btn-primary label-space"
+                          >
+                            Add
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
-                )}
-                {this.state.IsVisibleTimeOff && (
+                </Collapse>
+
+                <Collapse isOpen={this.state.IsVisibleTimeOff}>
                   <div className="card mt-2">
-                    <div className="card-header ">Time Off</div>
                     <div className="card-body">
                       <div className="row">
                         <div className="form-group col-12 col-sm-3 col-lg-3">
@@ -1266,20 +1297,20 @@ class AddStudent extends Component {
                             onChange={this.onChangeHandler}
                           />
                         </div>
-                        <div
-                          onClick={() => this.AddTimeOff()}
-                          className="col-12 col-sm-3 col-lg-3 btn btn-success mt-3"
-                        >
-                          Add
+                        <div className="form-group col-12 col-sm-6 col-lg-2">
+                          <button
+                            onClick={() => this.AddTimeOff()}
+                            className="btn btn-primary label-space"
+                          >
+                            Add
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
-                )}
-
-                {this.state.IsVisibleOutOffCountry && (
+                </Collapse>
+                <Collapse isOpen={this.state.IsVisibleOutOffCountry}>
                   <div className="card mt-2">
-                    <div className="card-header ">Out of Country</div>
                     <div className="card-body">
                       <div className="row">
                         <div className="form-group col-12 col-sm-3 col-lg-3">
@@ -1312,161 +1343,167 @@ class AddStudent extends Component {
                             onChange={this.onChangeHandler}
                           />
                         </div>
-                        <div
-                          onClick={() => this.AddOutOffCountry()}
-                          className="col-12 col-sm-3 col-lg-3 btn btn-success mt-3"
-                        >
-                          Add
+                        <div className="form-group col-12 col-sm-6 col-lg-2">
+                          <button
+                            onClick={() => this.AddOutOffCountry()}
+                            className="btn btn-primary label-space"
+                          >
+                            Add
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
-                )}
-                <div className="card studenttable-card mt-2">
-                  <div className="card-header ">Courses</div>
-                  <div className="card-body p-0">
-                    
-                      <table id="studenttable">
-                        <thead>
-                          <tr>
-                            <td>Course</td>
-                            <td>Start Date End Date</td>
-                            <td>Early Leaving Date</td>
-                            <td>Teacher Class</td>
-                            <td>Assessment Grade</td>
-                            {/* <td>Participation Grade</td> */}
-                            {/* <td>Total Grade</td> */}
-                            <td>Comment</td>
-                            <td>Conditional Pass</td>
-                            <td>Incomplete</td>
-                            {/* <div className="td">Attendance Probation</div> */}
-                            <td>Academic Warning</td>
-                            <td>Behavioral Warning</td>
-                            <td></td>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {this.state.CourseView.map((courseview) => (
-                            <tr key={courseview.Order}>
-                              <td>{courseview.Course}</td>
-                              <td>
-                                {courseview.StartDate} {courseview.EndDate}
-                              </td>
-                              <td>
-                                {courseview.Course !== "TimeOff" &&
-                                courseview.Course !== "Out Of Country" ? (
-                                  <div className="form-select">
-                                    <DatePicker
-                                      className="form-control"
-                                      selected={
-                                        courseview.EarlyLeavingDate ===
-                                        "0001-01-01T00:00:00"
-                                          ? new Date()
-                                          : new Date(
-                                              courseview.EarlyLeavingDate
-                                            )
-                                      }
-                                      onChange={(e)=>{this.earlyleavingdatechange(e,courseview.Id)}}
-                                    />
-                                  </div>
-                                ) : null}
-                              </td>
-                              <td>
-                                {courseview.Teacher} - {courseview.Class}
-                              </td>
+                </Collapse>
+                <div className={ "studenttable-card mt-2" + (this.state.isMobile ? '' : ' table-wrapper')}>
+                  <Table className={this.state.isMobile ? "" : ' table table-responsive'}  id="studenttable">
+                    <Thead>
+                      <Tr>
+                        <Th>Course</Th>
+                        <Th>Start Date End Date</Th>
+                        <Th>Early Leaving Date</Th>
+                        <Th>Teacher Class</Th>
+                        <Th>Assessment Grade</Th>
+                        {/* <th>Participation Grade</th> */}
+                        {/* <th>Total Grade</th> */}
+                        <Th>Comment</Th>
+                        <Th>Conditional Pass</Th>
+                        <Th>Incomplete</Th>
+                        {/* <div className="Th">Attendance Probation</div> */}
+                        <Th>Academic Warning</Th>
+                        <Th>Behavioral Warning</Th>
+                        <Th></Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {this.state.CourseView.map((courseview) => (
+                        <Tr key={courseview.Order}>
+                          <Td>{courseview.Course}</Td>
+                          <Td>
+                            {courseview.StartDate} {courseview.EndDate}
+                          </Td>
+                          <Td>
+                            {courseview.Course !== "TimeOff" &&
+                            courseview.Course !== "Out Of Country" ? (
+                              <div className="form-select">
+                                <DatePicker
+                                  className="form-control"
+                                  selected={
+                                    courseview.EarlyLeavingDate ===
+                                    "0001-01-01T00:00:00"
+                                      ? new Date()
+                                      : new Date(courseview.EarlyLeavingDate)
+                                  }
+                                  onChange={(e) => {
+                                    this.earlyleavingdatechange(
+                                      e,
+                                      courseview.Id
+                                    );
+                                  }}
+                                />
+                              </div>
+                            ) : null}
+                          </Td>
+                          <Td>
+                            {courseview.Teacher} - {courseview.Class}
+                          </Td>
 
-                              <td>{courseview.AssessmentGrade}</td>
-                              {/* <td></td> */}
-                              {/* <td></td> */}
-                              <td>{courseview.Comment}</td>
-                              <td>
-                                {courseview.Course !== "TimeOff" &&
-                                courseview.Course !== "Out Of Country" ? (
-                                  <label className="form-csCheck remember-me">
-                                    <input
-                                      className="form-check-input form-control validate"
-                                      checked={courseview.ConditionalPass}
-                                      type="checkbox"
-                                      onChange={() =>
-                                        this.ConditionalPassChange(
-                                          courseview.Id
-                                        )
-                                      }
-                                    />
-                                    <span className="form-csCheck-checkmark"></span>
-                                  </label>
-                                ) : null}
-                              </td>
-                              <td>
-                                {courseview.Course !== "TimeOff" &&
-                                courseview.Course !== "Out Of Country" ? (
-                                  <label className="form-csCheck remember-me">
-                                    <input
-                                      className="form-check-input form-control validate"
-                                      checked={courseview.Incomplete}
-                                      type="checkbox"
-                                      onChange={() =>
-                                        this.IncompleteChange(courseview.Id)
-                                      }
-                                    />
-                                    <span className="form-csCheck-checkmark"></span>
-                                  </label>
-                                ) : null}
-                              </td>
-                              {/* <div className="td"></div> */}
-                              <td>
-                              {courseview.Course !== "TimeOff" &&
-                                courseview.Course !== "Out Of Country" ? (
-                                  <select
-                                  name="AcademicWarning"
-                                  id="AcademicWarning"
-                                  onChange={(e)=>{this.onAcademicWarningChange(e,courseview.Id)}}
-                                  className="form-control"
-                                  value={courseview.AcademicWarning}
-                                >
-                                  <option value="0">0</option>
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                </select>
-                                ) : null}
-                              </td>
-                              <td>
-                              {courseview.Course !== "TimeOff" &&
-                                courseview.Course !== "Out Of Country" ? (
-                                  <select
-                                  name="BehavioralWarning"
-                                  id="BehavioralWarning"
-                                  onChange={(e)=>{this.onBehavioralWarningChange(e,courseview.Id)}}
-                                  className="form-control"
-                                  value={courseview.BehavioralWarning}
-                                >
-                                  <option value="0">0</option>
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                </select>
-                                ) : null}
-                              </td>
-                              <td>
-                                <div
-                                  className="btn btn-danger"
-                                  onClick={() => this.deletecourse(courseview)}
-                                >
-                                  Delete
-                                </div>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                 
-                  </div>
+                          <Td>{courseview.AssessmentGrade}</Td>
+                          {/* <Td></Td> */}
+                          {/* <Td></Td> */}
+                          <Td>{courseview.Comment}</Td>
+                          <Td>
+                            {courseview.Course !== "TimeOff" &&
+                            courseview.Course !== "Out Of Country" ? (
+                              <label className="form-csCheck remember-me">
+                                <input
+                                  className="form-check-input form-control validate"
+                                  checked={courseview.ConditionalPass}
+                                  type="checkbox"
+                                  onChange={() =>
+                                    this.ConditionalPassChange(courseview.Id)
+                                  }
+                                />
+                                <span className="form-csCheck-checkmark"></span>
+                              </label>
+                            ) : null}
+                          </Td>
+                          <Td>
+                            {courseview.Course !== "TimeOff" &&
+                            courseview.Course !== "Out Of Country" ? (
+                              <label className="form-csCheck remember-me">
+                                <input
+                                  className="form-check-input form-control validate"
+                                  checked={courseview.Incomplete}
+                                  type="checkbox"
+                                  onChange={() =>
+                                    this.IncompleteChange(courseview.Id)
+                                  }
+                                />
+                                <span className="form-csCheck-checkmark"></span>
+                              </label>
+                            ) : null}
+                          </Td>
+                          {/* <div className="Td"></div> */}
+                          <Td>
+                            {courseview.Course !== "TimeOff" &&
+                            courseview.Course !== "Out Of Country" ? (
+                              <select
+                                name="AcademicWarning"
+                                id="AcademicWarning"
+                                onChange={(e) => {
+                                  this.onAcademicWarningChange(
+                                    e,
+                                    courseview.Id
+                                  );
+                                }}
+                                className="form-control"
+                                value={courseview.AcademicWarning}
+                              >
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                              </select>
+                            ) : null}
+                          </Td>
+                          <Td>
+                            {courseview.Course !== "TimeOff" &&
+                            courseview.Course !== "Out Of Country" ? (
+                              <select
+                                name="BehavioralWarning"
+                                id="BehavioralWarning"
+                                onChange={(e) => {
+                                  this.onBehavioralWarningChange(
+                                    e,
+                                    courseview.Id
+                                  );
+                                }}
+                                className="form-control"
+                                value={courseview.BehavioralWarning}
+                              >
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                              </select>
+                            ) : null}
+                          </Td>
+                          <Td>
+                            <a
+                              className="btn text-danger"
+                              onClick={() => this.deletecourse(courseview)}
+                            >
+                              Delete
+                            </a>
+                          </Td>
+                        </Tr>
+                      ))}
+                    </Tbody>
+                  </Table>
                 </div>
               </TabPane>
               <TabPane tabId="3">
-                <h4>Payments</h4>
-
                 {this.state.CourseView.map((course, index) =>
                   course.Course !== "TimeOff" &&
                   course.Course !== "Out Of Country" ? (
@@ -1670,14 +1707,10 @@ class AddStudent extends Component {
                 )}
               </TabPane>
               <TabPane tabId="4">
-                <h4>Attendance</h4>
                 <StudentAttendance userid={history.location.state.id} />
               </TabPane>
-              <TabPane tabId="5">
-                <h4>Applications</h4>
-              </TabPane>
+              <TabPane tabId="5"></TabPane>
               <TabPane tabId="6">
-                <h4>Files</h4>
                 <form onSubmit={this.SaveFile}>
                   <div className="row">
                     <div className="form-group col-4 col-sm-4 col-lg-3">
@@ -1714,19 +1747,20 @@ class AddStudent extends Component {
                       <label>File:</label>
                       <input type="file" onChange={this.handleFile} />
                     </div>
-
-                    <Button
-                      color="success"
-                      className="mr-3"
-                      type="submit"
-                      disabled={this.state.FileLoading}
-                    >
-                      {this.state.FileLoading && (
-                        <i className="fa fa-refresh fa-spin"></i>
-                      )}
-                      {!this.state.FileLoading && "File Save"}
-                      {this.state.FileLoading && <span> Wait ...</span>}
-                    </Button>
+                    <div className="form-group col-12 col-sm-6 col-lg-2">
+                      <Button
+                        color="primary"
+                        className="label-space"
+                        type="submit"
+                        disabled={this.state.FileLoading}
+                      >
+                        {this.state.FileLoading && (
+                          <i className="fa fa-refresh fa-spin"></i>
+                        )}
+                        {!this.state.FileLoading && "File Save"}
+                        {this.state.FileLoading && <span> Wait ...</span>}
+                      </Button>
+                    </div>
                   </div>
                 </form>
                 <div className="table-wrapper">
@@ -1770,9 +1804,7 @@ class AddStudent extends Component {
                   </div>
                 </div>
               </TabPane>
-              <TabPane tabId="7">
-                <h4>Accomodation</h4>
-              </TabPane>
+              <TabPane tabId="7"></TabPane>
             </TabContent>
           </div>
         </div>
