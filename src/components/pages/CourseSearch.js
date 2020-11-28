@@ -96,7 +96,7 @@ class CourseSearch extends Component {
 
             <div className="form-group col-12 col-sm-6 col-lg-3">
               <Button
-                color="success"
+                color="primary"
                 type="submit"
                 disabled={this.state.Loading}
               >

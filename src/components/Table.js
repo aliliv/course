@@ -179,7 +179,7 @@ export default class Table extends Component {
                         ))}
 
                         {this.props.searchobj.editurl === "/AddSession" ? (
-                          <div className="td">
+                          <div className="td action-buttons">
                             <div
                               className="btn btn-info"
                               onClick={() => this.Go(c.id, "Assessment")}
@@ -219,12 +219,12 @@ export default class Table extends Component {
                           </div>
                         ) : null}
                         <div className="td">
-                          <div
-                            className="btn btn-info"
+                          <a
+                            className="btn"
                             onClick={() => this.pageChange(c.id)}
                           >
                             Edit
-                          </div>
+                          </a>
                         </div>
                       </div>
                     ))}

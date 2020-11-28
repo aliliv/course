@@ -92,7 +92,7 @@ import * as Config from "../../config";
                   </label>
                 </div>
               </div>
-              <div className="form-row form-group">
+              <div className="form-row form-group mb-0">
                 <div className="col-12">
                   <button className="btn btn-success w-100" type="submit">
                     Login

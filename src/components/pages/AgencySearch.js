@@ -112,7 +112,7 @@ export default class AgencySearch extends Component {
             <div className="form-group col-12 col-sm-6 col-lg-3">
               <Button
                 type="submit"
-                color="success"
+                color="primary"
                 disabled={this.state.Loading}
               >
                 {this.state.Loading && (
