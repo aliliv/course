@@ -1076,9 +1076,7 @@ body.dark .pagination-select select {
 /* .table .tr .td:first-child {
 	min-width: 40% !important;
 } */
-.attandancetd {
-  width: 80px !important;
-}
+
 .sessionbtn {
   height: 60px !important;
   font-weight: 500 !important;
@@ -1088,9 +1086,6 @@ body.dark .pagination-select select {
   font-size: 14px !important;
   transition: all 0.3s ease !important;
   text-align: center;
-}
-.adminattendaceheadstatustext {
-  font-size: 5px;
 }
 .paymentin {
   color: green;
@@ -1105,29 +1100,38 @@ body.dark .pagination-select select {
 }
 
 .daily-attendance .thead > .tr > .td:first-child,
-.daily-attendance .tbody > .tr > .td:first-child {
+.daily-attendance .tbody > .tr > .td:first-child,.attendance-admin .thead > .tr > .td:first-child,
+.attendance-admin .tbody > .tr > .td:first-child  {
   max-width: 175px;
   padding-left: 14px !important;
 }
 
-.daily-attendance .nav-item {
+.daily-attendance .nav-item, .attendance-admin .nav-item {
   padding: 0 !important;
 }
-.daily-attendance .nav-link {
+.daily-attendance .nav-tabs, .attendance-admin .nav-tabs{
+border-bottom: none !important;
+}
+.daily-attendance .nav-link, .attendance-admin .nav-link{
   padding: 10px !important;
   min-width: 50px;
   text-align: center;
 }
 
-.daily-attendance .week-select {
+.daily-attendance .week-select, .attendance-admin .week-select {
   margin-bottom: 0 !important;
   margin-left: auto !important;
   width: 100px;
 }
+.daily-attendance .table .tr .td, .attendance-admin .table .tr .td{
+  display: block;
+}
 
-.daily-attendance .nav-tabs {
+.nav-tabs {
   border-bottom: none;
 }
+
+
 @media(max-width: 1024px){
 	.add-student .nav {
 	flex-direction: column;
