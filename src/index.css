@@ -1208,6 +1208,20 @@ border-bottom: none !important;
 	min-height: 25px;
 }
 
-.react-datepicker-popper, .react-datepicker{
+.add-student .react-datepicker-popper{
   min-width: 200px;
+}
+
+.add-student .form-select{
+  min-width: 115px !important;
+}
+
+@media (max-width: 640px){
+  .add-student .react-datepicker-popper{
+left: unset !important;
+right: 0 !important;
+  }
+  .add-student .responsiveTable td.pivoted{
+    font-size: 13px !important;
+  }
 }
