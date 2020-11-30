@@ -1207,3 +1207,7 @@ border-bottom: none !important;
 #studenttable td{
 	min-height: 25px;
 }
+
+.react-datepicker-popper, .react-datepicker{
+  min-width: 200px;
+}
