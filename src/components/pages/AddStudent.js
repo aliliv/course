@@ -964,7 +964,7 @@ class AddStudent extends Component {
             <h2 className="mb-3">Student</h2>
           </div>
           <div className="col-12">
-            <div className="student-nav d-flex">
+            <div className="custom-nav d-flex">
               <Nav tabs>
                 <NavItem>
                   <NavLink
