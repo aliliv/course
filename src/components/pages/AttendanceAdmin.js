@@ -157,7 +157,8 @@ class AttendanceAdmin extends Component {
         <div className="row">
           <div className="col-12">
             <div className="row">
-              <div className="col-8 col-xs-9 col-md-10">
+              <div className="col-12">
+            <div className="custom-nav d-flex">
                 <Nav tabs>
                   {this.state.Dates.map((day, index) => {
                     return (
@@ -176,8 +177,7 @@ class AttendanceAdmin extends Component {
                     );
                   })}
                 </Nav>
-              </div>
-              <div className="form-group week-select col-4 col-xs-3 col-md-2">
+                <div className="form-group week-select">
                 <div className="form-select">
                   <select
                     id="pagination-select"
@@ -194,7 +194,9 @@ class AttendanceAdmin extends Component {
                   </select>
                 </div>
               </div>
-            </div>
+              </div>
+              </div>
+           </div>
             <TabContent activeTab={activeTab}>
               {this.state.Dates.map((date, index) => {
                 return (

@@ -1131,49 +1131,49 @@ border-bottom: none !important;
 
 
 @media(max-width: 1024px){
-	.add-student .nav {
+	.custom-nav .nav {
 	flex-direction: column;
 	width: 100%;
 	}
-	.add-student .nav-item, .add-student .nav-link{
+	.custom-nav .nav-item, .custom-nav .nav-link{
 		width: 100%;
 	}
-	.student-nav{
+	.custom-nav{
 		flex-direction: column;
 	}
-	.student-nav > div{
+	.custom-nav > div{
 		order: -1;
 		margin-left: 0 !important;
 
 	}
 }
-.add-student .student-nav {
+.custom-nav {
   border-bottom: 2px solid rgba(0, 0, 0, 0.06);
   margin-bottom: 20px;
 }
-.add-student .nav {
+.custom-nav .nav {
   border-bottom: none;
 }
 
-.add-student .nav-tabs .nav-item {
+.custom-nav .nav-tabs .nav-item {
   margin: 0 !important;
   padding: 0 !important
 }
-.add-student .nav-tabs .nav-item:first-child .nav-link {
+.custom-nav .nav-tabs .nav-item:first-child .nav-link {
   padding-left: 0 !important;
 }
-.add-student .nav-tabs .nav-link {
+.custom-nav .nav-tabs .nav-link {
   padding: 15px !important;
   border: none;
   position: relative;
 }
 
-.add-student .nav-tabs .nav-link:hover,
-.add-student .nav-tabs .nav-link.active {
+.custom-nav .nav-tabs .nav-link:hover,
+.custom-nav .nav-tabs .nav-link.active {
   border: none;
   position: relative;
 }
-.add-student .nav-tabs .nav-link::before {
+.custom-nav .nav-tabs .nav-link::before {
   content: "";
   position: absolute;
   width: 100%;
@@ -1183,9 +1183,15 @@ border-bottom: none !important;
   left: 0;
   transition: all 0.3s ease !important;
 }
-.add-student .nav-tabs .nav-link:hover::before,
-.add-student .nav-tabs .nav-link.active::before {
+.custom-nav .nav-tabs .nav-link:hover::before,
+.custom-nav .nav-tabs .nav-link.active::before {
   background-color: var(--brand-color);
+}
+.custom-nav .week-select{
+  min-width: 110px;
+}
+.week-select .form-select{
+  width: 100%;
 }
 .add-student .course-tab{
 	cursor: pointer;
