@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import history from "../history";
+import SessionActions from "./SessionActions"
+
+
 export default class Table extends Component {
   state = {
     tableView: [],
@@ -9,7 +12,15 @@ export default class Table extends Component {
     Page: 1,
     PageSize: 5,
     titles: [],
+    popovers: {
+      p1: false,
+      p2: false,
+      p3: false,
+      p4: false,
+    }
   };
+
+
   pageChange(id) {
     history.push({
       pathname: this.props.searchobj.editurl,
@@ -42,7 +53,7 @@ export default class Table extends Component {
         search: "",
         state: { id: id },
       });
-    }else if (pagename === "TeacherAssignment") {
+    } else if (pagename === "TeacherAssignment") {
       history.push({
         pathname: "/TeacherAssignment",
         search: "",
@@ -164,7 +175,8 @@ export default class Table extends Component {
                         </div>
                       ))}
                       <div className="td"> </div>
-                      {this.props.searchobj.editurl === "/AddSession" || this.props.searchobj.editurl === "/AddTeacher" ? (
+                      {this.props.searchobj.editurl === "/AddSession" ||
+                      this.props.searchobj.editurl === "/AddTeacher" ? (
                         <div className="td"></div>
                       ) : null}
                     </div>
@@ -179,42 +191,21 @@ export default class Table extends Component {
                         ))}
 
                         {this.props.searchobj.editurl === "/AddSession" ? (
-                          <div className="td action-buttons">
-                            <div
-                              className="btn btn-info"
-                              onClick={() => this.Go(c.id, "Assessment")}
-                            >
-                              Assessment
-                            </div>
-
-                            <div
-                              className="sessionbtn btn-info mt-2"
-                              onClick={() => this.Go(c.id, "DailyAttendance")}
-                            >
-                              Daily Attendance
-                            </div>
-
-                            <div
-                              className="sessionbtn btn-info mt-2"
-                              onClick={() => this.Go(c.id, "AttendanceAdmin")}
-                            >
-                              Attendance Admin
-                            </div>
-                            <div
-                              className="sessionbtn btn-info mt-2"
-                              onClick={() => this.Go(c.id, "AttendanceSheet")}
-                            >
-                              Attendance Sheet
-                            </div>
-                          </div>
+                          <SessionActions
+                          rowId={c.id}
+                          clickAssessment= {() => this.Go(c.id, "Assessment")}
+                          clickDailyAttendance= {() => this.Go(c.id, "DailyAttendance")}
+                          clickAttendanceAdmin= {() => this.Go(c.id, "AttendanceAdmin")}
+                          clickAttendanceSheet= {() => this.Go(c.id, "AttendanceSheet")}
+                          />
                         ) : null}
                         {this.props.searchobj.editurl === "/AddTeacher" ? (
                           <div className="td">
                             <div
                               className="btn btn-info"
-                              onClick={() => this.Go(c.id,"TeacherAssignment")}
+                              onClick={() => this.Go(c.id, "TeacherAssignment")}
                             >
-                              Assigment 
+                              Assigment
                             </div>
                           </div>
                         ) : null}

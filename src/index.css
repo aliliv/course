@@ -14,9 +14,14 @@ code {
 
 :root {
   --brand-color: rgb(19, 196, 255, 1) !important;
+  --brand-secondary: rgb(255, 91, 132) !important;
   --brand-color-fade: rgb(19, 196, 255, 0.3) !important;
   --green: rgb(44, 215, 152, 1) !important;
   --green-fade: rgb(44, 215, 152, 0.3) !important;
+  --brand-danger: rgba(255,91,132,0.14) !important;
+  --brand-success: rgba(44,215,152,0.17) !important;
+  --brand-primary: rgba(19,196,255,0.17) !important;
+  --brand-warning: rgba(213,196,63,0.19) !important;
   --light-gray-bg: rgba(0, 0, 0, 0.03) !important;
   --text-gray-lighter: #aaaaaa !important;
   --text-gray-light: #444 !important;
@@ -647,7 +652,7 @@ input[type="file"]:hover::before {
 /*  Table */
 
 .table {
-  height: calc(100% - 3.5rem) !important;
+  height: auto !important;
   display: -webkit-box !important;
   display: flex !important;
   -webkit-box-orient: vertical !important;
@@ -658,7 +663,7 @@ input[type="file"]:hover::before {
   margin-bottom: 0 !important;
 }
 table.table {
-	height: calc(100% - 3.5rem) !important;
+	height: auto !important;
 	display: block !important;
 	margin-bottom: 0 !important;
   }
@@ -680,6 +685,35 @@ table.table {
   border: none !important;
   padding: 5px 15px !important;
 }
+
+/* colored row tables */
+.table .tr.bg-danger, .table tr.bg-danger, .table .tr.bg-danger:nth-child(2n), .table tr.bg-danger:nth-child(2n){
+  background-color: var(--brand-danger) !important
+}
+.table .tr.bg-danger .td, .table tr.bg-danger td, .table .tr.bg-danger:nth-child(2n) .td, .table tr.bg-danger:nth-child(2n) td{
+  border-top: none;
+}
+.table .tr.bg-warning, .table tr.bg-warning, .table .tr.bg-warning:nth-child(2n), .table tr.bg-warning:nth-child(2n) {
+  background-color: var(--brand-warning) !important;
+}
+.table .tr.bg-warning .td, .table tr.bg-warning td, .table .tr.bg-warning:nth-child(2n) .td, .table tr.bg-warning:nth-child(2n) td{
+  border-top: none;
+}
+.table .tr.bg-success, .table tr.bg-success, .table .tr.bg-success:nth-child(2n), .table tr.bg-success:nth-child(2n){
+  background-color: var(--brand-success) !important
+}
+.table .tr.bg-success .td, .table tr.bg-success td, .table .tr.bg-success:nth-child(2n) .td, .table tr.bg-success:nth-child(2n) td{
+  border-top: none;
+}
+.table .tr.bg-primary, .table tr.bg-primary, .table .tr.bg-primary:nth-child(2n), .table tr.bg-primary:nth-child(2n){
+  background-color: var(--brand-primary) !important
+}
+.table .tr.bg-primary .td, .table tr.bg-primary td, .table .tr.bg-primary:nth-child(2n) .td, .table tr.bg-primary:nth-child(2n) td{
+  border-top: none;
+}
+
+
+
 .table .tr.bold, .table tr.bold {
   font-weight: 500 !important;
 }
@@ -1163,6 +1197,7 @@ border-bottom: none !important;
   padding-left: 0 !important;
 }
 .custom-nav .nav-tabs .nav-link {
+  cursor: pointer !important;
   padding: 15px !important;
   border: none;
   position: relative;
@@ -1204,10 +1239,6 @@ border-bottom: none !important;
 	margin-top: 29px
 }
 
-.action-buttons{
-	flex-direction: column;
-}
-
 #studenttable td{
 	min-height: 25px;
 }
@@ -1228,4 +1259,24 @@ right: 0 !important;
   .add-student .responsiveTable td.pivoted{
     font-size: 12px !important;
   }
+}
+
+.table .text-danger{
+  color: var(--brand-secondary) !important
+  
+}
+
+.popover{
+  border: none !important
+
+}
+.bs-popover-auto>.arrow::before {
+    border-color: rgba(0,0,0,.02) !important;
+}
+.popover-inner{
+  padding: 10px !important;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  box-shadow: 0 5px 15px 0 rgba(0,0,0,0.12);
+
 }
