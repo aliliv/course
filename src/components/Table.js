@@ -165,7 +165,7 @@ export default class Table extends Component {
         <div className="row">
           <div className="col-12">
             <div className="table-wrapper">
-              <div className="table reponsive-table">
+              <div className="table table-responsive">
                 <div className="ttop">
                   <div className="thead">
                     <div className="tr">
