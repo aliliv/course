@@ -225,7 +225,7 @@ class AddAgency extends Component {
             </div>
           </div>
           <Button type="submit" color="success" disabled={this.state.Loading}>
-            {this.state.Loading && <i className="fa fa-refresh fa-spin"></i>}
+            {this.state.Loading && <i className="ri-loader-4-line ri-spin"></i>}
             {!this.state.Loading && <span> Add</span>}
             {this.state.Loading && <span> Wait ...</span>}
           </Button>

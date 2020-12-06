@@ -189,7 +189,7 @@ class AddTeacher extends Component {
                   disabled={this.state.Loading}
                 >
                   {this.state.Loading && (
-                    <i className="fa fa-refresh fa-spin"></i>
+                    <i className="ri-loader-4-line ri-spin"></i>
                   )}
                   {!this.state.Loading && <span>Update</span>}
                   {this.state.Loading && <span> Wait ...</span>}

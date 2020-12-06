@@ -339,7 +339,7 @@ class AttendanceAdmin extends Component {
             disabled={this.state.Loading}
             onClick={() => this.SaveAttendance()}
           >
-            {this.state.Loading && <i className="fa fa-refresh fa-spin"></i>}
+            {this.state.Loading && <i className="ri-loader-4-line ri-spin"></i>}
             {!this.state.Loading && <span> Save Attendance</span>}
             {this.state.Loading && <span> Wait ...</span>}
           </Button>

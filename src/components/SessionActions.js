@@ -1,25 +1,21 @@
 import React, { Component } from "react";
-import assesmentIcon from "../images/assessment.svg";
-import attendanceAdminIcon from "../images/attendance-admin.svg";
-import attendanceSheetIcon from "../images/attendance-sheet.svg";
-import dailyAttendanceIcon from "../images/daily-attendance.svg";
 import { Popover } from "reactstrap";
 
 export default class SessionActions extends Component {
   state = {};
 
-  closeAll = () =>{
+  closeAll = () => {
     let newPopovers = this.state;
-    Object.keys(newPopovers).map((key) => {
+    Object.keys(newPopovers).forEach((key) => {
       newPopovers[key] = false;
     });
     this.setState({
       ...newPopovers,
     });
-  }
+  };
   onHover = (target) => {
     let newPopovers = this.state;
-    Object.keys(newPopovers).map((key) => {
+    Object.keys(newPopovers).forEach((key) => {
       newPopovers[key] = false;
     });
     this.setState({
@@ -43,17 +39,15 @@ export default class SessionActions extends Component {
     } = this.props;
 
     return (
-      <div className="td action-buttons"
-      onMouseLeave={this.closeAll}
-      >
+      <div className="td action-buttons" onMouseLeave={this.closeAll}>
         <div
           id={`row${rowId}1`}
-          className="p-2"
+          className="p-1 action-button"
           onMouseEnter={() => this.onHover(`row${rowId}1`)}
           onMouseLeave={() => this.onHoverLeave(`row${rowId}1`)}
           onClick={clickAssessment}
         >
-          <img src={assesmentIcon} alt="assesmentIcon"/>
+          <i className="ri-calculator-line"></i>
         </div>
         <Popover
           placement="bottom"
@@ -64,12 +58,12 @@ export default class SessionActions extends Component {
         </Popover>
         <div
           id={`row${rowId}2`}
-          className="p-2"
+          className="p-1 action-button"
           onMouseEnter={() => this.onHover(`row${rowId}2`)}
           onMouseLeave={() => this.onHoverLeave(`row${rowId}2`)}
           onClick={clickDailyAttendance}
         >
-          <img src={dailyAttendanceIcon} alt="dailyAttendanceIcon" />
+          <i className="ri-calendar-check-line"></i>
         </div>
         <Popover
           placement="bottom"
@@ -78,15 +72,14 @@ export default class SessionActions extends Component {
         >
           Daily Attendance
         </Popover>
-
         <div
           id={`row${rowId}3`}
-          className="p-2"
+          className="p-1 action-button"
           onMouseEnter={() => this.onHover(`row${rowId}3`)}
           onMouseLeave={() => this.onHoverLeave(`row${rowId}3`)}
           onClick={clickAttendanceAdmin}
         >
-          <img src={attendanceAdminIcon} alt="attendanceAdminIcon"/>
+          <i className="ri-account-box-line"></i>
         </div>
         <Popover
           placement="bottom"
@@ -97,12 +90,12 @@ export default class SessionActions extends Component {
         </Popover>
         <div
           id={`row${rowId}4`}
-          className="p-2"
+          className="p-1 action-button"
           onMouseEnter={() => this.onHover(`row${rowId}4`)}
           onMouseLeave={() => this.onHoverLeave(`row${rowId}4`)}
           onClick={clickAttendanceSheet}
         >
-          <img src={attendanceSheetIcon} alt="attendanceSheetIcon"/>
+          <i className="ri-file-list-2-line"></i>
         </div>
         <Popover
           placement="bottom"

@@ -369,7 +369,7 @@ class NewUser extends Component {
             type="submit"
             disabled={this.state.Loading}
           >
-            {this.state.Loading && <i className="fa fa-refresh fa-spin"></i>}
+            {this.state.Loading && <i className="ri-loader-4-line ri-spin"></i>}
             {!this.state.Loading && (
               <span>{this.state.IsAdd === true ? "Sign Up" : "Update"}</span>
             )}

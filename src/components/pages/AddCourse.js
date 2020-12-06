@@ -631,7 +631,7 @@ class AddCourse extends Component {
                 onClick={() => this.AddFile()}
               >
                 {this.state.Loading && (
-                  <i className="fa fa-refresh fa-spin"></i>
+                 <i className="ri-loader-4-line ri-spin"></i>
                 )}
                 {!this.state.Loading && "Add File"}
                 {this.state.Loading && <span> Wait ...</span>}
@@ -677,7 +677,7 @@ class AddCourse extends Component {
           </div>
 
           <Button type="submit" color="success" disabled={this.state.Loading}>
-            {this.state.Loading && <i className="fa fa-refresh fa-spin"></i>}
+            {this.state.Loading && <i className="ri-loader-4-line ri-spin"></i>}
             {!this.state.Loading && <span>{this.state.IsAdd===true?"Add":"Update"}</span>}
             {this.state.Loading && <span> Wait ...</span>}
           </Button>

@@ -1168,7 +1168,7 @@ class AddStudent extends Component {
                     disabled={this.state.Loading}
                   >
                     {this.state.Loading && (
-                      <i className="fa fa-refresh fa-spin"></i>
+                      <i className="ri-loader-4-line ri-spin"></i>
                     )}
                     {!this.state.Loading && (
                       <span>
@@ -1755,7 +1755,7 @@ class AddStudent extends Component {
                         disabled={this.state.FileLoading}
                       >
                         {this.state.FileLoading && (
-                          <i className="fa fa-refresh fa-spin"></i>
+                          <i className="ri-loader-4-line ri-spin"></i>
                         )}
                         {!this.state.FileLoading && "File Save"}
                         {this.state.FileLoading && <span> Wait ...</span>}
@@ -1789,7 +1789,7 @@ class AddStudent extends Component {
                                 className="btn btn-danger btn-xs"
                               >
                                 {this.state.FileLoading && (
-                                  <i className="fa fa-refresh fa-spin"></i>
+                                  <i className="ri-loader-4-line ri-spin"></i>
                                 )}
                                 {!this.state.FileLoading && "File Delete"}
                                 {this.state.FileLoading && (

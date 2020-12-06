@@ -12,12 +12,6 @@ export default class Table extends Component {
     Page: 1,
     PageSize: 5,
     titles: [],
-    popovers: {
-      p1: false,
-      p2: false,
-      p3: false,
-      p4: false,
-    }
   };
 
 
