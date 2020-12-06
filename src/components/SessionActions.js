@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { Popover } from "reactstrap";
-
 export default class SessionActions extends Component {
-  state = {};
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      dropdownOpen: false,
+    };
+  }
   closeAll = () => {
     let newPopovers = this.state;
     Object.keys(newPopovers).forEach((key) => {
@@ -25,7 +28,7 @@ export default class SessionActions extends Component {
   };
   onHoverLeave = (target) => {
     this.setState({
-      [target]: true,
+      dropdownOpen: !this.state.dropdownOpen,
     });
   };
 

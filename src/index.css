@@ -1368,7 +1368,9 @@ body.dark .pagination-select select {
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
-
+.action-buttons  .dropdown-menu{
+  border-radius: 8px !important;
+}
 @keyframes spin {
   from {
     transform: rotate(0deg);
