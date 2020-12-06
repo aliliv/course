@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import history from "../history";
-import SessionActions from "./SessionActions"
-
+import SessionActions from "./SessionActions";
 
 export default class Table extends Component {
   state = {
@@ -12,14 +11,7 @@ export default class Table extends Component {
     Page: 1,
     PageSize: 5,
     titles: [],
-    popovers: {
-      p1: false,
-      p2: false,
-      p3: false,
-      p4: false,
-    }
   };
-
 
   pageChange(id) {
     history.push({
@@ -164,19 +156,28 @@ export default class Table extends Component {
       <div>
         <div className="row">
           <div className="col-12">
-            <div className="table-wrapper">
-              <div className="table table-responsive">
+          <div className={(this.state.isMobile ? '' : ' table-wrapper')}>
+              <div
+                className={
+                  (this.state.isMobile ? "" : ' table table-responsive') + 
+                  (this.props.searchobj.editurl === "/AddSession"
+                    ? " action-table"
+                    : null)
+                }
+              >
                 <div className="ttop">
                   <div className="thead">
                     <div className="tr">
+                      {this.props.searchobj.editurl === "/AddSession" ? (
+                        <div className="td"></div>
+                      ) : null}
                       {this.state.titles.map((val) => (
                         <div className="td" key={val}>
                           {val}
                         </div>
                       ))}
                       <div className="td"> </div>
-                      {this.props.searchobj.editurl === "/AddSession" ||
-                      this.props.searchobj.editurl === "/AddTeacher" ? (
+                      {this.props.searchobj.editurl === "/AddTeacher" ? (
                         <div className="td"></div>
                       ) : null}
                     </div>
@@ -184,21 +185,31 @@ export default class Table extends Component {
                   <div className="tbody">
                     {this.state.tableView.map((c) => (
                       <div className="tr" key={c.id}>
+                        {" "}
+                        {this.props.searchobj.editurl === "/AddSession" ? (
+                          <div className="td">
+                            <SessionActions
+                              rowId={c.id}
+                              clickAssessment={() =>
+                                this.Go(c.id, "Assessment")
+                              }
+                              clickDailyAttendance={() =>
+                                this.Go(c.id, "DailyAttendance")
+                              }
+                              clickAttendanceAdmin={() =>
+                                this.Go(c.id, "AttendanceAdmin")
+                              }
+                              clickAttendanceSheet={() =>
+                                this.Go(c.id, "AttendanceSheet")
+                              }
+                            />
+                          </div>
+                        ) : null}
                         {this.state.titles.map((val) => (
                           <div className="td" key={c.id + val}>
                             {c[val].toString()}
                           </div>
                         ))}
-
-                        {this.props.searchobj.editurl === "/AddSession" ? (
-                          <SessionActions
-                          rowId={c.id}
-                          clickAssessment= {() => this.Go(c.id, "Assessment")}
-                          clickDailyAttendance= {() => this.Go(c.id, "DailyAttendance")}
-                          clickAttendanceAdmin= {() => this.Go(c.id, "AttendanceAdmin")}
-                          clickAttendanceSheet= {() => this.Go(c.id, "AttendanceSheet")}
-                          />
-                        ) : null}
                         {this.props.searchobj.editurl === "/AddTeacher" ? (
                           <div className="td">
                             <div

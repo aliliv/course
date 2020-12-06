@@ -1267,21 +1267,27 @@ right: 0 !important;
   
 }
 
-.popover{
-  border: none !important
-
+.action-buttons{
+  width: 100% !important;
 }
-.bs-popover-auto>.arrow::before {
-    border-color: rgba(0,0,0,.02) !important;
-}
-.popover-inner{
-  padding: 10px !important;
-  border-radius: 8px;
-  background-color: #FFFFFF;
-  box-shadow: 0 5px 15px 0 rgba(0,0,0,0.12);
-
-}
-
 .action-buttons > div{
 cursor: pointer
+}
+.action-buttons .dropdown > button{
+  padding-left: 0 !important;
+}
+.action-buttons button:hover, .action-buttons button:focus{
+  background: none !important;
+  box-shadow: none !important;
+}
+.action-buttons  .dropdown-menu{
+  border-radius: 8px !important;
+
+}
+.action-table{
+  overflow: visible !important;
+}
+.action-table .thead .tr .td:first-child, .action-table .tbody .tr .td:first-child{
+flex: none !important;
+  width: 56px !important
 }
