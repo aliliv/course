@@ -44,7 +44,6 @@ class TeacherAssignment extends Component {
         this.setState({ Views: response.data.data });
         this.setState({ Total: response.data.total });
         console.log(this.state.Views);
-        console.log(response.data);
       })
       .catch((error) => {
         alertify.error(error.response.data, 4);
