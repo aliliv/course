@@ -1,5 +1,5 @@
-//export const ApiUrl="http://13.49.41.86:90/";
-export const ApiUrl="https://localhost:44352/";
+export const ApiUrl="http://13.49.41.86:90/";
+//export const ApiUrl="https://localhost:44352/";
 export const S3UserImageconfig = {
     bucketName: "awslivtecbucket",
     dirName: "UserImage" /* optional */,
