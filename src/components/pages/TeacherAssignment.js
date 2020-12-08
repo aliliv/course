@@ -122,10 +122,11 @@ class TeacherAssignment extends Component {
                         {moment(title.date).format("MM.DD.YYYY")}
                       </div>
                       <div className="td" >
+                        <div className="double-row row w-100">
                         {title.assignments.map(
                           (assignmenttitle, assignmentindex) => {
                             return (
-                              <div className="tr" key={`assignment-${assignmentindex}`}>
+                              <div class="col-12 tr" key={`assignment-${assignmentindex}`}>
                                 <div className="td">{assignmenttitle.courseName}</div>
                                 <div className="td">{assignmenttitle.class}</div>
                                 <div className="td">{moment(assignmenttitle.courseStart).format("MM.DD.YYYY")}</div>
@@ -135,6 +136,7 @@ class TeacherAssignment extends Component {
                             );
                           }
                         )}
+                        </div>
                       </div>
                     </div>
                   );
