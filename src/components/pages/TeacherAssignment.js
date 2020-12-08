@@ -110,7 +110,7 @@ class TeacherAssignment extends Component {
                   <div className="td">Class</div>
                   <div className="td">Course Start Date</div>
                   <div className="td">Course End Date</div>
-                  <div className="td">Total</div>
+                  <div className="td">Time</div>
 
                   {/* <div className="td">Course</div>
                   <div className="td">Start Date</div>
@@ -204,6 +204,16 @@ class TeacherAssignment extends Component {
                     </div>
                   );
                 })}
+                {this.state.Views.length ? (
+                  <div className="tr bold">
+                    <div class="td">TOPLAM</div>
+                    <div class="td"></div>
+                    <div class="td"></div>
+                    <div class="td"></div>
+                    <div class="td"></div>
+                    <div class="td">{this.state.Total}</div>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
