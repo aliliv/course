@@ -206,7 +206,7 @@ class TeacherAssignment extends Component {
                 })}
                 {this.state.Views.length ? (
                   <div className="tr bold">
-                    <div class="td">TOPLAM</div>
+                    <div class="td">TOTAL:</div>
                     <div class="td"></div>
                     <div class="td"></div>
                     <div class="td"></div>
