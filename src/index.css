@@ -1379,3 +1379,16 @@ body.dark .pagination-select select {
     transform: rotate(360deg);
   }
 }
+
+.double-row{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+}
+.double-row .tr{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.double-row .tr:nth-child(2n){
+background-color: transparent !important;
+}

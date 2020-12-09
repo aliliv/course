@@ -14,7 +14,7 @@ class TeacherAssignment extends Component {
     TeacherId: 0,
     Views: [],
     Loading: false,
-    Total:0
+    Total: 0,
   };
   onChangeHandler = (event) => {
     let name = event.target.name;
@@ -106,7 +106,12 @@ class TeacherAssignment extends Component {
               <div className="thead">
                 <div className="tr">
                   <div className="td">Date</div>
-                  <div className="td">Assignment</div>
+                  <div className="td">Course</div>
+                  <div className="td">Class</div>
+                  <div className="td">Course Start Date</div>
+                  <div className="td">Course End Date</div>
+                  <div className="td">Time</div>
+
                   {/* <div className="td">Course</div>
                   <div className="td">Start Date</div>
                   <div className="td">End Date</div>
@@ -121,16 +126,76 @@ class TeacherAssignment extends Component {
                       <div className="td">
                         {moment(title.date).format("MM.DD.YYYY")}
                       </div>
-                      <div className="td" >
+                      <div className="td double-row">
                         {title.assignments.map(
                           (assignmenttitle, assignmentindex) => {
                             return (
-                              <div className="tr" key={`assignment-${assignmentindex}`}>
-                                <div className="td">{assignmenttitle.courseName}</div>
-                                <div className="td">{assignmenttitle.class}</div>
-                                <div className="td">{moment(assignmenttitle.courseStart).format("MM.DD.YYYY")}</div>
-                                <div className="td">{moment(assignmenttitle.courseEnd).format("MM.DD.YYYY")}</div>
-                                <div className="td">{assignmenttitle.time.toFixed(2)}</div>
+                              <div
+                                key={"courseName" + assignmentindex}
+                                className="tr"
+                              >
+                                {assignmenttitle.courseName}
+                              </div>
+                            );
+                          }
+                        )}
+                      </div>
+                      <div className="td double-row">
+                        {title.assignments.map(
+                          (assignmenttitle, assignmentindex) => {
+                            return (
+                              <div
+                                key={"courseName" + assignmentindex}
+                                className="tr"
+                              >
+                                {assignmenttitle.class}
+                              </div>
+                            );
+                          }
+                        )}
+                      </div>
+                      <div className="td double-row">
+                        {title.assignments.map(
+                          (assignmenttitle, assignmentindex) => {
+                            return (
+                              <div
+                                key={"courseName" + assignmentindex}
+                                className="tr"
+                              >
+                                {moment(assignmenttitle.courseStart).format(
+                                  "MM.DD.YYYY"
+                                )}
+                              </div>
+                            );
+                          }
+                        )}
+                      </div>
+                      <div className="td double-row">
+                        {title.assignments.map(
+                          (assignmenttitle, assignmentindex) => {
+                            return (
+                              <div
+                                key={"courseName" + assignmentindex}
+                                className="tr"
+                              >
+                                {moment(assignmenttitle.courseEnd).format(
+                                  "MM.DD.YYYY"
+                                )}
+                              </div>
+                            );
+                          }
+                        )}
+                      </div>
+
+                      <div className="td double-row">
+                        {title.assignments.map(
+                          (assignmenttitle, assignmentindex) => {
+                            return (
+                              <div
+                                key={"courseName" + assignmentindex}
+                                className="tr"
+                              >
+                                {assignmenttitle.time.toFixed(2)}
                               </div>
                             );
                           }
@@ -139,6 +204,16 @@ class TeacherAssignment extends Component {
                     </div>
                   );
                 })}
+                {this.state.Views.length ? (
+                  <div className="tr bold">
+                    <div class="td">TOPLAM</div>
+                    <div class="td"></div>
+                    <div class="td"></div>
+                    <div class="td"></div>
+                    <div class="td"></div>
+                    <div class="td">{this.state.Total}</div>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
