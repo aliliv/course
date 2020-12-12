@@ -381,14 +381,21 @@ class AddSession extends Component {
     if (time.toString().indexOf(".") === -1) {
       return 0;
     } else {
-      let converttime = parseInt(
-        time
-          .toString()
-          .substring(
-            time.toString().indexOf(".") + 1,
-            time.toString().length + 1
-          )
-      );
+      let minutestring = time
+        .toString()
+        .substring(
+          time.toString().indexOf(".") + 1,
+          time.toString().length + 1
+        );
+      let converttime;
+      if (minutestring.length > 1) {
+        converttime = parseInt(minutestring);
+      }
+      else
+       {
+         //because 30,40,50 not 3,4,5
+        converttime = parseInt(minutestring+"0");
+       }
       return converttime;
     }
   }
@@ -433,7 +440,16 @@ class AddSession extends Component {
       this.setState({ Course: this.state.Courses[0].id });
       if (history.location.state) {
         this.setState({ IsAdd: false });
-        let ms=0,me=0,ts=0,te=0,ws=0,we=0,ths=0,the=0,fs=0,fe=0;
+        let ms = 0,
+          me = 0,
+          ts = 0,
+          te = 0,
+          ws = 0,
+          we = 0,
+          ths = 0,
+          the = 0,
+          fs = 0,
+          fe = 0;
         await axios
           .get(
             Config.ApiUrl +
@@ -441,16 +457,16 @@ class AddSession extends Component {
               history.location.state.id
           )
           .then((r) => {
-            ms=r.data.mondayStartTime;
-            me=r.data.mondayEndTime;
-            ts=r.data.tuesdayStartTime;
-            te=r.data.tuesdayEndTime;
-            ws=r.data.wednesdayStartTime;
-            we=r.data.wednesdayEndTime;
-            ths=r.data.thursdayStartTime;
-            the=r.data.thursdayEndTime;
-            fs=r.data.fridayStartTime;
-            fe=r.data.fridayEndTime;
+            ms = r.data.mondayStartTime;
+            me = r.data.mondayEndTime;
+            ts = r.data.tuesdayStartTime;
+            te = r.data.tuesdayEndTime;
+            ws = r.data.wednesdayStartTime;
+            we = r.data.wednesdayEndTime;
+            ths = r.data.thursdayStartTime;
+            the = r.data.thursdayEndTime;
+            fs = r.data.fridayStartTime;
+            fe = r.data.fridayEndTime;
             this.setState({ Id: r.data.id });
             this.setState({ BranchId: r.data.branch });
             this.setState({ Monday: r.data.monday });
@@ -475,51 +491,60 @@ class AddSession extends Component {
           .catch((error) => {
             console.log(error.response);
           });
-          if(this.state.Monday)
-          {
-            this.setState({MondayStartType:parseInt(this.isampm(ms)) });
-            this.setState({MondayStartMinute:parseInt(this.minuteconvert(ms)) });
-            this.setState({MondayStartHour:parseInt(this.timeconvert(ms)) });
-            this.setState({MondayEndType:parseInt(this.isampm(me)) });
-            this.setState({MondayEndMinute:parseInt(this.minuteconvert(me)) });
-            this.setState({MondayEndHour:parseInt(this.timeconvert(me)) });
-          }
-          if(this.state.Tuesday)
-          {
-              this.setState({TuesdayStartType:parseInt(this.isampm(ts)) });
-              this.setState({TuesdayStartMinute:parseInt(this.minuteconvert(ts)) });
-              this.setState({TuesdayStartHour:parseInt(this.timeconvert(ts)) });
-              this.setState({TuesdayEndType:parseInt(this.isampm(te)) });
-              this.setState({TuesdayEndMinute:parseInt(this.minuteconvert(te)) });
-              this.setState({TuesdayEndHour:parseInt(this.timeconvert(te)) });
-          }
-          if(this.state.Wednesday)
-          {
-            this.setState({WednesdayStartType:parseInt(this.isampm(ws)) });
-            this.setState({WednesdayStartMinute:parseInt(this.minuteconvert(ws)) });
-            this.setState({WednesdayStartHour:parseInt(this.timeconvert(ws)) });
-            this.setState({WednesdayEndType:parseInt(this.isampm(we)) });
-            this.setState({WednesdayEndMinute:parseInt(this.minuteconvert(we)) });
-            this.setState({WednesdayEndHour:parseInt(this.timeconvert(we)) });
-          }
-          if(this.state.Thursday)
-          {
-            this.setState({ThursdayStartType:parseInt(this.isampm(ths)) });
-            this.setState({ThursdayStartMinute:parseInt(this.minuteconvert(ths)) });
-            this.setState({ThursdayStartHour:parseInt(this.timeconvert(ths)) });
-            this.setState({ThursdayEndType:parseInt(this.isampm(the)) });
-            this.setState({ThursdayEndMinute:parseInt(this.minuteconvert(the)) });
-            this.setState({ThursdayEndHour:parseInt(this.timeconvert(the)) });
-          }
-          if(this.state.Friday)
-          {
-            this.setState({FridayStartType:parseInt(this.isampm(fs)) });
-            this.setState({FridayStartMinute:parseInt(this.minuteconvert(fs)) });
-            this.setState({FridayStartHour:parseInt(this.timeconvert(fs)) });
-            this.setState({FridayEndType:parseInt(this.isampm(fe)) });
-            this.setState({FridayEndMinute:parseInt(this.minuteconvert(fe)) });
-            this.setState({FridayEndHour:parseInt(this.timeconvert(fe)) });
-          }
+        if (this.state.Monday) {
+          this.setState({ MondayStartType: parseInt(this.isampm(ms)) });
+          this.setState({
+            MondayStartMinute: parseInt(this.minuteconvert(ms)),
+          });
+          this.setState({ MondayStartHour: parseInt(this.timeconvert(ms)) });
+          this.setState({ MondayEndType: parseInt(this.isampm(me)) });
+          this.setState({ MondayEndMinute: parseInt(this.minuteconvert(me)) });
+          this.setState({ MondayEndHour: parseInt(this.timeconvert(me)) });
+        }
+        if (this.state.Tuesday) {
+          this.setState({ TuesdayStartType: parseInt(this.isampm(ts)) });
+          this.setState({
+            TuesdayStartMinute: parseInt(this.minuteconvert(ts)),
+          });
+          this.setState({ TuesdayStartHour: parseInt(this.timeconvert(ts)) });
+          this.setState({ TuesdayEndType: parseInt(this.isampm(te)) });
+          this.setState({ TuesdayEndMinute: parseInt(this.minuteconvert(te)) });
+          this.setState({ TuesdayEndHour: parseInt(this.timeconvert(te)) });
+        }
+        if (this.state.Wednesday) {
+          this.setState({ WednesdayStartType: parseInt(this.isampm(ws)) });
+          this.setState({
+            WednesdayStartMinute: parseInt(this.minuteconvert(ws)),
+          });
+          this.setState({ WednesdayStartHour: parseInt(this.timeconvert(ws)) });
+          this.setState({ WednesdayEndType: parseInt(this.isampm(we)) });
+          this.setState({
+            WednesdayEndMinute: parseInt(this.minuteconvert(we)),
+          });
+          this.setState({ WednesdayEndHour: parseInt(this.timeconvert(we)) });
+        }
+        if (this.state.Thursday) {
+          this.setState({ ThursdayStartType: parseInt(this.isampm(ths)) });
+          this.setState({
+            ThursdayStartMinute: parseInt(this.minuteconvert(ths)),
+          });
+          this.setState({ ThursdayStartHour: parseInt(this.timeconvert(ths)) });
+          this.setState({ ThursdayEndType: parseInt(this.isampm(the)) });
+          this.setState({
+            ThursdayEndMinute: parseInt(this.minuteconvert(the)),
+          });
+          this.setState({ ThursdayEndHour: parseInt(this.timeconvert(the)) });
+        }
+        if (this.state.Friday) {
+          this.setState({ FridayStartType: parseInt(this.isampm(fs)) });
+          this.setState({
+            FridayStartMinute: parseInt(this.minuteconvert(fs)),
+          });
+          this.setState({ FridayStartHour: parseInt(this.timeconvert(fs)) });
+          this.setState({ FridayEndType: parseInt(this.isampm(fe)) });
+          this.setState({ FridayEndMinute: parseInt(this.minuteconvert(fe)) });
+          this.setState({ FridayEndHour: parseInt(this.timeconvert(fe)) });
+        }
       } else {
       }
     } else {
