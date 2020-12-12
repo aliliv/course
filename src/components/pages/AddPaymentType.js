@@ -75,9 +75,9 @@ class AddPaymentType extends Component {
   render() {
     return (
       <div>
-        {this.state.IsAdd && <h1 className="content-title">Add PaymentType</h1>}
+        {this.state.IsAdd && <div className="content-title">Add PaymentType</div>}
         {!this.state.IsAdd && (
-          <h1 className="content-title"> PaymentType Update</h1>
+          <div className="content-title"> PaymentType Update</div>
         )}
         <form onSubmit={this.onSubmitHandler}>
           <div className="row">

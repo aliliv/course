@@ -99,7 +99,7 @@ class AddTeacher extends Component {
   render() {
     return (
       <div>
-        <h1 className="content-title"> Update Teacher</h1>
+        <div className="content-title"> Update Teacher</div>
         <div className="row">
           <div className="col-12 col-sm-3 col-lg-3">
             <img className="teacher-img" src={this.state.TeacherImage} alt="" />

@@ -23,44 +23,49 @@ class StudentAttendance extends Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-12">
-          <table className="table table-responsive" id="studenttable">
-            <thead>
-              <tr>
-                <th>SessionName</th>
-                <th>StartDate</th>
-                <th>EndDate</th>
-                <th>TotalLates</th>
-                <th>TotalAbsance</th>
-                <th>Sum</th>
-              </tr>
-            </thead>
-            <tbody>
+      <div className="table-wrapper">
+        <div className="table table-responsive" id="studenttable">
+          <div className="ttop">
+            <div className="thead">
+              <div className="tr">
+                <div className="th">SessionName</div>
+                <div className="th">StartDate</div>
+                <div className="th">EndDate</div>
+                <div className="th">TotalLates</div>
+                <div className="th">TotalAbsance</div>
+                <div className="th">Sum</div>
+              </div>
+            </div>
+
+            <div className="tbody">
               {this.state.AttendanceViews.map((attendance) => (
-                <tr key={attendance.sessionId} 
-                className={(
-                    attendance.totalLates / 3 +
-                    attendance.totalAbsance
-                  )>=attendance.probation?"bg-danger":((
-                    attendance.totalLates / 3 +
-                    attendance.totalAbsance
-                  )>=(attendance.probation-1)?"bg-warning":"")}>
-                  <td>{attendance.sessionName}</td>
-                  <td>{attendance.startDate}</td>
-                  <td>{attendance.endDate}</td>
-                  <td>{attendance.totalLates}</td>
-                  <td>{attendance.totalAbsance}</td>
-                  <td>
+                <div
+                  key={attendance.sessionId}
+                  className={
+                    attendance.totalLates / 3 + attendance.totalAbsance >=
+                    attendance.probation
+                      ? "tr bg-danger"
+                      : attendance.totalLates / 3 + attendance.totalAbsance >=
+                        attendance.probation - 1
+                      ? "tr bg-warning"
+                      : "tr"
+                  }
+                >
+                  <div className="td">{attendance.sessionName}</div>
+                  <div className="td">{attendance.startDate}</div>
+                  <div className="td">{attendance.endDate}</div>
+                  <div className="td">{attendance.totalLates}</div>
+                  <div className="td">{attendance.totalAbsance}</div>
+                  <div className="td">
                     {(
                       attendance.totalLates / 3 +
                       attendance.totalAbsance
                     ).toFixed(1)}
-                  </td>
-                </tr>
+                  </div>
+                </div>
               ))}
-            </tbody>
-          </table>
+            </div>
+          </div>
         </div>
       </div>
     );

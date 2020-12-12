@@ -19,8 +19,8 @@ import StudentAttendance from "../pages/StudentAttendance";
 import * as Config from "../../config";
 import * as moment from "moment";
 import { Confirm, Modal } from "semantic-ui-react";
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 // import { CognitoIdentityServiceProvider } from "aws-sdk";
 class AddStudent extends Component {
   state = {
@@ -291,13 +291,17 @@ class AddStudent extends Component {
   }
 
   async componentDidMount() {
-      window.addEventListener('resize', () => {
-          this.setState({
-              isMobile: window.innerWidth < 641
-          });
-      }, false);
-      this.setState({
-        isMobile: window.innerWidth < 641
+    window.addEventListener(
+      "resize",
+      () => {
+        this.setState({
+          isMobile: window.innerWidth < 641,
+        });
+      },
+      false
+    );
+    this.setState({
+      isMobile: window.innerWidth < 641,
     });
     this.setState({ BranchId: this.props.user.userBranches[0].id });
     await axios
@@ -961,7 +965,7 @@ class AddStudent extends Component {
 
         <div className="row add-student">
           <div className="col-12">
-            <h2 className="mb-3">Student</h2>
+            <div className="content-title">Student</div>
           </div>
           <div className="col-12">
             <div className="custom-nav d-flex">
@@ -1210,7 +1214,7 @@ class AddStudent extends Component {
                   </div>
                 </div>
                 <Collapse isOpen={this.state.IsVisibleNewCourse}>
-                  <div className="card mt-2">
+                  <div className="card mt-2 mb-4">
                     <div className="card-body">
                       <div className="row">
                         <div className="form-group col-12 col-sm-6 col-lg-5">
@@ -1264,7 +1268,7 @@ class AddStudent extends Component {
                 </Collapse>
 
                 <Collapse isOpen={this.state.IsVisibleTimeOff}>
-                  <div className="card mt-2">
+                  <div className="card mt-2 mb-4">
                     <div className="card-body">
                       <div className="row">
                         <div className="form-group col-12 col-sm-3 col-lg-3">
@@ -1310,7 +1314,7 @@ class AddStudent extends Component {
                   </div>
                 </Collapse>
                 <Collapse isOpen={this.state.IsVisibleOutOffCountry}>
-                  <div className="card mt-2">
+                  <div className="card mt-2 mb-4">
                     <div className="card-body">
                       <div className="row">
                         <div className="form-group col-12 col-sm-3 col-lg-3">
@@ -1355,8 +1359,18 @@ class AddStudent extends Component {
                     </div>
                   </div>
                 </Collapse>
-                <div className={ "studenttable-card mt-2" + (this.state.isMobile ? '' : ' table-wrapper')}>
-                  <Table className={this.state.isMobile ? "" : ' table table-responsive'}  id="studenttable">
+                <div
+                  className={
+                    "studenttable-card mt-2" +
+                    (this.state.isMobile ? "" : " table-wrapper")
+                  }
+                >
+                  <Table
+                    className={
+                      this.state.isMobile ? "" : " table table-responsive"
+                    }
+                    id="studenttable"
+                  >
                     <Thead>
                       <Tr>
                         <Th>Course</Th>
@@ -1448,45 +1462,49 @@ class AddStudent extends Component {
                           <Td>
                             {courseview.Course !== "TimeOff" &&
                             courseview.Course !== "Out Of Country" ? (
-                              <select
-                                name="AcademicWarning"
-                                id="AcademicWarning"
-                                onChange={(e) => {
-                                  this.onAcademicWarningChange(
-                                    e,
-                                    courseview.Id
-                                  );
-                                }}
-                                className="form-control"
-                                value={courseview.AcademicWarning}
-                              >
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                              </select>
+                              <div className="form-select">
+                                <select
+                                  name="AcademicWarning"
+                                  id="AcademicWarning"
+                                  onChange={(e) => {
+                                    this.onAcademicWarningChange(
+                                      e,
+                                      courseview.Id
+                                    );
+                                  }}
+                                  className="form-control"
+                                  value={courseview.AcademicWarning}
+                                >
+                                  <option value="0">0</option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                </select>
+                              </div>
                             ) : null}
                           </Td>
                           <Td>
                             {courseview.Course !== "TimeOff" &&
                             courseview.Course !== "Out Of Country" ? (
-                              <select
-                                name="BehavioralWarning"
-                                id="BehavioralWarning"
-                                onChange={(e) => {
-                                  this.onBehavioralWarningChange(
-                                    e,
-                                    courseview.Id
-                                  );
-                                }}
-                                className="form-control"
-                                value={courseview.BehavioralWarning}
-                              >
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                              </select>
+                              <div className="form-select">
+                                <select
+                                  name="BehavioralWarning"
+                                  id="BehavioralWarning"
+                                  onChange={(e) => {
+                                    this.onBehavioralWarningChange(
+                                      e,
+                                      courseview.Id
+                                    );
+                                  }}
+                                  className="form-control"
+                                  value={courseview.BehavioralWarning}
+                                >
+                                  <option value="0">0</option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                </select>
+                              </div>
                             ) : null}
                           </Td>
                           <Td>
@@ -1509,27 +1527,25 @@ class AddStudent extends Component {
                   course.Course !== "Out Of Country" ? (
                     <div
                       key={course.Order}
-                      className="accordion"
+                      className="accordion mb-2"
                       id={course.Order}
                     >
                       <div className="card">
                         <div className="card-header" id="headingOne">
-                          <div className="row col-12 ">
-                            <div className="col-9">
-                              <h2 className="mb-0">
-                                <button
-                                  className="btn btn-dark btn-lg btn-block"
+                          <div className="row">
+                            <div className="col-12 col-md-9">
+                                <a
+                                  className="btn pl-0 text-default"
                                   type="button"
                                   onClick={() => this.ActiveSet(index)}
                                 >
                                   {course.Course} ({course.StartDate}-
                                   {course.EndDate})
-                                </button>
-                              </h2>
+                                </a>
                             </div>
-                            <div className="col-3 text-right">
-                              <div
-                                className="btn btn-info btn-xs"
+                            <div className="col-12 col-md-3 text-md-right">
+                              <a
+                                className="btn d-flex aling-items-center justify-content-end pr-0"
                                 onClick={() =>
                                   this.setState({
                                     invoiceaddmodal: true,
@@ -1537,8 +1553,8 @@ class AddStudent extends Component {
                                   })
                                 }
                               >
-                                Add Invoice
-                              </div>
+                                <i class="ri-add-line"></i> Add Invoice
+                              </a>
                             </div>
                           </div>
                         </div>
@@ -1549,7 +1565,7 @@ class AddStudent extends Component {
                               parseInt(invoice.sessionId) ? (
                                 <div
                                   key={invoice.id}
-                                  className="accordion"
+                                  className="accordion mb-2"
                                   id={invoice.id}
                                 >
                                   <div className="card">
@@ -1770,32 +1786,34 @@ class AddStudent extends Component {
                         <div className="tr">
                           <div className="td">Name</div>
                           <div className="td">File Type</div>
-                          <div className="td">Delete</div>
+                          <div className="td"></div>
                         </div>
                       </div>
                       <div className="tbody">
                         {this.state.UserFiles.map((userfile) => (
                           <div className="tr" key={userfile.id}>
                             <div className="td">
-                              <a href={userfile.locationUrl}>{userfile.name}</a>
+                              <a target="blank" href={userfile.locationUrl}>
+                                {userfile.name}
+                              </a>
                             </div>
                             <div className="td">
                               {userfile.studentFilesType}
                             </div>
                             <div className="td">
-                              <Button
+                              <a
                                 disabled={this.state.FileLoading}
                                 onClick={() => this.fileDelete(userfile)}
-                                className="btn btn-danger btn-xs"
+                                className="btn text-danger"
                               >
                                 {this.state.FileLoading && (
                                   <i className="ri-loader-4-line ri-spin"></i>
                                 )}
-                                {!this.state.FileLoading && "File Delete"}
+                                {!this.state.FileLoading && "Delete"}
                                 {this.state.FileLoading && (
                                   <span> Wait ...</span>
                                 )}
-                              </Button>
+                              </a>
                             </div>
                           </div>
                         ))}

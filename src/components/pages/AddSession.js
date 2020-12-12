@@ -564,9 +564,9 @@ class AddSession extends Component {
   render() {
     return (
       <div>
-        {this.state.IsAdd && <h1 className="content-title">Add Sessions</h1>}
+        {this.state.IsAdd && <div className="content-title">Add Sessions</div>}
         {!this.state.IsAdd && (
-          <h1 className="content-title"> Sessions Update</h1>
+          <div className="content-title"> Sessions Update</div>
         )}
         <form onSubmit={this.onSubmitHandler}>
           <div className="row">

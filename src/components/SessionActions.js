@@ -89,7 +89,7 @@ export default class SessionActions extends Component {
           isOpen={this.state[`row${rowId}3`]}
           target={`row${rowId}3`}
         >
-          AttendanceAdmin
+          Attendance Admin
         </Popover>
         <div
           id={`row${rowId}4`}

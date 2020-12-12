@@ -47,7 +47,7 @@ class CourseSearch extends Component {
   render() {
     return (
       <div>
-        <h1 className="content-title">Course Search</h1>
+        <div className="content-title">Course Search</div>
         <form onSubmit={this.onSubmitHandler}>
           <div className="row align-items-end">
             <div className="form-group col-12 col-sm-6 col-lg-3">
