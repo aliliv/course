@@ -173,8 +173,8 @@ class AddEvaluation extends Component {
   render() {
     return (
       <div>
-        {this.state.IsAdd && <h1 className="content-title">Add Evaluation</h1>}
-        {!this.state.IsAdd && <h1 className="content-title"> Update Evaluation</h1>}
+        {this.state.IsAdd && <div className="content-title">Add Evaluation</div>}
+        {!this.state.IsAdd && <div className="content-title"> Update Evaluation</div>}
         <form onSubmit={this.onSubmitHandler}>
         <div className="row">
            	<div className="form-group col-12 col-sm-6 col-lg-3">
@@ -262,7 +262,7 @@ class AddEvaluation extends Component {
         </form>
         {this.state.Id !== 0 && (
           <div>
-            <h1 className="content-title">Assessment </h1>
+            <div className="content-title">Assessment </div>
             <form onSubmit={this.assessmentSubmit}>
               <div className="row">
               <div className="form-group col-12 col-sm-6 col-lg-3">

@@ -317,8 +317,8 @@ class AddCourse extends Component {
   render() {
     return (
       <div>
-        {this.state.IsAdd && <h1 className="content-title">Add Course</h1>}
-        {!this.state.IsAdd && <h1 className="content-title"> Update Course</h1>}
+        {this.state.IsAdd && <div className="content-title">Add Course</div>}
+        {!this.state.IsAdd && <div className="content-title"> Update Course</div>}
 
         <form onSubmit={this.onSubmitHandler}>
           <div className="row">

@@ -104,9 +104,9 @@ class AddAgency extends Component {
   render() {
     return (
       <div>
-        {this.state.IsAdd && <h1 className="content-title">Add Agency</h1>}
+        {this.state.IsAdd && <div className="content-title">Add Agency</div>}
         {!this.state.IsAdd && (
-          <h1 className="content-title">Agency Update</h1>
+          <div className="content-title">Agency Update</div>
         )}
 
         <form onSubmit={this.onSubmitHandler}>
