@@ -14,14 +14,15 @@ code {
 
 :root {
   --brand-color: rgb(19, 196, 255, 1) !important;
-  --brand-secondary: rgb(255, 91, 132) !important;
+  --red: rgb(255, 91, 132) !important;
   --brand-color-fade: rgb(19, 196, 255, 0.3) !important;
   --green: rgb(44, 215, 152, 1) !important;
   --green-fade: rgb(44, 215, 152, 0.3) !important;
-  --brand-danger: rgba(255, 91, 132, 0.14) !important;
-  --brand-success: rgba(44, 215, 152, 0.17) !important;
-  --brand-primary: rgba(19, 196, 255, 0.17) !important;
-  --brand-warning: rgba(213, 196, 63, 0.19) !important;
+  --bg-danger: rgba(255, 91, 132, 0.14) !important;
+  --bg-success: rgba(44, 215, 152, 0.17) !important;
+  --bg-primary: rgba(19, 196, 255, 0.17) !important;
+  --bg-warning: rgba(213, 196, 63, 0.19) !important;
+  --border: rgba(0, 0, 0, 0.07) !important;
   --light-gray-bg: rgba(0, 0, 0, 0.03) !important;
   --text-gray-lighter: #aaaaaa !important;
   --text-gray-light: #444 !important;
@@ -66,6 +67,17 @@ a:hover {
 .container {
   max-width: 1300px !important;
   padding: 0 20px !important;
+}
+
+
+
+.table .text-danger,
+.responsiveTable .text-danger {
+  color: var(--red) !important;
+}
+
+.text-default{
+  color: var(--text-gray-light) !important
 }
 
 /* HEADER */
@@ -169,6 +181,7 @@ button.navbar-toggler:focus {
   padding: 8px 1.1rem !important;
   font-size: 14px !important;
   white-space: normal !important;
+  transition: all 0.2s ease;
 }
 
 .dropdown-item:hover {
@@ -192,7 +205,6 @@ button.navbar-toggler:focus {
   border: none !important;
 }
 .profile-item .dropdown-menu .dropdown-item {
-  -webkit-transition: all 0.2s ease !important;
   transition: all 0.2s ease !important;
 }
 .profile-item .dropdown-menu .dropdown-item:hover {
@@ -268,7 +280,7 @@ button.navbar-toggler:focus {
   border-radius: 8px !important;
   background-color: var(--light-gray-bg) !important;
   margin-bottom: 0 !important;
-  border: 1px solid transparent !important;
+  border: none !important;
   transition: all 0.3s ease !important;
 }
 
@@ -297,7 +309,8 @@ input[type="file"]:focus,
 .form-select {
   position: relative !important;
 }
-.form-select select {
+.form-select select,
+.react-datepicker-wrapper input, .dropdown-heading {
   -webkit-appearance: none !important;
   border: none !important;
   border-radius: 8px !important;
@@ -312,7 +325,7 @@ input[type="file"]:focus,
   font-size: 18px;
   position: absolute !important;
   top: 8px !important;
-  right: 10px !important;
+  right: 6px !important;
   pointer-events: none !important;
 }
 .was-validated .form-select:after {
@@ -352,7 +365,7 @@ input[type="file"]:focus,
 }
 
 .react-datepicker__header {
-  background-color: var(--light-gray-bg) !important;
+  background-color: transparent !important;
   border-bottom: none !important;
 }
 
@@ -408,8 +421,9 @@ input[type="file"]:focus,
 .btn {
   height: 40px !important;
   font-weight: 500 !important;
-  padding: 10px 16px !important;
+  padding: 0px 16px !important;
   border-radius: 8px !important;
+  line-height: 40px !important;
   border: none !important;
   font-size: 14px !important;
   transition: all 0.3s ease !important;
@@ -491,7 +505,7 @@ input[type="file"]::-webkit-file-upload-button {
 input[type="file"]::before {
   content: "\EA84";
   font-family: remixicon !important;
-  color: #cecece;
+  color: var(--text-gray-lighter);
   position: absolute;
   right: 11px;
   top: 9px;
@@ -567,7 +581,7 @@ input[type="file"]:hover::before {
   padding: 30px !important;
   border-radius: 10px !important;
   background-color: rgba(255, 255, 255, 0.03) !important;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.07) !important;
+  box-shadow: 0 0 0 1px var(--border) !important;
 }
 
 .login-container .logo {
@@ -671,10 +685,20 @@ table.table {
   display: block !important;
   margin-bottom: 0 !important;
 }
-.table-wrapper {
-  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+.table-wrapper,
+.card {
+  border: 1px solid var(--border) !important;
   border-radius: 10px !important;
 }
+.accordion .card-header, .accordion .card {
+  border: none !important;
+  border-radius: 10px !important;
+  background-color: var(--light-gray-bg) !important;
+}
+.accordion .card-header{
+  background-color: transparent !important;
+}
+
 .table .thead,
 .table thead {
   padding-top: 10px !important;
@@ -686,6 +710,12 @@ table.table {
 .table thead th {
   font-weight: 500 !important;
   border: none !important;
+}
+.table .td,
+.table .th,
+.table td,
+.table th {
+  border-top: none !important;
 }
 .table .tr {
   display: -webkit-box !important;
@@ -699,7 +729,7 @@ table.table {
 .table tr.bg-danger,
 .table .tr.bg-danger:nth-child(2n),
 .table tr.bg-danger:nth-child(2n) {
-  background-color: var(--brand-danger) !important;
+  background-color: var(--bg-danger) !important;
 }
 .table .tr.bg-danger .td,
 .table tr.bg-danger td,
@@ -711,7 +741,7 @@ table.table {
 .table tr.bg-warning,
 .table .tr.bg-warning:nth-child(2n),
 .table tr.bg-warning:nth-child(2n) {
-  background-color: var(--brand-warning) !important;
+  background-color: var(--bg-warning) !important;
 }
 .table .tr.bg-warning .td,
 .table tr.bg-warning td,
@@ -723,7 +753,7 @@ table.table {
 .table tr.bg-success,
 .table .tr.bg-success:nth-child(2n),
 .table tr.bg-success:nth-child(2n) {
-  background-color: var(--brand-success) !important;
+  background-color: var(--bg-success) !important;
 }
 .table .tr.bg-success .td,
 .table tr.bg-success td,
@@ -735,7 +765,7 @@ table.table {
 .table tr.bg-primary,
 .table .tr.bg-primary:nth-child(2n),
 .table tr.bg-primary:nth-child(2n) {
-  background-color: var(--brand-primary) !important;
+  background-color: var(--bg-primary) !important;
 }
 .table .tr.bg-primary .td,
 .table tr.bg-primary td,
@@ -752,7 +782,8 @@ table.table {
 .table tr:nth-child(2n) {
   background-color: var(--light-gray-bg) !important;
 }
-.table .tr .td {
+.table .tr .td,
+.table .tr .th {
   -webkit-box-flex: 1 !important;
   flex: 1 1 0 !important;
   display: flex;
@@ -780,6 +811,11 @@ table.table {
 .table .tr .td a,
 .table tr td a {
   cursor: pointer;
+}
+.table .td .btn,
+.table td .btn {
+  height: 34px !important;
+  line-height: 34px !important;
 }
 
 .pagination {
@@ -851,10 +887,9 @@ table.table {
   font-family: remixicon !important;
   content: "\F13F";
 }
-.pagination .prev span{
-  transform: scale(-1,1);
+.pagination .prev span {
+  transform: scale(-1, 1);
   transform-origin: center;
-
 }
 .pagination .prev span::before {
   font-family: remixicon !important;
@@ -1282,6 +1317,7 @@ body.dark .pagination-select select {
 .add-student .course-tab {
   cursor: pointer;
   transition: color 0.2s ease;
+  margin-bottom: 8px;
 }
 .add-student .course-tab.active {
   color: var(--brand-color);
@@ -1295,7 +1331,7 @@ body.dark .pagination-select select {
 }
 
 .add-student .react-datepicker-popper {
-  min-width: 200px;
+  min-width: 242px;
 }
 
 .add-student .form-select {
@@ -1312,10 +1348,6 @@ body.dark .pagination-select select {
   }
 }
 
-.table .text-danger,
-.responsiveTable .text-danger {
-  color: var(--brand-secondary) !important;
-}
 
 .popover {
   border: none !important;
@@ -1339,11 +1371,49 @@ body.dark .pagination-select select {
 .bs-popover-top > .arrow::before {
   border-top-color: rgba(0, 0, 0, 0.017) !important;
 }
-.popover-inner {
-  padding: 10px !important;
+
+.react-datepicker__triangle {
+  display: none !important;
+}
+
+.react-datepicker__navigation {
+  top: 21px !important;
+}
+.react-datepicker__current-month {
+  margin-bottom: 10px !important;
+}
+
+.react-datepicker__month {
+  margin-top: 0 !important;
+}
+.react-datepicker__day-name {
+  font-weight: 500;
+}
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  font-size: 0.93rem !important;
+}
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: var(--brand-color) !important;
+}
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  width: 25px !important;
+  line-height: 25px !important;
+  height: 25px !important;
+}
+
+.popover-inner,
+.react-datepicker {
+  border: none !important;
+  padding: 10px 12px !important;
   border-radius: 8px;
   background-color: #ffffff;
   box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.12);
+  font-size: 0.93rem;
 }
 .action-buttons {
   font-size: 18px;
@@ -1368,7 +1438,7 @@ body.dark .pagination-select select {
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
-.action-buttons  .dropdown-menu{
+.action-buttons .dropdown-menu {
   border-radius: 8px !important;
 }
 @keyframes spin {
@@ -1380,15 +1450,51 @@ body.dark .pagination-select select {
   }
 }
 
-.double-row{
+.double-row {
   display: flex !important;
   flex-direction: column !important;
   align-items: flex-start !important;
 }
-.double-row .tr{
+.double-row .tr {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
-.double-row .tr:nth-child(2n){
-background-color: transparent !important;
+.double-row .tr:nth-child(2n) {
+  background-color: transparent !important;
+}
+
+/* Alert toasters */
+
+.alertify-notifier.ajs-bottom.ajs-right {
+  right: -20px !important;
+}
+
+.ajs-message {
+  border-radius: 8px !important;
+  padding: 10px !important;
+  color: var(--text-dark) !important;
+}
+
+.ajs-message.ajs-error {
+  background-color: var(--red) !important;
+}
+
+/* Loading */
+
+#root .loading {
+  width: 100vw;
+  height: 100vh;
+  position: fixed !important;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.loading > i {
+  font-size: 40px;
+  color: var(--brand-color);
 }
