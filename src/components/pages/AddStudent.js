@@ -75,6 +75,13 @@ class AddStudent extends Component {
     IsPayment: true,
     Payments: [],
     isMobile: null,
+    UsaAddress:"",
+    StateCode:"",
+    CityId:0,
+    ZipCode:"",
+    EmergencyCallPerson:"",
+    States:[],
+    Citys:[],
   };
   gettotal(invoiceamount, invoiceid) {
     let total = 0;
@@ -320,6 +327,23 @@ class AddStudent extends Component {
         console.log(error.response);
       });
 
+      await axios
+      .get(
+        Config.ApiUrl +"api/state/getall"
+      )
+      .then((c) => {
+        this.setState({States:c.data});
+        if(c.data.length>0 && this.state.StateCode==="")
+        {
+          this.getCity(c.data[0].state_code);
+        }
+      
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+
+
     await axios
       .get(Config.ApiUrl + "api/visatype/getall")
       .then((c) => {
@@ -382,6 +406,12 @@ class AddStudent extends Component {
           this.setState({ VisaType: c.data.data.visaType });
           this.setState({ AgencyId: c.data.data.agencyId });
           this.setState({ Id: c.data.data.id });
+          this.setState({StateCode:c.data.data.stateCode});
+          this.getCity(c.data.data.stateCode);
+          this.setState({CityId:parseInt(c.data.data.cityId)});
+          this.setState({EmergencyCallPerson:c.data.data.emergencyCallPerson});
+          this.setState({UsaAddress:c.data.data.usaAddress})
+          this.setState({ZipCode:c.data.data.zipCode})
         }
       })
       .catch((error) => {
@@ -415,6 +445,8 @@ class AddStudent extends Component {
       .catch((error) => {
         console.log(error.response);
       });
+
+
 
     await this.getpayments();
 
@@ -452,6 +484,26 @@ class AddStudent extends Component {
       this.setState({ FileLoading: false });
     }
   }
+  async getCity(statecode){
+    await axios
+    .get(
+      Config.ApiUrl +
+        "api/city/getbystatecode?statecode=" +
+        statecode
+    )
+    .then((c) => {
+      this.setState({ Citys: c.data });
+ 
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+  }
+  onStateChangeHandler= async (event) => {
+    let value = event.target.value;
+    this.setState({StateCode:value});
+    this.getCity(value);
+  };
   onChangeHandler = (event) => {
     let name = event.target.name;
     let value = event.target.value;
@@ -645,6 +697,11 @@ class AddStudent extends Component {
       StartDate: this.state.date,
       AgencyId: parseInt(this.state.AgencyId),
       VisaType: parseInt(this.state.VisaType),
+      UsaAddress:this.state.UsaAddress,
+      StateCode:this.state.StateCode,
+      CityId:parseInt(this.state.CityId),
+      ZipCode:this.state.ZipCode,
+      EmergencyCallPerson:this.state.EmergencyCallPerson,
     };
 
     await axios
@@ -1159,11 +1216,83 @@ class AddStudent extends Component {
                       <textarea
                         className="form-control"
                         name="Note"
-                        id="exampleText"
+                        id="Note"
                         value={this.state.Note}
                         onChange={this.onChangeHandler}
                       />
                     </div>
+                    <div className="form-group col-4 col-sm-4 col-lg-4">
+                      <label htmlFor="Address">Emergency Call Person:</label>
+                      <textarea
+                        className="form-control"
+                        name="EmergencyCallPerson"
+                        id="EmergencyCallPerson"
+                        value={this.state.EmergencyCallPerson}
+                        onChange={this.onChangeHandler}
+                      />
+                    </div>
+                    <div className="form-group col-4 col-sm-4 col-lg-4">
+                      <label htmlFor="Address">Usa Address:</label>
+                      <textarea
+                        className="form-control"
+                        name="UsaAddress"
+                        id="UsaAddress"
+                        value={this.state.UsaAddress}
+                        onChange={this.onChangeHandler}
+                      />
+                    </div>
+                    <div className="form-group col-4 col-sm-4 col-lg-4">
+                      <label htmlFor="VisaType">State:</label>
+                      <div className="form-select">
+                        <select
+                          className="form-control"
+                          value={this.state.StateCode}
+                          type="select"
+                          name="StateCode"
+                          id="StateCode"
+                          onChange={this.onStateChangeHandler}
+                        >
+                          {this.state.States.map((state) => (
+                            <option key={state.id} value={state.state_code}>
+                              {state.state}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="form-group col-4 col-sm-4 col-lg-4">
+                      <label htmlFor="VisaType">City:</label>
+                      <div className="form-select">
+                        <select
+                          className="form-control"
+                          value={this.state.CityId}
+                          type="select"
+                          name="CityId"
+                          id="CityId"
+                          onChange={this.onChangeHandler}
+                        >
+                          {this.state.Citys.map((city) => (
+                            <option key={city.id} value={city.id}>
+                              {city.city}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="form-group col-4 col-sm-4 col-lg-4">
+                      <label htmlFor="ZipCode">Zip Code</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        name="ZipCode"
+                        id="ZipCode"
+                        value={this.state.ZipCode}
+                        onChange={this.onChangeHandler}
+                      />
+                    </div>
+ 
                   </div>
                   <Button
                     color="primary"
