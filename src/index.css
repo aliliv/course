@@ -71,8 +71,7 @@ a:hover {
 
 
 
-.table .text-danger,
-.responsiveTable .text-danger {
+#root .text-danger{
   color: var(--red) !important;
 }
 
@@ -781,6 +780,10 @@ table.table {
 .table .tr:nth-child(2n),
 .table tr:nth-child(2n) {
   background-color: var(--light-gray-bg) !important;
+}
+
+.table .tr, .table tr, .table .tbody, .table tbody, .table .thead, .table thead{
+  min-width: fit-content;
 }
 .table .tr .td,
 .table .tr .th {
