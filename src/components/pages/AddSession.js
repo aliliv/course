@@ -1237,7 +1237,7 @@ class AddSession extends Component {
               </div>
             </div>
           </div>
-          <Button type="submit" color="success" disabled={this.state.Loading}>
+          <Button type="submit" color="primary" disabled={this.state.Loading}>
             {this.state.Loading && <i className="ri-loader-4-line ri-spin"></i>}
             {!this.state.Loading && <span> Save</span>}
             {this.state.Loading && <span> Wait ...</span>}
