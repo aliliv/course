@@ -69,14 +69,12 @@ a:hover {
   padding: 0 20px !important;
 }
 
-
-
-#root .text-danger{
+#root .text-danger {
   color: var(--red) !important;
 }
 
-.text-default{
-  color: var(--text-gray-light) !important
+.text-default {
+  color: var(--text-gray-light) !important;
 }
 
 /* HEADER */
@@ -309,7 +307,8 @@ input[type="file"]:focus,
   position: relative !important;
 }
 .form-select select,
-.react-datepicker-wrapper input, .dropdown-heading {
+.react-datepicker-wrapper input,
+.dropdown-heading {
   -webkit-appearance: none !important;
   border: none !important;
   border-radius: 8px !important;
@@ -689,12 +688,13 @@ table.table {
   border: 1px solid var(--border) !important;
   border-radius: 10px !important;
 }
-.accordion .card-header, .accordion .card {
+.accordion .card-header,
+.accordion .card {
   border: none !important;
   border-radius: 10px !important;
   background-color: var(--light-gray-bg) !important;
 }
-.accordion .card-header{
+.accordion .card-header {
   background-color: transparent !important;
 }
 
@@ -782,7 +782,12 @@ table.table {
   background-color: var(--light-gray-bg) !important;
 }
 
-.table .tr, .table tr, .table .tbody, .table tbody, .table .thead, .table thead{
+.table .tr,
+.table tr,
+.table .tbody,
+.table tbody,
+.table .thead,
+.table thead {
   min-width: fit-content;
 }
 .table .tr .td,
@@ -1351,7 +1356,6 @@ body.dark .pagination-select select {
   }
 }
 
-
 .popover {
   border: none !important;
 }
@@ -1502,8 +1506,13 @@ body.dark .pagination-select select {
   color: var(--brand-color);
 }
 
-
-.half-opacity{
+.half-opacity {
   pointer-events: none;
   opacity: 0.5;
+}
+
+@media (max-width: 1095px) {
+  .days-row > .col {
+    width: 217px !important;
+  }
 }

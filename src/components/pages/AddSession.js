@@ -689,8 +689,8 @@ class AddSession extends Component {
               </div>
             </div>
             <div className="col-12">
-              <div className="row">
-                <div className="col">
+              <div className="row days-row">
+                <div className="col-xs-12 col-md-4 col-xl">
                   <div className="form-group">
                     <div className="form-group">
                       <label className="form-csCheck remember-me">
@@ -800,7 +800,7 @@ class AddSession extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="col">
+                <div className="col-xs-12 col-md-4 col-xl">
                   <div className="form-group">
                     <div className="form-group">
                       <label className="form-csCheck remember-me">
@@ -907,7 +907,7 @@ class AddSession extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="col">
+                <div className="col-xs-12 col-md-4 col-xl">
                   <div className="form-group">
                     <div className="form-group">
                       <label className="form-csCheck remember-me">
@@ -1016,7 +1016,7 @@ class AddSession extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="col">
+                <div className="col-xs-12 col-md-4 col-xl">
                   <div className="form-group">
                     <div className="form-group">
                       <label className="form-csCheck remember-me">
@@ -1126,7 +1126,7 @@ class AddSession extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="col">
+                <div className="col-xs-12 col-md-4 col-xl">
                   <div className="form-group">
                     <div className="form-group">
                       <label className="form-csCheck remember-me">
