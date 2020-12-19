@@ -1501,3 +1501,9 @@ body.dark .pagination-select select {
   font-size: 40px;
   color: var(--brand-color);
 }
+
+
+.half-opacity{
+  pointer-events: none;
+  opacity: 0.5;
+}
