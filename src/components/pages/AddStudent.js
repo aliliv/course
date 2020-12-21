@@ -19,8 +19,6 @@ import StudentAttendance from "../pages/StudentAttendance";
 import * as Config from "../../config";
 import * as moment from "moment";
 import { Confirm, Modal } from "semantic-ui-react";
-import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
-import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 // import { CognitoIdentityServiceProvider } from "aws-sdk";
 class AddStudent extends Component {
   state = {
@@ -74,14 +72,13 @@ class AddStudent extends Component {
     PaymentDescription: "",
     IsPayment: true,
     Payments: [],
-    isMobile: null,
-    UsaAddress:"",
-    StateCode:"",
-    CityId:0,
-    ZipCode:"",
-    EmergencyCallPerson:"",
-    States:[],
-    Citys:[],
+    UsaAddress: "",
+    StateCode: "",
+    CityId: 0,
+    ZipCode: "",
+    EmergencyCallPerson: "",
+    States: [],
+    Citys: [],
   };
   gettotal(invoiceamount, invoiceid) {
     let total = 0;
@@ -298,18 +295,6 @@ class AddStudent extends Component {
   }
 
   async componentDidMount() {
-    window.addEventListener(
-      "resize",
-      () => {
-        this.setState({
-          isMobile: window.innerWidth < 641,
-        });
-      },
-      false
-    );
-    this.setState({
-      isMobile: window.innerWidth < 641,
-    });
     this.setState({ BranchId: this.props.user.userBranches[0].id });
     await axios
       .get(
@@ -327,22 +312,17 @@ class AddStudent extends Component {
         console.log(error.response);
       });
 
-      await axios
-      .get(
-        Config.ApiUrl +"api/state/getall"
-      )
+    await axios
+      .get(Config.ApiUrl + "api/state/getall")
       .then((c) => {
-        this.setState({States:c.data});
-        if(c.data.length>0 && this.state.StateCode==="")
-        {
+        this.setState({ States: c.data });
+        if (c.data.length > 0 && this.state.StateCode === "") {
           this.getCity(c.data[0].state_code);
         }
-      
       })
       .catch((error) => {
         console.log(error.response);
       });
-
 
     await axios
       .get(Config.ApiUrl + "api/visatype/getall")
@@ -406,12 +386,14 @@ class AddStudent extends Component {
           this.setState({ VisaType: c.data.data.visaType });
           this.setState({ AgencyId: c.data.data.agencyId });
           this.setState({ Id: c.data.data.id });
-          this.setState({StateCode:c.data.data.stateCode});
+          this.setState({ StateCode: c.data.data.stateCode });
           this.getCity(c.data.data.stateCode);
-          this.setState({CityId:parseInt(c.data.data.cityId)});
-          this.setState({EmergencyCallPerson:c.data.data.emergencyCallPerson});
-          this.setState({UsaAddress:c.data.data.usaAddress})
-          this.setState({ZipCode:c.data.data.zipCode})
+          this.setState({ CityId: parseInt(c.data.data.cityId) });
+          this.setState({
+            EmergencyCallPerson: c.data.data.emergencyCallPerson,
+          });
+          this.setState({ UsaAddress: c.data.data.usaAddress });
+          this.setState({ ZipCode: c.data.data.zipCode });
         }
       })
       .catch((error) => {
@@ -445,8 +427,6 @@ class AddStudent extends Component {
       .catch((error) => {
         console.log(error.response);
       });
-
-
 
     await this.getpayments();
 
@@ -484,24 +464,19 @@ class AddStudent extends Component {
       this.setState({ FileLoading: false });
     }
   }
-  async getCity(statecode){
+  async getCity(statecode) {
     await axios
-    .get(
-      Config.ApiUrl +
-        "api/city/getbystatecode?statecode=" +
-        statecode
-    )
-    .then((c) => {
-      this.setState({ Citys: c.data });
- 
-    })
-    .catch((error) => {
-      console.log(error.response);
-    });
+      .get(Config.ApiUrl + "api/city/getbystatecode?statecode=" + statecode)
+      .then((c) => {
+        this.setState({ Citys: c.data });
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   }
-  onStateChangeHandler= async (event) => {
+  onStateChangeHandler = async (event) => {
     let value = event.target.value;
-    this.setState({StateCode:value});
+    this.setState({ StateCode: value });
     this.getCity(value);
   };
   onChangeHandler = (event) => {
@@ -697,11 +672,11 @@ class AddStudent extends Component {
       StartDate: this.state.date,
       AgencyId: parseInt(this.state.AgencyId),
       VisaType: parseInt(this.state.VisaType),
-      UsaAddress:this.state.UsaAddress,
-      StateCode:this.state.StateCode,
-      CityId:parseInt(this.state.CityId),
-      ZipCode:this.state.ZipCode,
-      EmergencyCallPerson:this.state.EmergencyCallPerson,
+      UsaAddress: this.state.UsaAddress,
+      StateCode: this.state.StateCode,
+      CityId: parseInt(this.state.CityId),
+      ZipCode: this.state.ZipCode,
+      EmergencyCallPerson: this.state.EmergencyCallPerson,
     };
 
     await axios
@@ -1292,7 +1267,6 @@ class AddStudent extends Component {
                         onChange={this.onChangeHandler}
                       />
                     </div>
- 
                   </div>
                   <Button
                     color="primary"
@@ -1488,166 +1462,160 @@ class AddStudent extends Component {
                     </div>
                   </div>
                 </Collapse>
-                <div
-                  className={
-                    "studenttable-card mt-2" +
-                    (this.state.isMobile ? "" : " table-wrapper")
-                  }
-                >
-                  <Table
-                    className={
-                      this.state.isMobile ? "" : " table table-responsive"
-                    }
-                    id="studenttable"
-                  >
-                    <Thead>
-                      <Tr>
-                        <Th>Course</Th>
-                        <Th>Start Date End Date</Th>
-                        <Th>Early Leaving Date</Th>
-                        <Th>Teacher Class</Th>
-                        <Th>Assessment Grade</Th>
-                        {/* <th>Participation Grade</th> */}
-                        {/* <th>Total Grade</th> */}
-                        <Th>Comment</Th>
-                        <Th>Conditional Pass</Th>
-                        <Th>Incomplete</Th>
-                        {/* <div className="Th">Attendance Probation</div> */}
-                        <Th>Academic Warning</Th>
-                        <Th>Behavioral Warning</Th>
-                        <Th></Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {this.state.CourseView.map((courseview) => (
-                        <Tr key={courseview.Order}>
-                          <Td>{courseview.Course}</Td>
-                          <Td>
-                            {courseview.StartDate} {courseview.EndDate}
-                          </Td>
-                          <Td>
-                            {courseview.Course !== "TimeOff" &&
-                            courseview.Course !== "Out Of Country" ? (
-                              <div className="form-select">
-                                <DatePicker
-                                  className="form-control"
-                                  selected={
-                                    courseview.EarlyLeavingDate ===
-                                    "0001-01-01T00:00:00"
-                                      ? new Date()
-                                      : new Date(courseview.EarlyLeavingDate)
-                                  }
-                                  onChange={(e) => {
-                                    this.earlyleavingdatechange(
-                                      e,
-                                      courseview.Id
-                                    );
-                                  }}
-                                />
-                              </div>
-                            ) : null}
-                          </Td>
-                          <Td>
-                            {courseview.Teacher} - {courseview.Class}
-                          </Td>
+                <div className="studenttable-card mt-2 table-wrapper">
+                  <div className="table table-responsive" id="studenttable">
+                    <div className="ttop">
+                      <div className="thead">
+                        <div className="tr">
+                          <div className="th">Course</div>
+                          <div className="th">Start Date End Date</div>
+                          <div className="th">Early Leaving Date</div>
+                          <div className="th">Teacher Class</div>
+                          <div className="th">Assessment Grade</div>
+                          {/* <div className="th">Participation Grade</div> */}
+                          {/* <div className="th">Total Grade</div> */}
+                          <div className="th">Comment</div>
+                          <div className="th">Conditional Pass</div>
+                          <div className="th">Incomplete</div>
+                          {/* <div className="div">Attendance Probation</div> */}
+                          <div className="th">Academic Warning</div>
+                          <div className="th">Behavioral Warning</div>
+                          <div className="th"></div>
+                        </div>
+                      </div>
+                      <div className="tbody">
+                        {this.state.CourseView.map((courseview) => (
+                          <div className="tr" key={courseview.Order}>
+                            <div className="td">{courseview.Course}</div>
+                            <div className="td">
+                              {courseview.StartDate} {courseview.EndDate}
+                            </div>
+                            <div className="td">
+                              {courseview.Course !== "TimeOff" &&
+                              courseview.Course !== "Out Of Country" ? (
+                                <div className="form-select">
+                                  <DatePicker
+                                    className="form-control"
+                                    selected={
+                                      courseview.EarlyLeavingDate ===
+                                      "0001-01-01T00:00:00"
+                                        ? new Date()
+                                        : new Date(courseview.EarlyLeavingDate)
+                                    }
+                                    onChange={(e) => {
+                                      this.earlyleavingdatechange(
+                                        e,
+                                        courseview.Id
+                                      );
+                                    }}
+                                  />
+                                </div>
+                              ) : null}
+                            </div>
+                            <div className="td">
+                              {courseview.Teacher} - {courseview.Class}
+                            </div>
 
-                          <Td>{courseview.AssessmentGrade}</Td>
-                          {/* <Td></Td> */}
-                          {/* <Td></Td> */}
-                          <Td>{courseview.Comment}</Td>
-                          <Td>
-                            {courseview.Course !== "TimeOff" &&
-                            courseview.Course !== "Out Of Country" ? (
-                              <label className="form-csCheck remember-me">
-                                <input
-                                  className="form-check-input form-control validate"
-                                  checked={courseview.ConditionalPass}
-                                  type="checkbox"
-                                  onChange={() =>
-                                    this.ConditionalPassChange(courseview.Id)
-                                  }
-                                />
-                                <span className="form-csCheck-checkmark"></span>
-                              </label>
-                            ) : null}
-                          </Td>
-                          <Td>
-                            {courseview.Course !== "TimeOff" &&
-                            courseview.Course !== "Out Of Country" ? (
-                              <label className="form-csCheck remember-me">
-                                <input
-                                  className="form-check-input form-control validate"
-                                  checked={courseview.Incomplete}
-                                  type="checkbox"
-                                  onChange={() =>
-                                    this.IncompleteChange(courseview.Id)
-                                  }
-                                />
-                                <span className="form-csCheck-checkmark"></span>
-                              </label>
-                            ) : null}
-                          </Td>
-                          {/* <div className="Td"></div> */}
-                          <Td>
-                            {courseview.Course !== "TimeOff" &&
-                            courseview.Course !== "Out Of Country" ? (
-                              <div className="form-select">
-                                <select
-                                  name="AcademicWarning"
-                                  id="AcademicWarning"
-                                  onChange={(e) => {
-                                    this.onAcademicWarningChange(
-                                      e,
-                                      courseview.Id
-                                    );
-                                  }}
-                                  className="form-control"
-                                  value={courseview.AcademicWarning}
-                                >
-                                  <option value="0">0</option>
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                </select>
-                              </div>
-                            ) : null}
-                          </Td>
-                          <Td>
-                            {courseview.Course !== "TimeOff" &&
-                            courseview.Course !== "Out Of Country" ? (
-                              <div className="form-select">
-                                <select
-                                  name="BehavioralWarning"
-                                  id="BehavioralWarning"
-                                  onChange={(e) => {
-                                    this.onBehavioralWarningChange(
-                                      e,
-                                      courseview.Id
-                                    );
-                                  }}
-                                  className="form-control"
-                                  value={courseview.BehavioralWarning}
-                                >
-                                  <option value="0">0</option>
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                </select>
-                              </div>
-                            ) : null}
-                          </Td>
-                          <Td>
-                            <a
-                              className="btn text-danger"
-                              onClick={() => this.deletecourse(courseview)}
-                            >
-                              Delete
-                            </a>
-                          </Td>
-                        </Tr>
-                      ))}
-                    </Tbody>
-                  </Table>
+                            <div className="td">
+                              {courseview.AssessmentGrade}
+                            </div>
+                            {/* <div className="td"></div> */}
+                            {/* <div className="td"></div> */}
+                            <div className="td">{courseview.Comment}</div>
+                            <div className="td">
+                              {courseview.Course !== "TimeOff" &&
+                              courseview.Course !== "Out Of Country" ? (
+                                <label className="form-csCheck remember-me">
+                                  <input
+                                    className="form-check-input form-control validate"
+                                    checked={courseview.ConditionalPass}
+                                    type="checkbox"
+                                    onChange={() =>
+                                      this.ConditionalPassChange(courseview.Id)
+                                    }
+                                  />
+                                  <span className="form-csCheck-checkmark"></span>
+                                </label>
+                              ) : null}
+                            </div>
+                            <div className="td">
+                              {courseview.Course !== "TimeOff" &&
+                              courseview.Course !== "Out Of Country" ? (
+                                <label className="form-csCheck remember-me">
+                                  <input
+                                    className="form-check-input form-control validate"
+                                    checked={courseview.Incomplete}
+                                    type="checkbox"
+                                    onChange={() =>
+                                      this.IncompleteChange(courseview.Id)
+                                    }
+                                  />
+                                  <span className="form-csCheck-checkmark"></span>
+                                </label>
+                              ) : null}
+                            </div>
+                            {/* <div className="Td"></div> */}
+                            <div className="td">
+                              {courseview.Course !== "TimeOff" &&
+                              courseview.Course !== "Out Of Country" ? (
+                                <div className="form-select">
+                                  <select
+                                    name="AcademicWarning"
+                                    id="AcademicWarning"
+                                    onChange={(e) => {
+                                      this.onAcademicWarningChange(
+                                        e,
+                                        courseview.Id
+                                      );
+                                    }}
+                                    className="form-control"
+                                    value={courseview.AcademicWarning}
+                                  >
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                  </select>
+                                </div>
+                              ) : null}
+                            </div>
+                            <div className="td">
+                              {courseview.Course !== "TimeOff" &&
+                              courseview.Course !== "Out Of Country" ? (
+                                <div className="form-select">
+                                  <select
+                                    name="BehavioralWarning"
+                                    id="BehavioralWarning"
+                                    onChange={(e) => {
+                                      this.onBehavioralWarningChange(
+                                        e,
+                                        courseview.Id
+                                      );
+                                    }}
+                                    className="form-control"
+                                    value={courseview.BehavioralWarning}
+                                  >
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                  </select>
+                                </div>
+                              ) : null}
+                            </div>
+                            <div className="td">
+                              <a
+                                className="btn text-danger"
+                                onClick={() => this.deletecourse(courseview)}
+                              >
+                                Delete
+                              </a>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </TabPane>
               <TabPane tabId="3">
@@ -1663,14 +1631,14 @@ class AddStudent extends Component {
                         <div className="card-header" id="headingOne">
                           <div className="row">
                             <div className="col-12 col-md-9">
-                                <a
-                                  className="btn pl-0 text-default"
-                                  type="button"
-                                  onClick={() => this.ActiveSet(index)}
-                                >
-                                  {course.Course} ({course.StartDate}-
-                                  {course.EndDate})
-                                </a>
+                              <a
+                                className="btn pl-0 text-default"
+                                type="button"
+                                onClick={() => this.ActiveSet(index)}
+                              >
+                                {course.Course} ({course.StartDate}-
+                                {course.EndDate})
+                              </a>
                             </div>
                             <div className="col-12 col-md-3 text-md-right">
                               <a
@@ -1682,7 +1650,7 @@ class AddStudent extends Component {
                                   })
                                 }
                               >
-                                <i class="ri-add-line"></i> Add Invoice
+                                <i className="ri-add-line"></i> Add Invoice
                               </a>
                             </div>
                           </div>
@@ -1722,8 +1690,8 @@ class AddStudent extends Component {
                                         </div>
                                         <div className="col-3">
                                           <h6>
-                                            <div
-                                              className="btn btn-success btn-xs"
+                                            <a
+                                              className="btn"
                                               onClick={() =>
                                                 this.setState({
                                                   paymentmodal: true,
@@ -1734,7 +1702,7 @@ class AddStudent extends Component {
                                               }
                                             >
                                               Add Payment
-                                            </div>
+                                            </a>
                                           </h6>
                                         </div>
                                         {invoice.paymentTypeName ===
@@ -1742,16 +1710,14 @@ class AddStudent extends Component {
                                           <div className="col-2"></div>
                                         ) : (
                                           <div className="col-2">
-                                            <h6>
-                                              <div
-                                                className="btn btn-danger btn-xs"
-                                                onClick={() =>
-                                                  this.invoicedelete(invoice.id)
-                                                }
-                                              >
-                                                Delete
-                                              </div>
-                                            </h6>
+                                            <a
+                                              className="btn text-danger"
+                                              onClick={() =>
+                                                this.invoicedelete(invoice.id)
+                                              }
+                                            >
+                                              Delete
+                                            </a>
                                           </div>
                                         )}
                                       </div>
@@ -1763,80 +1729,90 @@ class AddStudent extends Component {
                                       )}
                                     >
                                       <div className="card-body">
-                                        <div className="row">
-                                          <table className="table table-bordered d-block">
-                                            <thead>
-                                              <tr>
-                                                <th className="col-md-2">
-                                                  Payment Method
-                                                </th>
-                                                <th className="col-md-2">
-                                                  Date
-                                                </th>
-                                                <th className="col-md-3">
-                                                  Amount
-                                                </th>
-                                                <th className="col-md-3">
-                                                  Description
-                                                </th>
-                                                <th className="col-md-2"></th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              {this.state.Payments.map(
-                                                (payment) =>
-                                                  parseInt(
-                                                    payment.invoiceId
-                                                  ) === parseInt(invoice.id) &&
-                                                  payment.status === true ? (
-                                                    <tr key={payment.id}>
-                                                      <td>
-                                                        {
-                                                          payment.paymentMethodName
-                                                        }
-                                                      </td>
-                                                      <td>{payment.date}</td>
-                                                      <td
-                                                        className={
-                                                          payment.isPayment
-                                                            ? "paymentin"
-                                                            : "paymentout"
-                                                        }
+                                        <div className="table-wrapper">
+                                          <div className="table table-responsive">
+                                            <div className="ttop">
+                                              <div className="thead">
+                                                <div className="tr">
+                                                  <div className="td">
+                                                    Payment Method
+                                                  </div>
+                                                  <div className="td">Date</div>
+                                                  <div className="td">
+                                                    Amount
+                                                  </div>
+                                                  <div className="td">
+                                                    Description
+                                                  </div>
+                                                  <div className="td"></div>
+                                                </div>
+                                              </div>
+                                              <div className="tbody">
+                                                {this.state.Payments.map(
+                                                  (payment) =>
+                                                    parseInt(
+                                                      payment.invoiceId
+                                                    ) ===
+                                                      parseInt(invoice.id) &&
+                                                    payment.status === true ? (
+                                                      <div
+                                                        className="tr"
+                                                        key={payment.id}
                                                       >
-                                                        {payment.isPayment
-                                                          ? "+"
-                                                          : "-"}{" "}
-                                                        {payment.amount}
-                                                      </td>
-                                                      <td>
-                                                        <p>
-                                                          {payment.description}
-                                                        </p>
-                                                      </td>
-                                                      <td>
+                                                        <div className="td">
+                                                          {
+                                                            payment.paymentMethodName
+                                                          }
+                                                        </div>
+                                                        <div className="td">
+                                                          {payment.date}
+                                                        </div>
                                                         <div
-                                                          className="btn btn-danger"
-                                                          onClick={() =>
-                                                            this.paymentdelete(
-                                                              payment.id
-                                                            )
+                                                          className={
+                                                            payment.isPayment
+                                                              ? "paymentin td"
+                                                              : "paymentout td"
                                                           }
                                                         >
-                                                          Delete
+                                                          {payment.isPayment
+                                                            ? "+"
+                                                            : "-"}{" "}
+                                                          {payment.amount}
                                                         </div>
-                                                      </td>
-                                                    </tr>
-                                                  ) : null
-                                              )}
-                                            </tbody>
-                                          </table>
-                                          <h3>
+                                                        <div className="td">
+                                                          <p>
+                                                            {
+                                                              payment.description
+                                                            }
+                                                          </p>
+                                                        </div>
+                                                        <div className="td">
+                                                          <a
+                                                            className="btn text-danger"
+                                                            onClick={() =>
+                                                              this.paymentdelete(
+                                                                payment.id
+                                                              )
+                                                            }
+                                                          >
+                                                            Delete
+                                                          </a>
+                                                        </div>
+                                                      </div>
+                                                    ) : null
+                                                )}
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div className="mt-3">
+                                          <b>
                                             Debt:
                                             {this.gettotal(
                                               invoice.amount,
                                               invoice.id
                                             )}
-                                          </h3>
+                                          </b>
                                         </div>
                                       </div>
                                     </div>

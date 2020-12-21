@@ -390,12 +390,10 @@ class AddSession extends Component {
       let converttime;
       if (minutestring.length > 1) {
         converttime = parseInt(minutestring);
+      } else {
+        //because 30,40,50 not 3,4,5
+        converttime = parseInt(minutestring + "0");
       }
-      else
-       {
-         //because 30,40,50 not 3,4,5
-        converttime = parseInt(minutestring+"0");
-       }
       return converttime;
     }
   }
@@ -654,411 +652,6 @@ class AddSession extends Component {
                 onChange={this.onChangeHandler}
               />
             </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3 d-flex align-items-center">
-              <label className="form-csCheck remember-me">
-                <input
-                  className="form-check-input form-control validate"
-                  name="Monday"
-                  checked={this.state.Monday}
-                  type="checkbox"
-                  onChange={this.dayChange}
-                />
-                <span className="form-csCheck-checkmark"></span>
-                Monday
-              </label>
-              {this.state.Monday && (
-                <div>
-                  <div className="row">
-                    <span>Start:</span>
-                    <select
-                      className=""
-                      type="select"
-                      name="MondayStartType"
-                      id="MondayStartType"
-                      value={this.state.MondayStartType}
-                      onChange={this.onChangeHandler}
-                    >
-                      <option value="0">AM</option>
-                      <option value="1">PM</option>
-                    </select>
-                    <div className="form-group">
-                      <input
-                        value={this.state.MondayStartHour}
-                        name="MondayStartHour"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="1"
-                        max="12"
-                      />
-                      <input
-                        value={this.state.MondayStartMinute}
-                        name="MondayStartMinute"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="0"
-                        max="59"
-                      />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <span>End:</span>
-                    <select
-                      className=""
-                      type="select"
-                      name="MondayEndType"
-                      id="MondayEndType"
-                      value={this.state.MondayEndType}
-                      onChange={this.onChangeHandler}
-                    >
-                      <option value="0">AM</option>
-                      <option value="1">PM</option>
-                    </select>
-                    <div className="form-group">
-                      <input
-                        value={this.state.MondayEndHour}
-                        name="MondayEndHour"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="1"
-                        max="12"
-                      />
-                      <input
-                        value={this.state.MondayEndMinute}
-                        name="MondayEndMinute"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="0"
-                        max="59"
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3 d-flex align-items-center">
-              <label className="form-csCheck remember-me">
-                <input
-                  className="form-check-input form-control validate"
-                  name="Tuesday"
-                  checked={this.state.Tuesday}
-                  type="checkbox"
-                  onChange={this.dayChange}
-                />
-                <span className="form-csCheck-checkmark"></span>
-                Tuesday
-              </label>
-              {this.state.Tuesday && (
-                <div>
-                  <div className="row">
-                    <span>Start:</span>
-                    <select
-                      className=""
-                      type="select"
-                      name="TuesdayStartType"
-                      id="TuesdayStartType"
-                      value={this.state.TuesdayStartType}
-                      onChange={this.onChangeHandler}
-                    >
-                      <option value="0">AM</option>
-                      <option value="1">PM</option>
-                    </select>
-                    <div className="form-group">
-                      <input
-                        value={this.state.TuesdayStartHour}
-                        name="TuesdayStartHour"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="1"
-                        max="12"
-                      />
-                      <input
-                        value={this.state.TuesdayStartMinute}
-                        name="TuesdayStartMinute"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="0"
-                        max="59"
-                      />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <span>End:</span>
-                    <select
-                      className=""
-                      type="select"
-                      name="TuesdayEndType"
-                      id="TuesdayEndType"
-                      value={this.state.TuesdayEndType}
-                      onChange={this.onChangeHandler}
-                    >
-                      <option value="0">AM</option>
-                      <option value="1">PM</option>
-                    </select>
-                    <div className="form-group">
-                      <input
-                        value={this.state.TuesdayEndHour}
-                        name="TuesdayEndHour"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="1"
-                        max="12"
-                      />
-                      <input
-                        value={this.state.TuesdayEndMinute}
-                        name="TuesdayEndMinute"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="0"
-                        max="59"
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3 d-flex align-items-center">
-              <label className="form-csCheck remember-me">
-                <input
-                  className="form-check-input form-control validate"
-                  name="Wednesday"
-                  checked={this.state.Wednesday}
-                  type="checkbox"
-                  onChange={this.dayChange}
-                />
-                <span className="form-csCheck-checkmark"></span>
-                Wednesday
-              </label>
-              {this.state.Wednesday && (
-                <div>
-                  <div className="row">
-                    <span>Start:</span>
-                    <select
-                      className=""
-                      type="select"
-                      name="WednesdayStartType"
-                      id="WednesdayStartType"
-                      value={this.state.WednesdayStartType}
-                      onChange={this.onChangeHandler}
-                    >
-                      <option value="0">AM</option>
-                      <option value="1">PM</option>
-                    </select>
-                    <div className="form-group">
-                      <input
-                        value={this.state.WednesdayStartHour}
-                        name="WednesdayStartHour"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="1"
-                        max="12"
-                      />
-                      <input
-                        value={this.state.WednesdayStartMinute}
-                        name="WednesdayStartMinute"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="0"
-                        max="59"
-                      />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <span>End:</span>
-                    <select
-                      className=""
-                      type="select"
-                      name="WednesdayEndType"
-                      id="WednesdayEndType"
-                      value={this.state.WednesdayEndType}
-                      onChange={this.onChangeHandler}
-                    >
-                      <option value="0">AM</option>
-                      <option value="1">PM</option>
-                    </select>
-                    <div className="form-group">
-                      <input
-                        value={this.state.WednesdayEndHour}
-                        name="WednesdayEndHour"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="1"
-                        max="12"
-                      />
-                      <input
-                        value={this.state.WednesdayEndMinute}
-                        name="WednesdayEndMinute"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="0"
-                        max="59"
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3 d-flex align-items-center">
-              <label className="form-csCheck remember-me">
-                <input
-                  className="form-check-input form-control validate"
-                  name="Thursday"
-                  checked={this.state.Thursday}
-                  type="checkbox"
-                  onChange={this.dayChange}
-                />
-                <span className="form-csCheck-checkmark"></span>
-                Thursday
-              </label>
-              {this.state.Thursday && (
-                <div>
-                  <div className="row">
-                    <span>Start:</span>
-                    <select
-                      className=""
-                      type="select"
-                      name="ThursdayStartType"
-                      id="ThursdayStartType"
-                      value={this.state.ThursdayStartType}
-                      onChange={this.onChangeHandler}
-                    >
-                      <option value="0">AM</option>
-                      <option value="1">PM</option>
-                    </select>
-                    <div className="form-group">
-                      <input
-                        value={this.state.ThursdayStartHour}
-                        name="ThursdayStartHour"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="1"
-                        max="12"
-                      />
-                      <input
-                        value={this.state.ThursdayStartMinute}
-                        name="ThursdayStartMinute"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="0"
-                        max="59"
-                      />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <span>End:</span>
-                    <select
-                      className=""
-                      type="select"
-                      name="ThursdayEndType"
-                      id="ThursdayEndType"
-                      value={this.state.ThursdayEndType}
-                      onChange={this.onChangeHandler}
-                    >
-                      <option value="0">AM</option>
-                      <option value="1">PM</option>
-                    </select>
-                    <div className="form-group">
-                      <input
-                        value={this.state.ThursdayEndHour}
-                        name="ThursdayEndHour"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="1"
-                        max="12"
-                      />
-                      <input
-                        value={this.state.ThursdayEndMinute}
-                        name="ThursdayEndMinute"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="0"
-                        max="59"
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3  d-flex align-items-center">
-              <label className="form-csCheck remember-me">
-                <input
-                  className="form-check-input form-control validate"
-                  name="Friday"
-                  checked={this.state.Friday}
-                  type="checkbox"
-                  onChange={this.dayChange}
-                />
-                <span className="form-csCheck-checkmark"></span>
-                Friday
-              </label>
-              {this.state.Friday && (
-                <div>
-                  <div className="row">
-                    <span>Start:</span>
-                    <select
-                      className=""
-                      type="select"
-                      name="FridayStartType"
-                      id="FridayStartType"
-                      value={this.state.FridayStartType}
-                      onChange={this.onChangeHandler}
-                    >
-                      <option value="0">AM</option>
-                      <option value="1">PM</option>
-                    </select>
-                    <div className="form-group">
-                      <input
-                        value={this.state.FridayStartHour}
-                        name="FridayStartHour"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="1"
-                        max="12"
-                      />
-                      <input
-                        value={this.state.FridayStartMinute}
-                        name="FridayStartMinute"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="0"
-                        max="59"
-                      />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <span>End:</span>
-                    <select
-                      className=""
-                      type="select"
-                      name="FridayEndType"
-                      id="FridayEndType"
-                      value={this.state.FridayEndType}
-                      onChange={this.onChangeHandler}
-                    >
-                      <option value="0">AM</option>
-                      <option value="1">PM</option>
-                    </select>
-                    <div className="form-group">
-                      <input
-                        value={this.state.FridayEndHour}
-                        name="FridayEndHour"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="1"
-                        max="12"
-                      />
-                      <input
-                        value={this.state.FridayEndMinute}
-                        name="FridayEndMinute"
-                        onChange={this.onChangeHandler}
-                        type="number"
-                        min="0"
-                        max="59"
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
 
             <div className="form-group col-12 col-sm-6 col-lg-3">
               <label htmlFor="Status">Status:</label>
@@ -1095,8 +688,556 @@ class AddSession extends Component {
                 </select>
               </div>
             </div>
+            <div className="col-12">
+              <div className="row days-row">
+                <div className="col-xs-12 col-md-4 col-xl">
+                  <div className="form-group">
+                    <div className="form-group">
+                      <label className="form-csCheck remember-me">
+                        <input
+                          className="form-check-input form-control validate"
+                          name="Monday"
+                          checked={this.state.Monday}
+                          type="checkbox"
+                          onChange={this.dayChange}
+                        />
+                        <span className="form-csCheck-checkmark"></span>
+                        Monday
+                      </label>
+                    </div>
+
+                    <div className={this.state.Monday ? "" : "half-opacity"}>
+                      <div className="row">
+                        <div className="col-12">
+                          <label>Start</label>
+                        </div>
+                      </div>
+                      <div className="form-group row">
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.MondayStartHour}
+                            name="MondayStartHour"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="1"
+                            max="12"
+                          />
+                        </div>
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.MondayStartMinute}
+                            name="MondayStartMinute"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+                        <div className="col">
+                          <div className="form-select">
+                            <select
+                              className="form-control"
+                              type="select"
+                              name="MondayStartType"
+                              id="MondayStartType"
+                              value={this.state.MondayStartType}
+                              onChange={this.onChangeHandler}
+                            >
+                              <option value="0">AM</option>
+                              <option value="1">PM</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-12">
+                          <label>End</label>
+                        </div>
+                      </div>
+                      <div className="form-group row">
+                        <div className="col pr-0">
+                          {" "}
+                          <input
+                            className="form-control"
+                            value={this.state.MondayEndHour}
+                            name="MondayEndHour"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="1"
+                            max="12"
+                          />
+                        </div>
+                        <div className="col pr-0">
+                          {" "}
+                          <input
+                            className="form-control"
+                            value={this.state.MondayEndMinute}
+                            name="MondayEndMinute"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+                        <div className="col">
+                          <div className="form-select">
+                            <select
+                              className="form-control"
+                              type="select"
+                              name="MondayEndType"
+                              id="MondayEndType"
+                              value={this.state.MondayEndType}
+                              onChange={this.onChangeHandler}
+                            >
+                              <option value="0">AM</option>
+                              <option value="1">PM</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-xs-12 col-md-4 col-xl">
+                  <div className="form-group">
+                    <div className="form-group">
+                      <label className="form-csCheck remember-me">
+                        <input
+                          className="form-check-input form-control validate"
+                          name="Tuesday"
+                          checked={this.state.Tuesday}
+                          type="checkbox"
+                          onChange={this.dayChange}
+                        />
+                        <span className="form-csCheck-checkmark"></span>
+                        Tuesday
+                      </label>
+                    </div>
+                    <div className={this.state.Tuesday ? "" : "half-opacity"}>
+                      <div className="row">
+                        <div className="col-12">
+                          <label>Start</label>
+                        </div>
+                      </div>
+                      <div className="form-group row">
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.TuesdayStartHour}
+                            name="TuesdayStartHour"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="1"
+                            max="12"
+                          />
+                        </div>
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.TuesdayStartMinute}
+                            name="TuesdayStartMinute"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+                        <div className="col">
+                          <div className="form-select">
+                            <select
+                              className="form-control"
+                              type="select"
+                              name="TuesdayStartType"
+                              id="TuesdayStartType"
+                              value={this.state.TuesdayStartType}
+                              onChange={this.onChangeHandler}
+                            >
+                              <option value="0">AM</option>
+                              <option value="1">PM</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-12">
+                          <label>End</label>
+                        </div>
+                      </div>
+                      <div className="form-group row">
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.TuesdayEndHour}
+                            name="TuesdayEndHour"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="1"
+                            max="12"
+                          />
+                        </div>
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.TuesdayEndMinute}
+                            name="TuesdayEndMinute"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+                        <div className="col">
+                          <div className="form-select">
+                            <select
+                              className="form-control"
+                              type="select"
+                              name="TuesdayEndType"
+                              id="TuesdayEndType"
+                              value={this.state.TuesdayEndType}
+                              onChange={this.onChangeHandler}
+                            >
+                              <option value="0">AM</option>
+                              <option value="1">PM</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-xs-12 col-md-4 col-xl">
+                  <div className="form-group">
+                    <div className="form-group">
+                      <label className="form-csCheck remember-me">
+                        <input
+                          className="form-check-input form-control validate"
+                          name="Wednesday"
+                          checked={this.state.Wednesday}
+                          type="checkbox"
+                          onChange={this.dayChange}
+                        />
+                        <span className="form-csCheck-checkmark"></span>
+                        Wednesday
+                      </label>
+                    </div>
+                    <div className={this.state.Wednesday ? "" : "half-opacity"}>
+                      <div className="row">
+                        <div className="col-12">
+                          <label>Start</label>
+                        </div>
+                      </div>
+                      <div className="form-group row">
+                        <div className="col pr-0">
+                          {" "}
+                          <input
+                            className="form-control"
+                            value={this.state.WednesdayStartHour}
+                            name="WednesdayStartHour"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="1"
+                            max="12"
+                          />
+                        </div>
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.WednesdayStartMinute}
+                            name="WednesdayStartMinute"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+                        <div className="col">
+                          <div className="form-select">
+                            <select
+                              className="form-control"
+                              type="select"
+                              name="WednesdayStartType"
+                              id="WednesdayStartType"
+                              value={this.state.WednesdayStartType}
+                              onChange={this.onChangeHandler}
+                            >
+                              <option value="0">AM</option>
+                              <option value="1">PM</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-12">
+                          <label>End</label>
+                        </div>
+                      </div>
+                      <div className="form-group row">
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.WednesdayEndHour}
+                            name="WednesdayEndHour"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="1"
+                            max="12"
+                          />
+                        </div>
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.WednesdayEndMinute}
+                            name="WednesdayEndMinute"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+
+                        <div className="col">
+                          <div className="form-select">
+                            <select
+                              className="form-control"
+                              type="select"
+                              name="WednesdayEndType"
+                              id="WednesdayEndType"
+                              value={this.state.WednesdayEndType}
+                              onChange={this.onChangeHandler}
+                            >
+                              <option value="0">AM</option>
+                              <option value="1">PM</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-xs-12 col-md-4 col-xl">
+                  <div className="form-group">
+                    <div className="form-group">
+                      <label className="form-csCheck remember-me">
+                        <input
+                          className="form-check-input form-control validate"
+                          name="Thursday"
+                          checked={this.state.Thursday}
+                          type="checkbox"
+                          onChange={this.dayChange}
+                        />
+                        <span className="form-csCheck-checkmark"></span>
+                        Thursday
+                      </label>
+                    </div>
+                    <div className={this.state.Thursday ? "" : "half-opacity"}>
+                      <div className="row">
+                        <div className="col-12">
+                          <label>Start</label>
+                        </div>
+                      </div>
+
+                      <div className="form-group row">
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.ThursdayStartHour}
+                            name="ThursdayStartHour"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="1"
+                            max="12"
+                          />
+                        </div>
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.ThursdayStartMinute}
+                            name="ThursdayStartMinute"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+                        <div className="col">
+                          <div className="form-select">
+                            <select
+                              className="form-control"
+                              type="select"
+                              name="ThursdayStartType"
+                              id="ThursdayStartType"
+                              value={this.state.ThursdayStartType}
+                              onChange={this.onChangeHandler}
+                            >
+                              <option value="0">AM</option>
+                              <option value="1">PM</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-12">
+                          <label>End</label>
+                        </div>
+                      </div>
+                      <div className="form-group row">
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.ThursdayEndHour}
+                            name="ThursdayEndHour"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="1"
+                            max="12"
+                          />{" "}
+                        </div>
+
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.ThursdayEndMinute}
+                            name="ThursdayEndMinute"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+
+                        <div className="col">
+                          <div className="form-select">
+                            <select
+                              className="form-control"
+                              type="select"
+                              name="ThursdayEndType"
+                              id="ThursdayEndType"
+                              value={this.state.ThursdayEndType}
+                              onChange={this.onChangeHandler}
+                            >
+                              <option value="0">AM</option>
+                              <option value="1">PM</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-xs-12 col-md-4 col-xl">
+                  <div className="form-group">
+                    <div className="form-group">
+                      <label className="form-csCheck remember-me">
+                        <input
+                          className="form-check-input form-control validate"
+                          name="Friday"
+                          checked={this.state.Friday}
+                          type="checkbox"
+                          onChange={this.dayChange}
+                        />
+                        <span className="form-csCheck-checkmark"></span>
+                        Friday
+                      </label>
+                    </div>
+
+                    <div className={this.state.Friday ? "" : "half-opacity"}>
+                      <div className="row">
+                        <div className="col-12">
+                          <label>Start</label>
+                        </div>
+                      </div>
+                      <div className="row form-group">
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.FridayStartHour}
+                            name="FridayStartHour"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="1"
+                            max="12"
+                          />
+                        </div>
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.FridayStartMinute}
+                            name="FridayStartMinute"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+                        <div className="col">
+                          <div className="form-select">
+                            <select
+                              className="form-control"
+                              type="select"
+                              name="FridayStartType"
+                              id="FridayStartType"
+                              value={this.state.FridayStartType}
+                              onChange={this.onChangeHandler}
+                            >
+                              <option value="0">AM</option>
+                              <option value="1">PM</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-12">
+                          <label>End</label>
+                        </div>
+                      </div>
+                      <div className="row form-group">
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.FridayEndHour}
+                            name="FridayEndHour"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="1"
+                            max="12"
+                          />
+                        </div>
+                        <div className="col pr-0">
+                          <input
+                            className="form-control"
+                            value={this.state.FridayEndMinute}
+                            name="FridayEndMinute"
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+                        <div className="col">
+                          <div className="form-select">
+                            <select
+                              className="form-control"
+                              type="select"
+                              name="FridayEndType"
+                              id="FridayEndType"
+                              value={this.state.FridayEndType}
+                              onChange={this.onChangeHandler}
+                            >
+                              <option value="0">AM</option>
+                              <option value="1">PM</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <Button type="submit" color="success" disabled={this.state.Loading}>
+          <Button type="submit" color="primary" disabled={this.state.Loading}>
             {this.state.Loading && <i className="ri-loader-4-line ri-spin"></i>}
             {!this.state.Loading && <span> Save</span>}
             {this.state.Loading && <span> Wait ...</span>}
