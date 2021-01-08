@@ -1,14 +1,14 @@
 body {
   margin: 0 !important;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace !important;
 }
 
@@ -45,7 +45,7 @@ html,
 #root > div > div {
   height: 100% !important;
   position: relative !important;
-  font-family: "DM Sans", sans-serif !important;
+  font-family: 'DM Sans', sans-serif !important;
   font-size: 14px !important;
   color: var(--text-gray-light) !important;
 }
@@ -169,7 +169,7 @@ button.navbar-toggler:focus {
   display: none !important;
   margin-left: 0 !important;
   vertical-align: 0 !important;
-  content: "" !important;
+  content: '' !important;
   border-top: 0 !important;
   border-bottom: 0 !important;
 }
@@ -295,8 +295,8 @@ button.navbar-toggler:focus {
 
 .form-control:focus,
 .form-control:active,
-input[type="file"]:active,
-input[type="file"]:focus,
+input[type='file']:active,
+input[type='file']:focus,
 .form-select:focus,
 .form-select:focus {
   box-shadow: 0 0 0 1px var(--brand-color) !important;
@@ -318,7 +318,7 @@ input[type="file"]:focus,
 
 .form-select:after {
   font-family: remixicon !important;
-  content: "\EA4E" !important;
+  content: '\EA4E' !important;
   color: #cecece;
   font-size: 18px;
   position: absolute !important;
@@ -333,7 +333,7 @@ input[type="file"]:focus,
 /* date picker */
 .react-datepicker,
 .react-datepicker-popper {
-  font-family: "DM Sans", sans-serif !important;
+  font-family: 'DM Sans', sans-serif !important;
   z-index: 9999;
 }
 .react-datepicker__day--today {
@@ -385,7 +385,7 @@ input[type="file"]:focus,
   width: 100% !important;
 }
 
-.react-datepicker-popper[data-placement^="bottom"].react-datepicker__triangle,
+.react-datepicker-popper[data-placement^='bottom'].react-datepicker__triangle,
 .react-datepicker {
   border: 1px solid var(--text-gray-lighter) !important;
 }
@@ -429,13 +429,13 @@ input[type="file"]:focus,
 button.btn-primary {
   background-color: var(--brand-color) !important;
 }
-button.btn-secondary {
+/* button.btn-secondary {
   color: var(--text-gray-light) !important;
   background-color: transparent !important;
-}
+} */
 
 button.btn-success {
-  background-color: var(--green) !important;
+  background-color: var(--brand-color) !important;
 }
 
 .btn:focus,
@@ -452,19 +452,19 @@ button.btn-primary:hover {
   background-color: var(--brand-color) !important;
   box-shadow: 0 5px 10px 0 var(--brand-color-fade) !important;
 }
-button.btn-secondary:focus,
+/* button.btn-secondary:focus,
 button.btn-secondary:active,
 button.btn-secondary:hover {
   background-color: var(--light-gray-bg) !important;
   color: #444 !important;
   box-shadow: 0 5px 10px 0 rgb(235, 235, 235) !important;
-}
+} */
 
 button.btn-success:focus,
 button.btn-success:active,
 button.btn-success:hover {
-  background-color: var(--green) !important;
-  box-shadow: 0 5px 10px 0 var(--green-fade) !important;
+  background-color: var(--brand-color) !important;
+  box-shadow: 0 5px 10px 0 var(--brand-color-fade) !important;
 }
 
 /* Footer */
@@ -486,22 +486,22 @@ footer {
 
 /* File Input */
 
-input[type="file"] {
+input[type='file'] {
   position: relative;
   width: 100%;
   padding: 7px 2px !important;
   color: var(--text-gray-light);
 }
 
-input[type="file"]::-webkit-file-upload-button {
+input[type='file']::-webkit-file-upload-button {
   padding: 0px !important;
   visibility: hidden;
   width: 0 !important;
   text-indent: 0 !important;
 }
 
-input[type="file"]::before {
-  content: "\EA84";
+input[type='file']::before {
+  content: '\EA84';
   font-family: remixicon !important;
   color: var(--text-gray-lighter);
   position: absolute;
@@ -521,7 +521,7 @@ input[type="file"]::before {
   font-size: 16px;
 }
 
-input[type="file"]:hover::before {
+input[type='file']:hover::before {
   border-color: black;
 }
 
@@ -547,7 +547,7 @@ input[type="file"]:hover::before {
 }
 
 .label-doc::before {
-  content: "\EA84";
+  content: '\EA84';
   font-family: remixicon !important;
 }
 
@@ -655,7 +655,7 @@ input[type="file"]:hover::before {
   color: #fff;
   font-weight: bold;
   font-family: remixicon !important;
-  content: "\EB7B" !important;
+  content: '\EB7B' !important;
   position: absolute !important;
   display: none !important;
   left: 3px !important;
@@ -893,7 +893,7 @@ table.table {
 }
 .pagination .first span::before {
   font-family: remixicon !important;
-  content: "\F13F";
+  content: '\F13F';
 }
 .pagination .prev span {
   transform: scale(-1, 1);
@@ -901,17 +901,17 @@ table.table {
 }
 .pagination .prev span::before {
   font-family: remixicon !important;
-  content: "\F00A";
+  content: '\F00A';
 }
 
 .pagination .next span::before {
   font-family: remixicon !important;
-  content: "\F00A";
+  content: '\F00A';
 }
 
 .pagination .last span::before {
   font-family: remixicon !important;
-  content: "\F143";
+  content: '\F143';
 }
 .dropdown .nav-item {
   list-style: none;
@@ -919,7 +919,7 @@ table.table {
 
 @media (min-width: 1201px) {
   .navbar-light .navbar-nav .nav-link::before {
-    content: "" !important;
+    content: '' !important;
     position: absolute !important;
     left: 0 !important;
     bottom: -22px !important;
@@ -934,7 +934,7 @@ table.table {
   }
 
   header .profile-item .nav-link::before {
-    content: "" !important;
+    content: '' !important;
     position: absolute !important;
     left: 0 !important;
     bottom: -22px !important;
@@ -1009,7 +1009,7 @@ table.table {
   }
 
   header::before {
-    content: "" !important;
+    content: '' !important;
     position: absolute !important;
     top: 80px !important;
     left: 0px !important;
@@ -1160,15 +1160,15 @@ body.dark .breadcrumb-item.active a {
 body.dark .file-selected .label-remove {
   border-left: 1px solid var(--border-dark) !important;
 }
-body.dark button.btn-secondary {
+/* body.dark button.btn-secondary {
   color: var(--text-dark) !important;
-}
-body.dark button.btn-secondary:focus,
+} */
+/* body.dark button.btn-secondary:focus,
 body.dark button.btn-secondary:active,
 body.dark button.btn-secondary:hover {
   color: var(--text-dark) !important;
   box-shadow: 0 5px 10px 0 rgb(0, 0, 0, 0.2) !important;
-}
+} */
 
 body.dark .form-csCheck-checkmark {
   background-color: var(--secondary-dark) !important;
@@ -1303,7 +1303,7 @@ body.dark .pagination-select select {
   position: relative;
 }
 .custom-nav .nav-tabs .nav-link::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 100%;
   height: 2px;
@@ -1362,19 +1362,19 @@ body.dark .pagination-select select {
 .bs-popover-auto > .arrow::before {
   border-color: transparent;
 }
-.bs-popover-auto[x-placement^="bottom"] > .arrow::before,
+.bs-popover-auto[x-placement^='bottom'] > .arrow::before,
 .bs-popover-bottom > .arrow::before {
   border-bottom-color: rgba(0, 0, 0, 0.017) !important;
 }
-.bs-popover-auto[x-placement^="right"] > .arrow::before,
+.bs-popover-auto[x-placement^='right'] > .arrow::before,
 .bs-popover-right > .arrow::before {
   border-right-color: rgba(0, 0, 0, 0.017) !important;
 }
-.bs-popover-auto[x-placement^="left"] > .arrow::before,
+.bs-popover-auto[x-placement^='left'] > .arrow::before,
 .bs-popover-left > .arrow::before {
   border-left-color: rgba(0, 0, 0, 0.017) !important;
 }
-.bs-popover-auto[x-placement^="top"] > .arrow::before,
+.bs-popover-auto[x-placement^='top'] > .arrow::before,
 .bs-popover-top > .arrow::before {
   border-top-color: rgba(0, 0, 0, 0.017) !important;
 }
@@ -1511,6 +1511,9 @@ body.dark .pagination-select select {
   opacity: 0.5;
 }
 
+.mt-20 {
+  margin-top: 20px;
+}
 @media (max-width: 1095px) {
   .days-row > .col {
     width: 217px !important;

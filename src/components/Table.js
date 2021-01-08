@@ -1,56 +1,54 @@
-import React, { Component } from "react";
-import axios from "axios";
-import history from "../history";
-import SessionActions from "./SessionActions"
-
+import React, { Component } from 'react';
+import axios from 'axios';
+import history from '../history';
+import SessionActions from './SessionActions';
 
 export default class Table extends Component {
   state = {
     tableView: [],
-    totalCount: "",
-    maxPage: "",
+    totalCount: '',
+    maxPage: '',
     Page: 1,
     PageSize: 5,
     titles: [],
   };
 
-
   pageChange(id) {
     history.push({
       pathname: this.props.searchobj.editurl,
-      search: "",
+      search: '',
       state: { id: id },
     });
   }
   Go(id, pagename) {
-    if (pagename === "Assessment") {
+    if (pagename === 'Assessment') {
       history.push({
-        pathname: "/StudentAssessment",
-        search: "",
+        pathname: '/StudentAssessment',
+        search: '',
         state: { id: id },
       });
-    } else if (pagename === "DailyAttendance") {
+    } else if (pagename === 'DailyAttendance') {
       history.push({
-        pathname: "/DailyAttendance",
-        search: "",
+        pathname: '/DailyAttendance',
+        search: '',
         state: { id: id },
       });
-    } else if (pagename === "AttendanceAdmin") {
+    } else if (pagename === 'AttendanceAdmin') {
       history.push({
-        pathname: "/AttendanceAdmin",
-        search: "",
+        pathname: '/AttendanceAdmin',
+        search: '',
         state: { id: id },
       });
-    } else if (pagename === "AttendanceSheet") {
+    } else if (pagename === 'AttendanceSheet') {
       history.push({
-        pathname: "/AttendanceSheet",
-        search: "",
+        pathname: '/AttendanceSheet',
+        search: '',
         state: { id: id },
       });
-    } else if (pagename === "TeacherAssignment") {
+    } else if (pagename === 'TeacherAssignment') {
       history.push({
-        pathname: "/TeacherAssignment",
-        search: "",
+        pathname: '/TeacherAssignment',
+        search: '',
         state: { id: id },
       });
     }
@@ -169,8 +167,8 @@ export default class Table extends Component {
                         </div>
                       ))}
                       <div className="td"> </div>
-                      {this.props.searchobj.editurl === "/AddSession" ||
-                      this.props.searchobj.editurl === "/AddTeacher" ? (
+                      {this.props.searchobj.editurl === '/AddSession' ||
+                      this.props.searchobj.editurl === '/AddTeacher' ? (
                         <div className="td"></div>
                       ) : null}
                     </div>
@@ -184,23 +182,30 @@ export default class Table extends Component {
                           </div>
                         ))}
 
-                        {this.props.searchobj.editurl === "/AddSession" ? (
+                        {this.props.searchobj.editurl === '/AddSession' ? (
                           <SessionActions
-                          rowId={c.id}
-                          clickAssessment= {() => this.Go(c.id, "Assessment")}
-                          clickDailyAttendance= {() => this.Go(c.id, "DailyAttendance")}
-                          clickAttendanceAdmin= {() => this.Go(c.id, "AttendanceAdmin")}
-                          clickAttendanceSheet= {() => this.Go(c.id, "AttendanceSheet")}
+                            rowId={c.id}
+                            clickAssessment={() => this.Go(c.id, 'Assessment')}
+                            clickDailyAttendance={() =>
+                              this.Go(c.id, 'DailyAttendance')
+                            }
+                            clickAttendanceAdmin={() =>
+                              this.Go(c.id, 'AttendanceAdmin')
+                            }
+                            clickAttendanceSheet={() =>
+                              this.Go(c.id, 'AttendanceSheet')
+                            }
                           />
                         ) : null}
-                        {this.props.searchobj.editurl === "/AddTeacher" ? (
+                        {this.props.searchobj.editurl === '/AddTeacher' ? (
                           <div className="td">
-                            <div
-                              className="btn btn-info"
-                              onClick={() => this.Go(c.id, "TeacherAssignment")}
+                            <a
+                              className="btn"
+                              onClick={() => this.Go(c.id, 'TeacherAssignment')}
                             >
+                              <i class="ri-briefcase-line float-left mr-2"></i>{' '}
                               Assigment
-                            </div>
+                            </a>
                           </div>
                         ) : null}
                         <div className="td">

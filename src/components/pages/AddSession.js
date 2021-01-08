@@ -1,23 +1,23 @@
-import React, { Component } from "react";
-import { Button } from "reactstrap";
-import history from "../../history";
-import axios from "axios";
-import alertify from "alertifyjs";
-import { connect } from "react-redux";
-import DatePicker from "react-datepicker";
-import * as moment from "moment";
-import "react-datepicker/dist/react-datepicker.css";
-import * as Config from "../../config";
+import React, { Component } from 'react';
+import { Button } from 'reactstrap';
+import history from '../../history';
+import axios from 'axios';
+import alertify from 'alertifyjs';
+import { connect } from 'react-redux';
+import DatePicker from 'react-datepicker';
+import * as moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css';
+import * as Config from '../../config';
 class AddSession extends Component {
   state = {
     Id: 0,
     Tuition: 0,
     Status: true,
-    BranchId: "",
+    BranchId: '',
     startdate: new Date(),
     enddate: new Date(),
-    Course: "",
-    Evaluation: "",
+    Course: '',
+    Evaluation: '',
     Courses: [],
     Evaluations: [],
     Monday: false,
@@ -66,7 +66,7 @@ class AddSession extends Component {
   };
   onActiveHandler = (event) => {
     switch (event.target.value) {
-      case "true":
+      case 'true':
         this.setState({ Status: true });
         break;
 
@@ -80,7 +80,7 @@ class AddSession extends Component {
     this.setState({ BranchId: value });
     await axios
       .get(
-        Config.ApiUrl + "api/course/getbybranchid?branchid=" + parseInt(value)
+        Config.ApiUrl + 'api/course/getbybranchid?branchid=' + parseInt(value)
       )
       .then((c) => {
         this.setState({ Courses: c.data });
@@ -330,8 +330,8 @@ class AddSession extends Component {
       Tuition: parseInt(this.state.Tuition),
       Status: this.state.Status,
       Branch: parseInt(this.state.BranchId),
-      Startdate: moment(this.state.startdate).format("MM.DD.YYYY"),
-      Enddate: moment(this.state.enddate).format("MM.DD.YYYY"),
+      Startdate: moment(this.state.startdate).format('MM.DD.YYYY'),
+      Enddate: moment(this.state.enddate).format('MM.DD.YYYY'),
       Monday: this.state.Monday,
       Tuesday: this.state.Tuesday,
       Wednesday: this.state.Wednesday,
@@ -353,7 +353,7 @@ class AddSession extends Component {
     };
 
     await axios
-      .post(Config.ApiUrl + "api/session/add", obj)
+      .post(Config.ApiUrl + 'api/session/add', obj)
       .then((response) => {
         alertify.success(response.data, 4);
       })
@@ -361,14 +361,14 @@ class AddSession extends Component {
         alertify.error(error.response.data, 4);
       });
     this.setState({ Loading: false });
-    history.push("/SessionSearch");
+    history.push('/SessionSearch');
   };
   dayChange = (event) => {
     this.setState({ [event.target.name]: !this.state[event.target.name] });
   };
   timeconvert(time) {
     let converttime = parseInt(
-      time.toString().substring(0, time.toString().indexOf("."))
+      time.toString().substring(0, time.toString().indexOf('.'))
     );
     if (isNaN(converttime)) {
       converttime = parseInt(time);
@@ -378,13 +378,13 @@ class AddSession extends Component {
     else return converttime;
   }
   minuteconvert(time) {
-    if (time.toString().indexOf(".") === -1) {
+    if (time.toString().indexOf('.') === -1) {
       return 0;
     } else {
       let minutestring = time
         .toString()
         .substring(
-          time.toString().indexOf(".") + 1,
+          time.toString().indexOf('.') + 1,
           time.toString().length + 1
         );
       let converttime;
@@ -392,14 +392,14 @@ class AddSession extends Component {
         converttime = parseInt(minutestring);
       } else {
         //because 30,40,50 not 3,4,5
-        converttime = parseInt(minutestring + "0");
+        converttime = parseInt(minutestring + '0');
       }
       return converttime;
     }
   }
   isampm(time) {
     let converttime = parseInt(
-      time.toString().substring(0, time.toString().indexOf("."))
+      time.toString().substring(0, time.toString().indexOf('.'))
     );
     if (isNaN(converttime)) {
       converttime = parseInt(time);
@@ -414,7 +414,7 @@ class AddSession extends Component {
       await axios
         .get(
           Config.ApiUrl +
-            "api/course/getbybranchid?branchid=" +
+            'api/course/getbybranchid?branchid=' +
             parseInt(this.props.user.userBranches[0].id)
         )
         .then((c) => {
@@ -427,7 +427,7 @@ class AddSession extends Component {
           console.log(error.response);
         });
       await axios
-        .get(Config.ApiUrl + "api/evaluation/getall")
+        .get(Config.ApiUrl + 'api/evaluation/getall')
         .then((e) => {
           this.setState({ Evaluations: e.data });
         })
@@ -451,7 +451,7 @@ class AddSession extends Component {
         await axios
           .get(
             Config.ApiUrl +
-              "api/session/getbyid?sessionid=" +
+              'api/session/getbyid?sessionid=' +
               history.location.state.id
           )
           .then((r) => {
@@ -479,11 +479,11 @@ class AddSession extends Component {
             this.setState({ Probation: r.data.probation });
             this.setState({
               startdate: new Date(
-                moment(r.data.startDate).format("YYYY,MM,DD")
+                moment(r.data.startDate).format('YYYY,MM,DD')
               ),
             });
             this.setState({
-              enddate: new Date(moment(r.data.endDate).format("YYYY,MM,DD")),
+              enddate: new Date(moment(r.data.endDate).format('YYYY,MM,DD')),
             });
           })
           .catch((error) => {
@@ -689,7 +689,7 @@ class AddSession extends Component {
               </div>
             </div>
             <div className="col-12">
-              <div className="row days-row">
+              <div className="row days-row mt-3">
                 <div className="col-xs-12 col-md-4 col-xl">
                   <div className="form-group">
                     <div className="form-group">
@@ -706,7 +706,7 @@ class AddSession extends Component {
                       </label>
                     </div>
 
-                    <div className={this.state.Monday ? "" : "half-opacity"}>
+                    <div className={this.state.Monday ? '' : 'half-opacity'}>
                       <div className="row">
                         <div className="col-12">
                           <label>Start</label>
@@ -758,7 +758,7 @@ class AddSession extends Component {
                       </div>
                       <div className="form-group row">
                         <div className="col pr-0">
-                          {" "}
+                          {' '}
                           <input
                             className="form-control"
                             value={this.state.MondayEndHour}
@@ -770,7 +770,7 @@ class AddSession extends Component {
                           />
                         </div>
                         <div className="col pr-0">
-                          {" "}
+                          {' '}
                           <input
                             className="form-control"
                             value={this.state.MondayEndMinute}
@@ -815,7 +815,7 @@ class AddSession extends Component {
                         Tuesday
                       </label>
                     </div>
-                    <div className={this.state.Tuesday ? "" : "half-opacity"}>
+                    <div className={this.state.Tuesday ? '' : 'half-opacity'}>
                       <div className="row">
                         <div className="col-12">
                           <label>Start</label>
@@ -922,7 +922,7 @@ class AddSession extends Component {
                         Wednesday
                       </label>
                     </div>
-                    <div className={this.state.Wednesday ? "" : "half-opacity"}>
+                    <div className={this.state.Wednesday ? '' : 'half-opacity'}>
                       <div className="row">
                         <div className="col-12">
                           <label>Start</label>
@@ -930,7 +930,7 @@ class AddSession extends Component {
                       </div>
                       <div className="form-group row">
                         <div className="col pr-0">
-                          {" "}
+                          {' '}
                           <input
                             className="form-control"
                             value={this.state.WednesdayStartHour}
@@ -1031,7 +1031,7 @@ class AddSession extends Component {
                         Thursday
                       </label>
                     </div>
-                    <div className={this.state.Thursday ? "" : "half-opacity"}>
+                    <div className={this.state.Thursday ? '' : 'half-opacity'}>
                       <div className="row">
                         <div className="col-12">
                           <label>Start</label>
@@ -1092,7 +1092,7 @@ class AddSession extends Component {
                             type="number"
                             min="1"
                             max="12"
-                          />{" "}
+                          />{' '}
                         </div>
 
                         <div className="col pr-0">
@@ -1142,7 +1142,7 @@ class AddSession extends Component {
                       </label>
                     </div>
 
-                    <div className={this.state.Friday ? "" : "half-opacity"}>
+                    <div className={this.state.Friday ? '' : 'half-opacity'}>
                       <div className="row">
                         <div className="col-12">
                           <label>Start</label>
