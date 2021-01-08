@@ -280,6 +280,10 @@ button.navbar-toggler:focus {
   border: none !important;
   transition: all 0.3s ease !important;
 }
+.form-group textarea.single-line {
+  height: 40px !important;
+  line-height: 28px;
+}
 
 .file-input-container input + label {
   border: 1px solid transparent !important;

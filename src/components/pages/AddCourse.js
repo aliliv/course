@@ -574,8 +574,7 @@ class AddCourse extends Component {
             </div>
           </div>
 
-          <hr />
-          <h5>Upload Files</h5>
+          <div className="content-title mt-5">Upload Files</div>
           <div className="row">
             <div className="form-group col-12 col-sm-6 col-lg-3">
               <label htmlFor="Name">Name:</label>

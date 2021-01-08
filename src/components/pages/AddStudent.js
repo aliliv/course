@@ -1104,109 +1104,102 @@ class AddStudent extends Component {
               <TabPane tabId="1">
                 <form onSubmit={this.onSubmitHandler}>
                   <div className="row">
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="StudentId">StudentId</label>
-                      <input
-                        className="form-control"
-                        type="text"
-                        name="StudentId"
-                        id="StudentId"
-                        value={this.state.StudentId}
-                        onChange={this.onChangeHandler}
-                      />
-                    </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="StudentId">SevisNo</label>
-                      <input
-                        className="form-control"
-                        type="text"
-                        name="SevisNo"
-                        id="SevisNo"
-                        value={this.state.SevisNo}
-                        onChange={this.onChangeHandler}
-                      />
-                    </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="StudentId">PlacementScore</label>
-                      <input
-                        className="form-control"
-                        type="text"
-                        name="PlacementScore"
-                        id="PlacementScore"
-                        value={this.state.PlacementScore}
-                        onChange={this.onChangeHandler}
-                      />
-                    </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="VisaType">Visa Type:</label>
-                      <div className="form-select">
-                        <select
+                    <div className="col-12 col-md-3 col-lg-3">
+                      <div className="form-group">
+                        <label htmlFor="StudentId">StudentId</label>
+                        <input
                           className="form-control"
-                          value={this.state.VisaType}
-                          type="select"
-                          name="VisaType"
-                          id="VisaType"
+                          type="text"
+                          name="StudentId"
+                          id="StudentId"
+                          value={this.state.StudentId}
                           onChange={this.onChangeHandler}
-                        >
-                          {this.state.VisaTypes.map((visatype) => (
-                            <option key={visatype.id} value={visatype.id}>
-                              {visatype.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="VisaType">Agency:</label>
-                      <div className="form-select">
-                        <select
-                          className="form-control"
-                          value={this.state.AgencyId}
-                          type="select"
-                          name="AgencyId"
-                          id="AgencyId"
-                          onChange={this.onChangeHandler}
-                        >
-                          {this.state.Agencies.map((agency) => (
-                            <option key={agency.id} value={agency.id}>
-                              {agency.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="exampleDate">StartDate:</label>
-                      <div className="form-select">
-                        <DatePicker
-                          className="form-control"
-                          selected={this.state.date}
-                          onChange={this.handleChange}
                         />
                       </div>
+                      <div className="form-group">
+                        <label htmlFor="VisaType">Visa Type:</label>
+                        <div className="form-select">
+                          <select
+                            className="form-control"
+                            value={this.state.VisaType}
+                            type="select"
+                            name="VisaType"
+                            id="VisaType"
+                            onChange={this.onChangeHandler}
+                          >
+                            {this.state.VisaTypes.map((visatype) => (
+                              <option key={visatype.id} value={visatype.id}>
+                                {visatype.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
                     </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="Address">Note:</label>
-                      <textarea
-                        className="form-control"
-                        name="Note"
-                        id="Note"
-                        value={this.state.Note}
-                        onChange={this.onChangeHandler}
-                      />
+                    <div className="col-12 col-md-3 col-lg-3">
+                      <div className="form-group">
+                        <label htmlFor="Address">Emergency Call Person:</label>
+                        <textarea
+                          className="form-control single-line"
+                          name="EmergencyCallPerson"
+                          id="EmergencyCallPerson"
+                          value={this.state.EmergencyCallPerson}
+                          onChange={this.onChangeHandler}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="VisaType">State:</label>
+                        <div className="form-select">
+                          <select
+                            className="form-control"
+                            value={this.state.StateCode}
+                            type="select"
+                            name="StateCode"
+                            id="StateCode"
+                            onChange={this.onStateChangeHandler}
+                          >
+                            {this.state.States.map((state) => (
+                              <option key={state.id} value={state.state_code}>
+                                {state.state}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
                     </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="Address">Emergency Call Person:</label>
-                      <textarea
-                        className="form-control"
-                        name="EmergencyCallPerson"
-                        id="EmergencyCallPerson"
-                        value={this.state.EmergencyCallPerson}
-                        onChange={this.onChangeHandler}
-                      />
+                    <div className="col-12 col-md-3 col-lg-3">
+                      <div className="form-group">
+                        <label htmlFor="ZipCode">Zip Code</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="ZipCode"
+                          id="ZipCode"
+                          value={this.state.ZipCode}
+                          onChange={this.onChangeHandler}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="VisaType">City:</label>
+                        <div className="form-select">
+                          <select
+                            className="form-control"
+                            value={this.state.CityId}
+                            type="select"
+                            name="CityId"
+                            id="CityId"
+                            onChange={this.onChangeHandler}
+                          >
+                            {this.state.Citys.map((city) => (
+                              <option key={city.id} value={city.id}>
+                                {city.city}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
                     </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
+                    <div className="form-group col-12 col-md-3 col-lg-3">
                       <label htmlFor="Address">Usa Address:</label>
                       <textarea
                         className="form-control"
@@ -1216,54 +1209,69 @@ class AddStudent extends Component {
                         onChange={this.onChangeHandler}
                       />
                     </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="VisaType">State:</label>
-                      <div className="form-select">
-                        <select
-                          className="form-control"
-                          value={this.state.StateCode}
-                          type="select"
-                          name="StateCode"
-                          id="StateCode"
-                          onChange={this.onStateChangeHandler}
-                        >
-                          {this.state.States.map((state) => (
-                            <option key={state.id} value={state.state_code}>
-                              {state.state}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
 
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="VisaType">City:</label>
-                      <div className="form-select">
-                        <select
+                    <div className="col-12 col-md-3 col-lg-3">
+                      <div className="form-group">
+                        <label htmlFor="StudentId">SevisNo</label>
+                        <input
                           className="form-control"
-                          value={this.state.CityId}
-                          type="select"
-                          name="CityId"
-                          id="CityId"
+                          type="text"
+                          name="SevisNo"
+                          id="SevisNo"
+                          value={this.state.SevisNo}
                           onChange={this.onChangeHandler}
-                        >
-                          {this.state.Citys.map((city) => (
-                            <option key={city.id} value={city.id}>
-                              {city.city}
-                            </option>
-                          ))}
-                        </select>
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="exampleDate">StartDate:</label>
+                        <div className="form-select">
+                          <DatePicker
+                            className="form-control"
+                            selected={this.state.date}
+                            onChange={this.handleChange}
+                          />
+                        </div>
                       </div>
                     </div>
-
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="ZipCode">Zip Code</label>
-                      <input
+                    <div className="col-12 col-md-3 col-lg-3">
+                      <div className="form-group">
+                        <label htmlFor="StudentId">PlacementScore</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="PlacementScore"
+                          id="PlacementScore"
+                          value={this.state.PlacementScore}
+                          onChange={this.onChangeHandler}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="VisaType">Agency:</label>
+                        <div className="form-select">
+                          <select
+                            className="form-control"
+                            value={this.state.AgencyId}
+                            type="select"
+                            name="AgencyId"
+                            id="AgencyId"
+                            onChange={this.onChangeHandler}
+                          >
+                            {this.state.Agencies.map((agency) => (
+                              <option key={agency.id} value={agency.id}>
+                                {agency.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="form-group col-12 col-md-6  col-lg-6">
+                      <label htmlFor="Address">Note:</label>
+                      <textarea
                         className="form-control"
-                        type="text"
-                        name="ZipCode"
-                        id="ZipCode"
-                        value={this.state.ZipCode}
+                        name="Note"
+                        id="Note"
+                        value={this.state.Note}
                         onChange={this.onChangeHandler}
                       />
                     </div>

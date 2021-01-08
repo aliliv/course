@@ -112,7 +112,7 @@ class AddAgency extends Component {
 
         <form onSubmit={this.onSubmitHandler}>
           <div className="row">
-            <div className="col-12 col-sm-6 col-lg-3">
+            <div className="col-12 col-md-3 col-lg-3">
               <div className="form-group">
                 <label htmlFor="Name">Name</label>
                 <input
@@ -138,7 +138,7 @@ class AddAgency extends Component {
               </div>
             </div>
 
-            <div className="col-12 col-sm-6 col-lg-3">
+            <div className="col-12 col-md-3 col-lg-3">
               <div className="form-group">
                 <label htmlFor="Phone">Phone</label>
                 <input
@@ -170,7 +170,7 @@ class AddAgency extends Component {
                 </div>
               </div>
             </div>
-            <div className="form-group col-12 col-sm-6 col-lg-6">
+            <div className="form-group col-12 col-md-6 col-lg-6">
               <label htmlFor="Address">Address:</label>
               <textarea
                 className="form-control"
@@ -180,7 +180,7 @@ class AddAgency extends Component {
                 onChange={this.onChangeHandler}
               />
             </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3">
+            <div className="form-group col-12 col-md-3 col-lg-3">
               <label htmlFor="Status">Status:</label>
               <div className="form-select">
                 <select
@@ -195,7 +195,7 @@ class AddAgency extends Component {
                 </select>
               </div>
             </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3">
+            <div className="form-group col-12 col-md-3 col-lg-3">
               <label htmlFor="Commission">Commission(%)</label>
               <input
                 className="form-control"
@@ -208,7 +208,7 @@ class AddAgency extends Component {
                 onChange={this.onChangeHandler}
               />
             </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3">
+            <div className="form-group col-12 col-md-3 col-lg-3">
               <label htmlFor="ContactPerson">Contact Person</label>
               <input
                 className="form-control"
@@ -220,7 +220,7 @@ class AddAgency extends Component {
               />
             </div>
 
-            <div className="form-group col-12 col-sm-6 col-lg-3">
+            <div className="form-group col-12 col-md-3 col-lg-3">
               <label htmlFor="Fax">Fax</label>
               <input
                 className="form-control"

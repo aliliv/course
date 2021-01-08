@@ -1,36 +1,36 @@
-import React, { Component } from "react";
-import { Button } from "reactstrap";
-import axios from "axios";
-import history from "../../history";
-import alertify from "alertifyjs";
-import { connect } from "react-redux";
-import MultiSelect from "@khanacademy/react-multi-select";
-import DatePicker from "react-datepicker";
-import * as moment from "moment";
-import "react-datepicker/dist/react-datepicker.css";
-import S3FileUpload from "react-s3";
-import * as Config from "../../config";
+import React, { Component } from 'react';
+import { Button } from 'reactstrap';
+import axios from 'axios';
+import history from '../../history';
+import alertify from 'alertifyjs';
+import { connect } from 'react-redux';
+import MultiSelect from '@khanacademy/react-multi-select';
+import DatePicker from 'react-datepicker';
+import * as moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css';
+import S3FileUpload from 'react-s3';
+import * as Config from '../../config';
 class NewUser extends Component {
   state = {
     Id: 0,
     Countries: [],
-    CountryId: "",
-    Email: "",
-    Imagelocation: "",
-    FirstName: "",
-    LastName: "",
-    Phone1: "",
-    Phone2: "",
-    File: "",
+    CountryId: '',
+    Email: '',
+    Imagelocation: '',
+    FirstName: '',
+    LastName: '',
+    Phone1: '',
+    Phone2: '',
+    File: '',
     Loading: false,
     Branchs: [],
     Roles: [],
     date: new Date(),
-    Address: "",
+    Address: '',
     RoleId: 1,
     selected: [],
-    Gender: "0",
-    SSNPassport: "",
+    Gender: '0',
+    SSNPassport: '',
     IsAdd: true,
   };
   async componentDidMount() {
@@ -49,7 +49,7 @@ class NewUser extends Component {
       }
       this.setState({ Branchs: BranchList });
       await axios
-        .get(Config.ApiUrl + "api/country/getall")
+        .get(Config.ApiUrl + 'api/country/getall')
         .then((c) => {
           this.setState({ Countries: c.data });
         })
@@ -60,7 +60,7 @@ class NewUser extends Component {
       await axios
         .get(
           Config.ApiUrl +
-            "api/role/getbyinstitutionId?InstitutionId=" +
+            'api/role/getbyinstitutionId?InstitutionId=' +
             this.props.user.institutionId
         )
         .then((role) => {
@@ -74,12 +74,14 @@ class NewUser extends Component {
         await axios
           .get(
             Config.ApiUrl +
-              "api/users/getbyuserid?id=" +
+              'api/users/getbyuserid?id=' +
               history.location.state.id
           )
           .then((r) => {
-         
-            if (!(r.data.birthDay == null))this.setState({ date:new Date(moment(r.data.birthDay).format("YYYY,MM,DD")) });    
+            if (!(r.data.birthDay == null))
+              this.setState({
+                date: new Date(moment(r.data.birthDay).format('YYYY,MM,DD')),
+              });
             if (!(r.data.id == null)) this.setState({ Id: r.data.id });
             if (!(r.data.email == null)) this.setState({ Email: r.data.email });
             if (!(r.data.ssnPassport == null))
@@ -128,7 +130,7 @@ class NewUser extends Component {
       Branchs.push(obj);
     }
 
-    if (this.state.File !== "") {
+    if (this.state.File !== '') {
       await S3FileUpload.uploadFile(this.state.File, Config.S3UserImageconfig)
         .then((data) => {
           this.setState({ Imagelocation: data.location });
@@ -145,7 +147,7 @@ class NewUser extends Component {
       ImageName: this.state.Imagelocation,
       Branchs: Branchs,
       Address: this.state.Address,
-      BirthDay: moment(this.state.date).format("MM.DD.YYYY"),
+      BirthDay: moment(this.state.date).format('MM.DD.YYYY'),
       CountryId: parseInt(this.state.CountryId),
       RoleId: parseInt(this.state.RoleId),
       InstitutionId: parseInt(this.props.user.institutionId),
@@ -153,38 +155,34 @@ class NewUser extends Component {
       SSNPassport: this.state.SSNPassport,
     };
     await axios
-      .post(Config.ApiUrl + "api/auth/register", obj)
+      .post(Config.ApiUrl + 'api/auth/register', obj)
       .then((response) => {
-        if(parseInt(this.state.Id)===0)
-        {
+        if (parseInt(this.state.Id) === 0) {
           alertify.success(response.data.message, 4);
           this.setState({ Id: parseInt(response.data.data.id) });
-        }
-        else
-        alertify.success(response.data, 4);
-       
+        } else alertify.success(response.data, 4);
       })
       .catch((error) => {
         alertify.error(error.response.data, 4);
       });
     this.setState({ Loading: false });
-    if (this.state.RoleId === "2") {
+    if (this.state.RoleId === '2') {
       history.push({
-        pathname: "/AddStudent",
-        search: "",
+        pathname: '/AddStudent',
+        search: '',
         state: { id: this.state.Id },
       });
-    } else history.push("/UserSearch");
+    } else history.push('/UserSearch');
   };
 
   handleFile = (e) => {
     var blob = e.target.files[0].slice(0, e.target.files[0].size);
     var newFile = new File(
       [blob],
-      e.target.files[0].name.substring(0, e.target.files[0].name.indexOf(".")) +
+      e.target.files[0].name.substring(0, e.target.files[0].name.indexOf('.')) +
         Date.now() +
-        ".png",
-      { type: "image/png" }
+        '.png',
+      { type: 'image/png' }
     );
     this.setState({ File: newFile });
   };
@@ -371,7 +369,7 @@ class NewUser extends Component {
           >
             {this.state.Loading && <i className="ri-loader-4-line ri-spin"></i>}
             {!this.state.Loading && (
-              <span>{this.state.IsAdd === true ? "Sign Up" : "Update"}</span>
+              <span>{this.state.IsAdd === true ? 'Sign Up' : 'Update'}</span>
             )}
             {this.state.Loading && <span> Wait ...</span>}
           </Button>
