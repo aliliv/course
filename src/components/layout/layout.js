@@ -58,18 +58,12 @@ class layout extends Component {
     isOpen: false,
     setIsOpen: false,
   };
-
-  componentWillMount() {
-    if (localStorage.getItem('theme')) {
-      let isDarkMode = localStorage.getItem('theme') === 'dark';
-      this.props.actions.changeTheme(localStorage.getItem('theme'));
-
-      if (isDarkMode) {
-        document.body.classList.add('dark');
-      } else {
-        document.body.classList.remove('dark');
-      }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.theme !== nextProps.theme) {
+      return false;
     }
+
+    return true;
   }
   async componentDidMount() {
     if (this.props.token) {
@@ -176,6 +170,7 @@ class layout extends Component {
     this.setState({ isOpen: !this.state.isOpen });
   }
   render() {
+    console.log('test');
     return (
       <div>
         <header>
@@ -255,7 +250,7 @@ class layout extends Component {
                       <DropdownItem className="dropdown-item">
                         Settings
                       </DropdownItem> */}
-                      <DropdownItem className="dropdown-item">
+                      <div className="dropdown-item">
                         <div className="switch-container">
                           <span className="switch-text">Dark Mode</span>
                           <Switch
@@ -263,7 +258,8 @@ class layout extends Component {
                             value={this.props.theme === 'dark'}
                           />
                         </div>
-                      </DropdownItem>
+                      </div>
+
                       <DropdownItem
                         className="dropdown-item logout"
                         onClick={() => this.onClick()}

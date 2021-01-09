@@ -12,10 +12,8 @@ export default class Switch extends Component {
     this.setState({
       value: value,
     });
-
     this.props.toggleSwitch(this.state.value);
   };
-
   render() {
     return (
       <label className="switch">

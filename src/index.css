@@ -200,7 +200,7 @@ button.navbar-toggler:focus {
 }
 .profile-item .dropdown-menu .dropdown-item {
   background-color: #fff;
-  transition: all 0.2s ease !important;
+  transition: none;
 }
 .profile-item .dropdown-menu .dropdown-item:hover {
   background-color: rgba(0, 50, 125, 0.035) !important;
