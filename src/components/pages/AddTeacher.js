@@ -1,37 +1,40 @@
-import React, { Component } from "react";
-import axios from "axios";
-import history from "../../history";
-import { connect } from "react-redux";
-import alertify from "alertifyjs";
-import { Button } from "reactstrap";
-import * as Config from "../../config";
+import React, { Component } from 'react';
+import axios from 'axios';
+import history from '../../history';
+import { connect } from 'react-redux';
+import alertify from 'alertifyjs';
+import { Button } from 'reactstrap';
+import * as Config from '../../config';
+import avatarLight from './../../images/no-picture-light.svg';
+import avatarDark from './../../images/no-picture-dark.svg';
+
 class AddTeacher extends Component {
   state = {
     Id: 0,
-    TeacherImage: "",
-    Ssn: "",
-    LastName: "",
-    FirstName: "",
-    Email: "",
-    PasswordHash: "",
-    PasswordSalt: "",
-    Phone1: "",
-    Phone2: "",
+    TeacherImage: '',
+    Ssn: '',
+    LastName: '',
+    FirstName: '',
+    Email: '',
+    PasswordHash: '',
+    PasswordSalt: '',
+    Phone1: '',
+    Phone2: '',
     Status: true,
-    CountryId: "",
-    Address: "",
-    BirthDay:"",
-    Gender:"",
-    RoleId:"",
-    InstitutionId:"",
-   
-    Loading: false,
+    CountryId: '',
+    Address: '',
+    BirthDay: '',
+    Gender: '',
+    RoleId: '',
+    InstitutionId: '',
 
+    Loading: false,
   };
   async componentDidMount() {
     await axios
       .get(
-        Config.ApiUrl + "api/users/getbyuserid?id=" +
+        Config.ApiUrl +
+          'api/users/getbyuserid?id=' +
           parseInt(history.location.state.id)
       )
       .then((c) => {
@@ -48,10 +51,10 @@ class AddTeacher extends Component {
         this.setState({ Phone2: c.data.phone2 });
         this.setState({ CountryId: c.data.countryId });
         this.setState({ Address: c.data.address });
-        this.setState({BirthDay:c.data.birthDay});
-        this.setState({Gender:c.data.gender});
-        this.setState({RoleId:c.data.roleId});
-        this.setState({InstitutionId:c.data.institutionId});
+        this.setState({ BirthDay: c.data.birthDay });
+        this.setState({ Gender: c.data.gender });
+        this.setState({ RoleId: c.data.roleId });
+        this.setState({ InstitutionId: c.data.institutionId });
       })
       .catch((error) => {
         console.log(error.response);
@@ -79,14 +82,14 @@ class AddTeacher extends Component {
       Phone2: this.state.Phone2,
       CountryId: this.state.CountryId,
       Address: this.state.Address,
-      BirthDay:this.state.BirthDay,
-      Gender:this.state.Gender,
-      RoleId:this.state.RoleId,
-      InstitutionId:this.state.InstitutionId,
+      BirthDay: this.state.BirthDay,
+      Gender: this.state.Gender,
+      RoleId: this.state.RoleId,
+      InstitutionId: this.state.InstitutionId,
     };
     console.log(obj);
     await axios
-      .post(Config.ApiUrl + "api/users/update", obj)
+      .post(Config.ApiUrl + 'api/users/update', obj)
       .then((response) => {
         alertify.success(response.data, 4);
       })
@@ -94,87 +97,112 @@ class AddTeacher extends Component {
         alertify.error(error.response.data, 4);
       });
     this.setState({ Loading: false });
-    history.push("/TeacherSearch");
+    history.push('/TeacherSearch');
   };
   render() {
+    console.log(this.props);
+    let { theme } = this.props;
     return (
       <div>
         <div className="content-title"> Update Teacher</div>
         <div className="row">
-          <div className="col-12 col-sm-3 col-lg-3">
-            <img className="teacher-img" src={this.state.TeacherImage} alt="" />
+          <div className="col-12 col-sm-2 col-lg-2">
+            {this.state.TeacherImage && (
+              <img
+                className="teacher-img w-100 h-auto mb-4"
+                src={this.state.TeacherImage}
+                alt=""
+              />
+            )}
+            {!this.state.TeacherImage && (
+              <img
+                className="teacher-img  w-100 h-auto mb-4"
+                src={theme === 'dark' ? avatarDark : avatarLight}
+                alt=""
+              />
+            )}
           </div>
-          <div className="col-12 col-sm-9 col-lg-9">
+          <div className="col-12 col-sm-10 col-lg-10">
             <form onSubmit={this.onSubmitHandler}>
               <div className="row">
-                <div className="form-group col-12 col-sm-4 col-lg-4">
-                  <label htmlFor="Ssn">SSN/Passport</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="Ssn"
-                    id="Ssn"
-                    value={this.state.Ssn}
-                    onChange={this.onChangeHandler}
-                  />
+                <div className="col-12 col-sm-6 col-lg-3">
+                  <div className="form-group">
+                    {' '}
+                    <label htmlFor="Ssn">SSN/Passport</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="Ssn"
+                      id="Ssn"
+                      value={this.state.Ssn}
+                      onChange={this.onChangeHandler}
+                    />
+                  </div>
+                  <div className="form-group">
+                    {' '}
+                    <label htmlFor="Email">Email</label>
+                    <input
+                      className="form-control"
+                      type="email"
+                      name="Email"
+                      id="Email"
+                      value={this.state.Email}
+                      onChange={this.onChangeHandler}
+                      required
+                    />
+                  </div>
                 </div>
-                <div className="form-group col-12 col-sm-4 col-lg-4">
-                  <label htmlFor="LastName">Last Name</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="LastName"
-                    id="LastName"
-                    value={this.state.LastName}
-                    onChange={this.onChangeHandler}
-                  />
+                <div className="col-12 col-sm-6 col-lg-3">
+                  <div className="form-group">
+                    <label htmlFor="LastName">Last Name</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="LastName"
+                      id="LastName"
+                      value={this.state.LastName}
+                      onChange={this.onChangeHandler}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="Phone1">Phone1</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="Phone1"
+                      id="Phone1"
+                      value={this.state.Phone1}
+                      onChange={this.onChangeHandler}
+                    />
+                  </div>
                 </div>
-                <div className="form-group col-12 col-sm-4 col-lg-4">
-                  <label htmlFor="FirstName">First Name</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="FirstName"
-                    id="FirstName"
-                    value={this.state.FirstName}
-                    onChange={this.onChangeHandler}
-                  />
+
+                <div className="col-12 col-sm-6 col-lg-3">
+                  <div className="form-group">
+                    <label htmlFor="FirstName">First Name</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="FirstName"
+                      id="FirstName"
+                      value={this.state.FirstName}
+                      onChange={this.onChangeHandler}
+                    />
+                  </div>
+                  <div className="form-group">
+                    {' '}
+                    <label htmlFor="Phone1">Phone2</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="Phone2"
+                      id="Phone2"
+                      value={this.state.Phone2}
+                      onChange={this.onChangeHandler}
+                    />
+                  </div>
                 </div>
-                <div className="form-group col-12 col-sm-4 col-lg-4">
-                  <label htmlFor="Email">Email</label>
-                  <input
-                    className="form-control"
-                    type="email"
-                    name="Email"
-                    id="Email"
-                    value={this.state.Email}
-                    onChange={this.onChangeHandler}
-                    required
-                  />
-                </div>
-                <div className="form-group col-12 col-sm-4 col-lg-4">
-                  <label htmlFor="Phone1">Phone1</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="Phone1"
-                    id="Phone1"
-                    value={this.state.Phone1}
-                    onChange={this.onChangeHandler}
-                  />
-                </div>
-                <div className="form-group col-12 col-sm-4 col-lg-4">
-                  <label htmlFor="Phone1">Phone2</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="Phone2"
-                    id="Phone2"
-                    value={this.state.Phone2}
-                    onChange={this.onChangeHandler}
-                  />
-                </div>
-                <div className="form-group col-12 col-sm-4 col-lg-4">
+                <div className="form-group col-12 col-sm-6 col-lg-3">
                   <label htmlFor="Address">Address:</label>
                   <textarea
                     className="form-control"
@@ -183,17 +211,19 @@ class AddTeacher extends Component {
                     onChange={this.onChangeHandler}
                   />
                 </div>
-                <Button
-                  type="submit"
-                  color="success"
-                  disabled={this.state.Loading}
-                >
-                  {this.state.Loading && (
-                    <i className="ri-loader-4-line ri-spin"></i>
-                  )}
-                  {!this.state.Loading && <span>Update</span>}
-                  {this.state.Loading && <span> Wait ...</span>}
-                </Button>
+                <div className="form-group col-12 col-sm-6 col-lg-3">
+                  <Button
+                    type="submit"
+                    color="success"
+                    disabled={this.state.Loading}
+                  >
+                    {this.state.Loading && (
+                      <i className="ri-loader-4-line ri-spin"></i>
+                    )}
+                    {!this.state.Loading && <span>Update</span>}
+                    {this.state.Loading && <span> Wait ...</span>}
+                  </Button>
+                </div>
               </div>
             </form>
           </div>
@@ -203,6 +233,6 @@ class AddTeacher extends Component {
   }
 }
 function mapStateToProps(state) {
-  return { token: state.authReducer };
+  return { token: state.authReducer, theme: state.rootReducer.theme };
 }
 export default connect(mapStateToProps)(AddTeacher);

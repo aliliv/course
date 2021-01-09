@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>no-picture-dark</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="40" height="40"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="switch&amp;profile-pic-dark" transform="translate(-184.000000, -20.000000)">
+            <g id="no-picture-dark" transform="translate(184.000000, 20.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#26272A" xlink:href="#path-1"></use>
+                <g id="folder" mask="url(#mask-2)" fill-rule="nonzero">
+                    <rect id="Rectangle" x="0" y="0" width="40" height="40"></rect>
+                    <ellipse id="Oval" fill-opacity="0.05" fill="#FFFFFF" cx="19.6776625" cy="40.5184983" rx="14.6776625" ry="15.5184983"></ellipse>
+                    <circle id="Oval-Copy" fill-opacity="0.05" fill="#FFFFFF" cx="19.560294" cy="14.560294" r="7.56029403"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

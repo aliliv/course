@@ -24,6 +24,7 @@ code {
   --bg-warning: rgba(213, 196, 63, 0.19) !important;
   --border: rgba(0, 0, 0, 0.07) !important;
   --light-gray-bg: rgba(0, 0, 0, 0.03) !important;
+  --light-gray-bg2: rgba(0, 0, 0, 0.07) !important;
   --text-gray-lighter: #aaaaaa !important;
   --text-gray-light: #444 !important;
   --main-dark: #202124 !important;
@@ -32,6 +33,7 @@ code {
   --text-dark: rgba(255, 255, 255, 0.9) !important;
   --hover-dark: rgba(255, 255, 255, 0.5) !important;
   --border-dark: rgba(255, 255, 255, 0.04) !important;
+  --main-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
 }
 
 * {
@@ -111,8 +113,6 @@ header {
   font-weight: 500 !important;
 }
 .nav-link {
-  padding-right: 10px !important;
-  padding-right: 10px !important;
   transition: all 0.3s ease !important;
 }
 .navbar-light .navbar-nav .active > .nav-link,
@@ -152,10 +152,7 @@ button.navbar-toggler:focus {
   object-fit: cover !important;
 }
 .teacher-img {
-  position: relative !important;
-  height: 240px !important;
-  border-radius: 12px !important;
-  object-fit: cover !important;
+  border-radius: 12px;
 }
 .dropdown-menu {
   border-radius: 0 0 10px 10px !important;
@@ -195,13 +192,14 @@ button.navbar-toggler:focus {
 
 .profile-item .dropdown-menu {
   font-size: 0.9rem !important;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06) !important;
+  box-shadow: var(--main-shadow) !important;
   border-radius: 0 0 0.5rem 0.5rem !important;
   overflow: hidden !important;
   margin-top: 22px !important;
   border: none !important;
 }
 .profile-item .dropdown-menu .dropdown-item {
+  background-color: #fff;
   transition: all 0.2s ease !important;
 }
 .profile-item .dropdown-menu .dropdown-item:hover {
@@ -340,10 +338,23 @@ input[type='file']:focus,
   font-family: 'DM Sans', sans-serif !important;
   z-index: 9999;
 }
+.popover-inner,
+.react-datepicker {
+  box-shadow: var(--main-shadow);
+}
+
+.react-datepicker-popper,
+.react-datepicker {
+  width: 100% !important;
+}
 .react-datepicker__day--today {
   color: var(--text-gray-light) !important;
   font-weight: 500 !important;
   background-color: var(--light-gray-bg) !important;
+}
+
+.react-datepicker__day--today.react-datepicker__day--selected {
+  color: #fff !important;
 }
 
 .react-datepicker__day-name,
@@ -382,11 +393,6 @@ input[type='file']:focus,
 .react-datepicker__quarter-text--in-selecting-range:hover,
 .react-datepicker__quarter-text--in-range:hover {
   background-color: var(--brand-color) !important;
-}
-
-.react-datepicker-popper,
-.react-datepicker {
-  width: 100% !important;
 }
 
 .react-datepicker-popper[data-placement^='bottom'].react-datepicker__triangle,
@@ -1095,6 +1101,12 @@ body.dark .dropdown-menu {
   background-color: var(--main-dark) !important;
   color: var(--text-dark) !important;
 }
+body.dark .profile-item .dropdown-menu .dropdown-item {
+  background-color: var(--main-dark) !important;
+}
+body.dark .profile-item .dropdown-menu .dropdown-item:hover {
+  background-color: var(--main-dark) !important;
+}
 
 body.dark .form-control {
   color: var(--gray-dark) !important;
@@ -1112,6 +1124,7 @@ body.dark .dropdown-item:hover {
 }
 
 body.dark .form-group input,
+body.dark .form-group textarea,
 body.dark .file-input-container > label {
   background-color: var(--secondary-dark) !important;
 }
@@ -1142,8 +1155,7 @@ body.dark header .profile-item .nav-link::before {
 body.dark header {
   box-shadow: 0 1px 0 0 var(--border-dark) !important;
 }
-body.dark footer,
-body.dark .profile-item {
+body.dark footer {
   box-shadow: 0 -1px 0 0 var(--border-dark) !important;
 }
 
@@ -1409,13 +1421,6 @@ body.dark .pagination-select select {
 .react-datepicker__day--keyboard-selected {
   background-color: var(--brand-color) !important;
 }
-.react-datepicker__day-name,
-.react-datepicker__day,
-.react-datepicker__time-name {
-  width: 25px !important;
-  line-height: 25px !important;
-  height: 25px !important;
-}
 
 .popover-inner,
 .react-datepicker {
@@ -1423,7 +1428,7 @@ body.dark .pagination-select select {
   padding: 10px 12px !important;
   border-radius: 8px;
   background-color: #ffffff;
-  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: var(--main-shadow);
   font-size: 0.93rem;
 }
 .action-buttons {
@@ -1513,6 +1518,132 @@ body.dark .pagination-select select {
 .half-opacity {
   pointer-events: none;
   opacity: 0.5;
+}
+
+.multi-select .dropdown-content {
+  border: none !important;
+  box-shadow: var(--main-shadow) !important;
+  padding: 15px;
+}
+.multi-select .dropdown-content::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.multi-select .dropdown-content {
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
+}
+.multi-select .select-panel > div {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.multi-select .select-panel > .select-item {
+  font-weight: 500;
+  padding-left: 0 !important;
+  background-color: transparent !important;
+}
+.multi-select .select-panel > .select-item span {
+  padding-left: 0 !important;
+}
+.multi-select .select-panel > .select-item::before {
+  display: none;
+}
+.multi-select .select-panel > div > input {
+  border: none !important;
+}
+.multi-select .select-panel > div > input:focus {
+  box-shadow: 0 0 0 1px var(--brand-color) !important;
+}
+.multi-select label.select-item {
+  position: relative;
+  margin-bottom: 0;
+  background-color: transparent !important;
+}
+.multi-select label.select-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background-color: var(--light-gray-bg2);
+  transition: all 0.3s ease;
+}
+.multi-select label.select-item:hover::before {
+  background-color: var(--text-gray-lighter) !important;
+}
+.multi-select label.select-item[aria-selected='true']::before {
+  background-color: var(--brand-color) !important;
+}
+.multi-select label.select-item input {
+  display: none;
+}
+
+/* Switch  */
+.switch-container {
+  display: flex;
+  align-items: center;
+}
+.switch-text {
+  margin-right: 9px;
+  color: var(--text-gray-light);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 17px;
+  margin-bottom: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ebebeb;
+  transition: all 0.4s ease;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 11px;
+  width: 11px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: all 0.4s ease;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
+}
+
+input:checked + .slider {
+  background-color: #2cd798;
+}
+
+input:checked + .slider:before {
+  transform: translateX(11px);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.16);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 8px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 .mt-20 {
