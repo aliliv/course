@@ -46,6 +46,8 @@ import AttendanceSheet from "../pages/AttendanceSheet";
 import AddPaymentType from "../pages/AddPaymentType";
 import PaymentTypeSearch from "../pages/PaymentTypeSearch";
 import TeacherAssignment from "../pages/TeacherAssignment";
+import AddBuilding from "../pages/AddBuilding";
+import BuildingSearch from "../pages/BuildingSearch";
 import * as Config from "../../config";
 
 import Logo from "../../images/mentora-toronto-logo.svg";
@@ -53,7 +55,9 @@ class layout extends Component {
   state = { operationClaims: [], user: {}, isOpen: false, setIsOpen: false };
   async componentDidMount() {
     if (this.props.token) {
-    axios.defaults.headers.common['Authorization'] =  `Bearer ${this.props.token}`;
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${this.props.token}`;
       await axios
         .get(
           Config.ApiUrl +
@@ -127,11 +131,15 @@ class layout extends Component {
       case "AttendanceSheet":
         return <AttendanceSheet user={this.state.user} />;
       case "AddPaymentType":
-          return <AddPaymentType user={this.state.user} />;
+        return <AddPaymentType user={this.state.user} />;
       case "PaymentTypeSearch":
-            return <PaymentTypeSearch user={this.state.user} />;
+        return <PaymentTypeSearch user={this.state.user} />;
       case "TeacherAssignment":
-              return <TeacherAssignment user={this.state.user} />;
+        return <TeacherAssignment user={this.state.user} />;
+      case "AddBuilding":
+        return <AddBuilding user={this.state.user} />;
+        case "BuildingSearch":
+          return <BuildingSearch user={this.state.user} />;
       default:
         break;
     }
