@@ -1,34 +1,34 @@
-import React, { Component } from "react";
-import axios from "axios";
-import alertify from "alertifyjs";
-import { connect } from "react-redux";
-import { Button } from "reactstrap";
-import history from "../../history";
-import * as Config from "../../config";
+import React, { Component } from 'react';
+import axios from 'axios';
+import alertify from 'alertifyjs';
+import { connect } from 'react-redux';
+import { Button } from 'reactstrap';
+import history from '../../history';
+import * as Config from '../../config';
 class AddAgency extends Component {
   state = {
     Id: 0,
     Countries: [],
-    CountryId: "",
-    Name: "",
-    ContactPerson: "",
-    Phone: "",
-    Fax: "",
-    Email: "",
+    CountryId: '',
+    Name: '',
+    ContactPerson: '',
+    Phone: '',
+    Fax: '',
+    Email: '',
     Commission: 0,
     Status: true,
-    Address: "",
-    IsAdd:true,
-    Loading:false,
+    Address: '',
+    IsAdd: true,
+    Loading: false,
   };
-  onChangeHandler = event => {
+  onChangeHandler = (event) => {
     let name = event.target.name;
     let value = event.target.value;
     this.setState({ [name]: value });
   };
-  onActiveHandler = event => {
+  onActiveHandler = (event) => {
     switch (event.target.value) {
-      case "true":
+      case 'true':
         this.setState({ Status: true });
         break;
 
@@ -37,7 +37,7 @@ class AddAgency extends Component {
         break;
     }
   };
-  onSubmitHandler = async event => {
+  onSubmitHandler = async (event) => {
     event.preventDefault();
     this.setState({ Loading: true });
     let obj = {
@@ -50,28 +50,28 @@ class AddAgency extends Component {
       Email: this.state.Email,
       Commission: parseInt(this.state.Commission),
       Status: this.state.Status,
-      Address: this.state.Address
+      Address: this.state.Address,
     };
 
     await axios
-      .post(Config.ApiUrl + "api/agency/add", obj)
-      .then(response => {
+      .post(Config.ApiUrl + 'api/agency/add', obj)
+      .then((response) => {
         alertify.success(response.data, 4);
       })
-      .catch(error => {
+      .catch((error) => {
         alertify.error(error.response.data, 4);
       });
     this.setState({ Loading: false });
-    history.push("/AgencySearch");
+    history.push('/AgencySearch');
   };
   async componentDidMount() {
     if (this.props.token) {
       await axios
-        .get(Config.ApiUrl + "api/country/getall")
-        .then(c => {
+        .get(Config.ApiUrl + 'api/country/getall')
+        .then((c) => {
           this.setState({ Countries: c.data });
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error.response);
         });
       this.setState({ CountryId: this.state.Countries[0].id });
@@ -79,21 +79,22 @@ class AddAgency extends Component {
         this.setState({ IsAdd: false });
         await axios
           .get(
-            Config.ApiUrl + "api/agency/getbyid?agencyid=" +
+            Config.ApiUrl +
+              'api/agency/getbyid?agencyid=' +
               history.location.state.id
           )
-          .then(r => {
+          .then((r) => {
             this.setState({ Id: r.data.id });
             this.setState({ Name: r.data.name });
             this.setState({ ContactPerson: r.data.contactPerson });
             this.setState({ Phone: r.data.phone });
             this.setState({ Fax: r.data.fax });
             this.setState({ Email: r.data.email });
-            this.setState({ Commission:parseInt(r.data.commission) });
+            this.setState({ Commission: parseInt(r.data.commission) });
             this.setState({ Status: r.data.status });
             this.setState({ Address: r.data.address });
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error.response);
           });
       } else {
@@ -111,94 +112,75 @@ class AddAgency extends Component {
 
         <form onSubmit={this.onSubmitHandler}>
           <div className="row">
-            <div className="form-group col-12 col-sm-6 col-lg-3">
-              <label htmlFor="Course">Country:</label>
-              <div className="form-select">
-                <select
+            <div className="col-12 col-md-3 col-lg-3">
+              <div className="form-group">
+                <label htmlFor="Name">Name</label>
+                <input
                   className="form-control"
-                  value={this.state.CountryId}
-                  type="select"
-                  name="CountryId"
-                  id="CountryId"
+                  type="text"
+                  name="Name"
+                  id="Name"
+                  value={this.state.Name}
                   onChange={this.onChangeHandler}
-                >
-                  {this.state.Countries.map(country => (
-                    <option key={country.id} value={country.id}>
-                      {country.name}
-                    </option>
-                  ))}
-                </select>
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="Email">Email</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="Email"
+                  id="Email"
+                  value={this.state.Email}
+                  onChange={this.onChangeHandler}
+                />
               </div>
             </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3">
-              <label htmlFor="Name">Name</label>
-              <input
+
+            <div className="col-12 col-md-3 col-lg-3">
+              <div className="form-group">
+                <label htmlFor="Phone">Phone</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="Phone"
+                  id="Phone"
+                  value={this.state.Phone}
+                  onChange={this.onChangeHandler}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="Course">Country:</label>
+                <div className="form-select">
+                  <select
+                    className="form-control"
+                    value={this.state.CountryId}
+                    type="select"
+                    name="CountryId"
+                    id="CountryId"
+                    onChange={this.onChangeHandler}
+                  >
+                    {this.state.Countries.map((country) => (
+                      <option key={country.id} value={country.id}>
+                        {country.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="form-group col-12 col-md-6 col-lg-6">
+              <label htmlFor="Address">Address:</label>
+              <textarea
                 className="form-control"
-                type="text"
-                name="Name"
-                id="Name"
-                value={this.state.Name}
+                name="Address"
+                id="exampleText"
+                value={this.state.Address}
                 onChange={this.onChangeHandler}
               />
             </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3">
-              <label htmlFor="ContactPerson">Contact Person</label>
-              <input
-                className="form-control"
-                type="text"
-                name="ContactPerson"
-                id="ContactPerson"
-                value={this.state.ContactPerson}
-                onChange={this.onChangeHandler}
-              />
-            </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3">
-              <label htmlFor="Phone">Phone</label>
-              <input
-                className="form-control"
-                type="text"
-                name="Phone"
-                id="Phone"
-                value={this.state.Phone}
-                onChange={this.onChangeHandler}
-              />
-            </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3">
-              <label htmlFor="Fax">Fax</label>
-              <input
-                className="form-control"
-                type="text"
-                name="Fax"
-                id="Fax"
-                value={this.state.Fax}
-                onChange={this.onChangeHandler}
-              />
-            </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3">
-              <label htmlFor="Email">Email</label>
-              <input
-                className="form-control"
-                type="text"
-                name="Email"
-                id="Email"
-                value={this.state.Email}
-                onChange={this.onChangeHandler}
-              />
-            </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3">
-              <label htmlFor="Commission">Commission(%)</label>
-              <input
-                className="form-control"
-                min="0"
-                max="100"
-                type="number"
-                name="Commission"
-                id="Commission"
-                value={this.state.Commission}
-                onChange={this.onChangeHandler}
-              />
-            </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3">
+            <div className="form-group col-12 col-md-3 col-lg-3">
               <label htmlFor="Status">Status:</label>
               <div className="form-select">
                 <select
@@ -213,13 +195,39 @@ class AddAgency extends Component {
                 </select>
               </div>
             </div>
-            <div className="form-group col-12 col-sm-6 col-lg-3">
-              <label htmlFor="Address">Address:</label>
-              <textarea
+            <div className="form-group col-12 col-md-3 col-lg-3">
+              <label htmlFor="Commission">Commission(%)</label>
+              <input
                 className="form-control"
-                name="Address"
-                id="exampleText"
-                value={this.state.Address}
+                min="0"
+                max="100"
+                type="number"
+                name="Commission"
+                id="Commission"
+                value={this.state.Commission}
+                onChange={this.onChangeHandler}
+              />
+            </div>
+            <div className="form-group col-12 col-md-3 col-lg-3">
+              <label htmlFor="ContactPerson">Contact Person</label>
+              <input
+                className="form-control"
+                type="text"
+                name="ContactPerson"
+                id="ContactPerson"
+                value={this.state.ContactPerson}
+                onChange={this.onChangeHandler}
+              />
+            </div>
+
+            <div className="form-group col-12 col-md-3 col-lg-3">
+              <label htmlFor="Fax">Fax</label>
+              <input
+                className="form-control"
+                type="text"
+                name="Fax"
+                id="Fax"
+                value={this.state.Fax}
                 onChange={this.onChangeHandler}
               />
             </div>

@@ -1,22 +1,22 @@
-import React, { Component } from "react";
-import { Button } from "reactstrap";
-import history from "../../history";
-import axios from "axios";
-import alertify from "alertifyjs";
-import { connect } from "react-redux";
-import S3FileUpload from "react-s3";
-import * as Config from "../../config";
+import React, { Component } from 'react';
+import { Button } from 'reactstrap';
+import history from '../../history';
+import axios from 'axios';
+import alertify from 'alertifyjs';
+import { connect } from 'react-redux';
+import S3FileUpload from 'react-s3';
+import * as Config from '../../config';
 const config = {
-  bucketName: "awslivtecbucket",
-  dirName: "CourseFile" /* optional */,
-  region: "eu-north-1",
-  accessKeyId: "AKIAIJZPF2OTRRYJM4TQ",
-  secretAccessKey: "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",
+  bucketName: 'awslivtecbucket',
+  dirName: 'CourseFile' /* optional */,
+  region: 'eu-north-1',
+  accessKeyId: 'AKIAIJZPF2OTRRYJM4TQ',
+  secretAccessKey: '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',
 };
 class AddCourse extends Component {
   onActiveHandler = (event) => {
     switch (event.target.value) {
-      case "true":
+      case 'true':
         this.setState({ Status: true });
         break;
 
@@ -28,34 +28,34 @@ class AddCourse extends Component {
 
   state = {
     Id: 0,
-    CourseName: "",
-    Level: "",
+    CourseName: '',
+    Level: '',
     Status: true,
-    BranchId: "",
-    Description: "",
-    DaysInWeek: "1",
-    Goal: "",
-    Objectives: "",
-    Topic: "",
-    Vocabulary: "",
-    Grammar: "",
-    Writing: "",
-    Speaking: "",
-    EndOfModuleWriting: "",
-    EndOfModuleSpeaking: "",
-    ProgressQuizzes: "",
-    EndOfModuleExamReading: "",
-    EndOfModuleExamUOE: "",
-    EndOfModuleExamVocabulary: "",
-    EndOfModuleExamListening: "",
-    FileTypeId: "",
+    BranchId: '',
+    Description: '',
+    DaysInWeek: '1',
+    Goal: '',
+    Objectives: '',
+    Topic: '',
+    Vocabulary: '',
+    Grammar: '',
+    Writing: '',
+    Speaking: '',
+    EndOfModuleWriting: '',
+    EndOfModuleSpeaking: '',
+    ProgressQuizzes: '',
+    EndOfModuleExamReading: '',
+    EndOfModuleExamUOE: '',
+    EndOfModuleExamVocabulary: '',
+    EndOfModuleExamListening: '',
+    FileTypeId: '',
     Loading: false,
     IsAdd: true,
 
-    Name: "",
-    Title: "",
+    Name: '',
+    Title: '',
     Types: [],
-    File: "",
+    File: '',
     FileList: [],
     DeletedCount: 0,
   };
@@ -63,7 +63,7 @@ class AddCourse extends Component {
     return this.state.Types[parseInt(type - 1)].name;
   }
   AddFile() {
-    if (this.state.Name !== "" && this.state.File !== "") {
+    if (this.state.Name !== '' && this.state.File !== '') {
       let Files = this.state.FileList;
       let obj = {
         Id: Files.length + 1 + parseInt(this.state.DeletedCount),
@@ -71,32 +71,28 @@ class AddCourse extends Component {
         Title: this.state.Title,
         FileTypeId: parseInt(this.state.FileTypeId),
         File: this.state.File,
-        S3Location: "",
-        ReelId:""
+        S3Location: '',
+        ReelId: '',
       };
       Files.push(obj);
       this.setState({ FileList: Files });
     } else {
-      alertify.error("Fill in the required fields", 4);
+      alertify.error('Fill in the required fields', 4);
     }
   }
   async fileDelete(file) {
     if (!this.state.Loading) {
-      this.setState({Loading:true});
-     
+      this.setState({ Loading: true });
+
       var count = parseInt(this.state.DeletedCount);
       count++;
       this.setState({ DeletedCount: count });
       var list = this.state.FileList;
-      if(file.S3Location==="")
-      {
-       
-      }
-      else
-      {
+      if (file.S3Location === '') {
+      } else {
         var status = false;
         var name = file.S3Location.substring(
-          file.S3Location.indexOf("CourseFile/") + 11,
+          file.S3Location.indexOf('CourseFile/') + 11,
           file.S3Location.length
         );
         await S3FileUpload.deleteFile(name, config)
@@ -104,40 +100,38 @@ class AddCourse extends Component {
             status = true;
           })
           .catch((err) => console.error(err));
-          if (status === true) {
-          
-            var courseFile = {
-              Id: file.ReelId,
-              Name: file.Name,
-              Title:file.Title,
-              
-            };
-       
-            await axios
-              .post(Config.ApiUrl + "api/coursefile/delete", courseFile)
-              .then((response) => {
-                alertify.success(response.data, 4);
-              })
-              .catch((error) => {
-                alertify.error(error.response.data, 4);
-              });
-          }
+        if (status === true) {
+          var courseFile = {
+            Id: file.ReelId,
+            Name: file.Name,
+            Title: file.Title,
+          };
+
+          await axios
+            .post(Config.ApiUrl + 'api/coursefile/delete', courseFile)
+            .then((response) => {
+              alertify.success(response.data, 4);
+            })
+            .catch((error) => {
+              alertify.error(error.response.data, 4);
+            });
+        }
       }
       list.splice(this.state.FileList.indexOf(file), 1);
       this.setState({ FileList: list });
-      this.setState({Loading:false});
+      this.setState({ Loading: false });
     }
   }
   handleFile = (e) => {
     var blob = e.target.files[0].slice(0, e.target.files[0].size);
     var type = e.target.files[0].type;
     var extension = e.target.files[0].name.substring(
-      e.target.files[0].name.indexOf("."),
+      e.target.files[0].name.indexOf('.'),
       e.target.files[0].name.length
     );
     var newFile = new File(
       [blob],
-      e.target.files[0].name.substring(0, e.target.files[0].name.indexOf(".")) +
+      e.target.files[0].name.substring(0, e.target.files[0].name.indexOf('.')) +
         Date.now() +
         extension,
       { type: type }
@@ -147,7 +141,7 @@ class AddCourse extends Component {
   async componentDidMount() {
     if (this.props.token) {
       await axios
-        .get(Config.ApiUrl + "api/coursefiletype/getall")
+        .get(Config.ApiUrl + 'api/coursefiletype/getall')
         .then((c) => {
           this.setState({ Types: c.data });
           this.setState({ FileTypeId: c.data[0].id });
@@ -161,7 +155,8 @@ class AddCourse extends Component {
         this.setState({ IsAdd: false });
         await axios
           .get(
-            Config.ApiUrl + "api/course/getbyid?courseid=" +
+            Config.ApiUrl +
+              'api/course/getbyid?courseid=' +
               history.location.state.id
           )
           .then((r) => {
@@ -203,11 +198,11 @@ class AddCourse extends Component {
         var AddedList = [];
         await axios
           .get(
-            Config.ApiUrl + "api/coursefile/getbycourseid?courseid=" +
+            Config.ApiUrl +
+              'api/coursefile/getbycourseid?courseid=' +
               history.location.state.id
           )
           .then((r) => {
-            
             AddedList = r.data;
           })
           .catch((error) => {
@@ -221,8 +216,8 @@ class AddCourse extends Component {
             Title: AddedList[index].title,
             FileTypeId: AddedList[index].courseFileTypeId,
             S3Location: AddedList[index].locationUrl,
-            File: "",
-            ReelId:AddedList[index].id,
+            File: '',
+            ReelId: AddedList[index].id,
           };
           AddedFiles.push(addobj);
         }
@@ -261,12 +256,12 @@ class AddCourse extends Component {
     var addedid = 0;
 
     await axios
-      .post(Config.ApiUrl + "api/course/add", obj)
+      .post(Config.ApiUrl + 'api/course/add', obj)
       .then((response) => {
         if (this.state.IsAdd === true) {
           addedid = response.data.data.id;
         } else {
-          addedid= this.state.Id;
+          addedid = this.state.Id;
         }
 
         alertify.success(response.data.message, 4);
@@ -278,36 +273,36 @@ class AddCourse extends Component {
     if (addedid !== 0) {
       var courseFiles = [];
       for (let index = 0; index < this.state.FileList.length; index++) {
-        if(this.state.FileList[index].S3Location==="")
-        {
+        if (this.state.FileList[index].S3Location === '') {
           await S3FileUpload.uploadFile(this.state.FileList[index].File, config)
-          .then((data) => {
-            var obj = {
-              Name: this.state.FileList[index].Name,
-              Title: this.state.FileList[index].Title,
-              LocationUrl: data.location,
-              CourseFileTypeId: parseInt(this.state.FileList[index].FileTypeId),
-            };
-            courseFiles.push(obj);
-          })
-          .catch((err) => console.error(err));
+            .then((data) => {
+              var obj = {
+                Name: this.state.FileList[index].Name,
+                Title: this.state.FileList[index].Title,
+                LocationUrl: data.location,
+                CourseFileTypeId: parseInt(
+                  this.state.FileList[index].FileTypeId
+                ),
+              };
+              courseFiles.push(obj);
+            })
+            .catch((err) => console.error(err));
         }
-
       }
       var courseFile = {
         CourseFiles: courseFiles,
         CourseId: addedid,
       };
- 
+
       await axios
-        .post(Config.ApiUrl + "api/coursefile/add", courseFile)
+        .post(Config.ApiUrl + 'api/coursefile/add', courseFile)
         .then((response) => {})
         .catch((error) => {
           alertify.error(error.response.data, 4);
         });
     }
     this.setState({ Loading: false });
-    history.push("/CourseSearch");
+    history.push('/CourseSearch');
   };
   onChangeHandler = (event) => {
     let name = event.target.name;
@@ -318,7 +313,9 @@ class AddCourse extends Component {
     return (
       <div>
         {this.state.IsAdd && <div className="content-title">Add Course</div>}
-        {!this.state.IsAdd && <div className="content-title"> Update Course</div>}
+        {!this.state.IsAdd && (
+          <div className="content-title"> Update Course</div>
+        )}
 
         <form onSubmit={this.onSubmitHandler}>
           <div className="row">
@@ -577,8 +574,7 @@ class AddCourse extends Component {
             </div>
           </div>
 
-          <hr />
-          <h5>Upload Files</h5>
+          <div className="content-title mt-5">Upload Files</div>
           <div className="row">
             <div className="form-group col-12 col-sm-6 col-lg-3">
               <label htmlFor="Name">Name:</label>
@@ -623,17 +619,17 @@ class AddCourse extends Component {
               <label>File:</label>
               <input type="file" onChange={this.handleFile} />
             </div>
-            <div className="form-group col-12 col-sm-6 col-lg-2">
+            <div className="form-group col-12 col-sm-6 col-lg-2 d-flex">
               <Button
                 disabled={this.state.Loading}
                 type="button"
-                className="btn btn-success"
+                className="btn btn-primary align-self-end"
                 onClick={() => this.AddFile()}
               >
                 {this.state.Loading && (
-                 <i className="ri-loader-4-line ri-spin"></i>
+                  <i className="ri-loader-4-line ri-spin"></i>
                 )}
-                {!this.state.Loading && "Add File"}
+                {!this.state.Loading && 'Add File'}
                 {this.state.Loading && <span> Wait ...</span>}
               </Button>
             </div>
@@ -646,28 +642,32 @@ class AddCourse extends Component {
                     <div className="td">Name</div>
                     <div className="td">Title</div>
                     <div className="td">FileType</div>
-                    <div className="td">Delete</div>
+                    <div className="td">Option</div>
                   </div>
                 </div>
                 <div className="tbody">
                   {this.state.FileList.map((file) => (
                     <div className="tr" key={file.Id}>
-                      {file.S3Location === "" ? (
+                      {file.S3Location === '' ? (
                         <div className="td">{file.Name}</div>
                       ) : (
                         <div className="td">
-                          <a href={file.S3Location}>{file.Name}</a>
+                          <a href={file.S3Location} target="blank">
+                            {file.Name}
+                          </a>
                         </div>
                       )}
-                      <div className="td">{file.Name}</div>
                       <div className="td">{file.Title}</div>
                       <div className="td">
                         {this.getFileTypeName(file.FileTypeId)}
                       </div>
                       <div className="td">
-                        <div onClick={() => this.fileDelete(file)}>
+                        <a
+                          className="btn p-0 text-danger"
+                          onClick={() => this.fileDelete(file)}
+                        >
                           Delete
-                        </div>
+                        </a>
                       </div>
                     </div>
                   ))}
@@ -676,9 +676,15 @@ class AddCourse extends Component {
             </div>
           </div>
 
-          <Button type="submit" color="success" disabled={this.state.Loading}>
+          <Button
+            type="submit"
+            color="success mt-20"
+            disabled={this.state.Loading}
+          >
             {this.state.Loading && <i className="ri-loader-4-line ri-spin"></i>}
-            {!this.state.Loading && <span>{this.state.IsAdd===true?"Add":"Update"}</span>}
+            {!this.state.Loading && (
+              <span>{this.state.IsAdd === true ? 'Add' : 'Update'}</span>
+            )}
             {this.state.Loading && <span> Wait ...</span>}
           </Button>
         </form>

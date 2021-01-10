@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import axios from "axios";
-import alertify from "alertifyjs";
-import { connect } from "react-redux";
-import history from "../../history";
-import DatePicker from "react-datepicker";
+import React, { Component } from 'react';
+import axios from 'axios';
+import alertify from 'alertifyjs';
+import { connect } from 'react-redux';
+import history from '../../history';
+import DatePicker from 'react-datepicker';
 import {
   TabContent,
   TabPane,
@@ -11,72 +11,72 @@ import {
   NavItem,
   NavLink,
   Collapse,
-} from "reactstrap";
-import classnames from "classnames";
-import { Button } from "reactstrap";
-import S3FileUpload from "react-s3";
-import StudentAttendance from "../pages/StudentAttendance";
-import * as Config from "../../config";
-import * as moment from "moment";
-import { Confirm, Modal } from "semantic-ui-react";
+} from 'reactstrap';
+import classnames from 'classnames';
+import { Button } from 'reactstrap';
+import S3FileUpload from 'react-s3';
+import StudentAttendance from '../pages/StudentAttendance';
+import * as Config from '../../config';
+import * as moment from 'moment';
+import { Confirm, Modal } from 'semantic-ui-react';
 // import { CognitoIdentityServiceProvider } from "aws-sdk";
 class AddStudent extends Component {
   state = {
     Id: 0,
-    activeTab: "1",
-    StudentId: "",
-    SevisNo: "",
-    PlacementScore: "",
+    activeTab: '1',
+    StudentId: '',
+    SevisNo: '',
+    PlacementScore: '',
     VisaTypes: [],
-    VisaType: "",
+    VisaType: '',
     date: new Date(),
     timeoffstartdate: new Date(),
     timeoffenddate: new Date(),
     outofcountrystartdate: new Date(),
     outofcountryenddate: new Date(),
     Agencies: [],
-    AgencyId: "",
-    Note: "",
-    User: "",
+    AgencyId: '',
+    Note: '',
+    User: '',
     Loading: false,
     FileLoading: false,
-    FileName: "",
-    FileLocation: "",
+    FileName: '',
+    FileLocation: '',
     FileTypes: [],
-    FileTypeId: "",
+    FileTypeId: '',
     Sessions: [],
-    File: "",
-    BranchId: "",
-    SessionId: "",
+    File: '',
+    BranchId: '',
+    SessionId: '',
     UserFiles: [],
     IsAdd: true,
     IsVisibleNewCourse: false,
     IsVisibleTimeOff: false,
     IsVisibleOutOffCountry: false,
-    TimeOffNote: "",
-    OutOfCountryNote: "",
+    TimeOffNote: '',
+    OutOfCountryNote: '',
     CourseView: [],
     open: false,
-    deleteobj: "",
+    deleteobj: '',
     Invoices: [],
     ActiveAcordion: -1,
     invoiceaddmodal: false,
     addinvoicesessionid: 0,
     PaymentTypes: [],
-    PaymentTypeId: "",
+    PaymentTypeId: '',
     paymentmodal: false,
     paymentaddedinvoiceid: 0,
     PaymentMethods: [],
     PaymentMethodId: 0,
     PaymentAmount: 0,
-    PaymentDescription: "",
+    PaymentDescription: '',
     IsPayment: true,
     Payments: [],
-    UsaAddress: "",
-    StateCode: "",
+    UsaAddress: '',
+    StateCode: '',
     CityId: 0,
-    ZipCode: "",
-    EmergencyCallPerson: "",
+    ZipCode: '',
+    EmergencyCallPerson: '',
     States: [],
     Citys: [],
   };
@@ -97,7 +97,7 @@ class AddStudent extends Component {
   }
   onIsPaymentActiveHandler = (event) => {
     switch (event.target.value) {
-      case "true":
+      case 'true':
         this.setState({ IsPayment: true });
         break;
 
@@ -127,7 +127,7 @@ class AddStudent extends Component {
     await axios
       .get(
         Config.ApiUrl +
-          "api/studentfile/getallbyuserid?userid=" +
+          'api/studentfile/getallbyuserid?userid=' +
           parseInt(this.state.User.id)
       )
       .then((c) => {
@@ -143,7 +143,7 @@ class AddStudent extends Component {
     await axios
       .get(
         Config.ApiUrl +
-          "api/timeoff/getbyuserid?userid=" +
+          'api/timeoff/getbyuserid?userid=' +
           parseInt(this.state.User.id)
       )
       .then((c) => {
@@ -151,22 +151,22 @@ class AddStudent extends Component {
           var viewobj = {
             Order: index,
             Id: c.data[index].id,
-            Course: "TimeOff",
-            StartDate: moment(c.data[index].startDate).format("MM/DD/YYYY"),
-            EndDate: moment(c.data[index].endDate).format("MM/DD/YYYY"),
-            EarlyLeavingDate: "",
-            Teacher: "",
-            Class: "",
-            AssessmentGrade: "",
-            ParticipationGrade: "",
-            TotalGrade: "",
+            Course: 'TimeOff',
+            StartDate: moment(c.data[index].startDate).format('MM/DD/YYYY'),
+            EndDate: moment(c.data[index].endDate).format('MM/DD/YYYY'),
+            EarlyLeavingDate: '',
+            Teacher: '',
+            Class: '',
+            AssessmentGrade: '',
+            ParticipationGrade: '',
+            TotalGrade: '',
             Comment: c.data[index].note,
-            ConditionalPass: "",
-            Incomplete: "",
-            AttendanceProbation: "",
-            AcademicWarning: "",
-            BehavioralWarning: "",
-            SessionId: "",
+            ConditionalPass: '',
+            Incomplete: '',
+            AttendanceProbation: '',
+            AcademicWarning: '',
+            BehavioralWarning: '',
+            SessionId: '',
           };
           viewlist.push(viewobj);
         }
@@ -177,7 +177,7 @@ class AddStudent extends Component {
     await axios
       .get(
         Config.ApiUrl +
-          "api/outofcountry/getbyuserid?userid=" +
+          'api/outofcountry/getbyuserid?userid=' +
           parseInt(this.state.User.id)
       )
       .then((c) => {
@@ -185,22 +185,22 @@ class AddStudent extends Component {
           var viewobj = {
             Order: viewlist.length + 1,
             Id: c.data[index].id,
-            Course: "Out Of Country",
-            StartDate: moment(c.data[index].startDate).format("MM/DD/YYYY"),
-            EndDate: moment(c.data[index].endDate).format("MM/DD/YYYY"),
-            EarlyLeavingDate: "",
-            Teacher: "",
-            Class: "",
-            AssessmentGrade: "",
-            ParticipationGrade: "",
-            TotalGrade: "",
+            Course: 'Out Of Country',
+            StartDate: moment(c.data[index].startDate).format('MM/DD/YYYY'),
+            EndDate: moment(c.data[index].endDate).format('MM/DD/YYYY'),
+            EarlyLeavingDate: '',
+            Teacher: '',
+            Class: '',
+            AssessmentGrade: '',
+            ParticipationGrade: '',
+            TotalGrade: '',
             Comment: c.data[index].note,
-            ConditionalPass: "",
-            Incomplete: "",
-            AttendanceProbation: "",
-            AcademicWarning: "",
-            BehavioralWarning: "",
-            SessionId: "",
+            ConditionalPass: '',
+            Incomplete: '',
+            AttendanceProbation: '',
+            AcademicWarning: '',
+            BehavioralWarning: '',
+            SessionId: '',
           };
           viewlist.push(viewobj);
         }
@@ -212,7 +212,7 @@ class AddStudent extends Component {
     await axios
       .get(
         Config.ApiUrl +
-          "api/studentcourse/getbyuserid?userid=" +
+          'api/studentcourse/getbyuserid?userid=' +
           parseInt(history.location.state.id)
       )
       .then((c) => {
@@ -227,12 +227,12 @@ class AddStudent extends Component {
             Teacher: c.data[index].teacher,
             Class: c.data[index].classroom,
             AssessmentGrade: c.data[index].assessmentGrade,
-            ParticipationGrade: "",
-            TotalGrade: "",
+            ParticipationGrade: '',
+            TotalGrade: '',
             Comment: c.data[index].note,
             ConditionalPass: c.data[index].conditionalPass,
             Incomplete: c.data[index].incomplete,
-            AttendanceProbation: "",
+            AttendanceProbation: '',
             AcademicWarning: c.data[index].academicWarning,
             BehavioralWarning: c.data[index].behavioralWarning,
             SessionId: c.data[index].sesionId,
@@ -254,7 +254,7 @@ class AddStudent extends Component {
     await axios
       .get(
         Config.ApiUrl +
-          "api/invoice/getbyid?userid=" +
+          'api/invoice/getbyid?userid=' +
           parseInt(this.state.User.id)
       )
       .then((c) => {
@@ -267,7 +267,7 @@ class AddStudent extends Component {
   async invoicedelete(invoiceid) {
     await axios
       .get(
-        Config.ApiUrl + "api/invoice/setpasive?invoiceid=" + parseInt(invoiceid)
+        Config.ApiUrl + 'api/invoice/setpasive?invoiceid=' + parseInt(invoiceid)
       )
       .then((response) => {
         this.getpayments();
@@ -283,7 +283,7 @@ class AddStudent extends Component {
     await axios
       .get(
         Config.ApiUrl +
-          "api/payment/getall?userid=" +
+          'api/payment/getall?userid=' +
           parseInt(this.state.User.id)
       )
       .then((c) => {
@@ -299,7 +299,7 @@ class AddStudent extends Component {
     await axios
       .get(
         Config.ApiUrl +
-          "api/session/getactiveforbranch?branchid=" +
+          'api/session/getactiveforbranch?branchid=' +
           parseInt(this.props.user.userBranches[0].id)
       )
       .then((c) => {
@@ -313,10 +313,10 @@ class AddStudent extends Component {
       });
 
     await axios
-      .get(Config.ApiUrl + "api/state/getall")
+      .get(Config.ApiUrl + 'api/state/getall')
       .then((c) => {
         this.setState({ States: c.data });
-        if (c.data.length > 0 && this.state.StateCode === "") {
+        if (c.data.length > 0 && this.state.StateCode === '') {
           this.getCity(c.data[0].state_code);
         }
       })
@@ -325,7 +325,7 @@ class AddStudent extends Component {
       });
 
     await axios
-      .get(Config.ApiUrl + "api/visatype/getall")
+      .get(Config.ApiUrl + 'api/visatype/getall')
       .then((c) => {
         this.setState({ VisaTypes: c.data });
         this.setState({ VisaType: this.state.VisaTypes[0].id });
@@ -334,7 +334,7 @@ class AddStudent extends Component {
         console.log(error.response);
       });
     await axios
-      .get(Config.ApiUrl + "api/agency/getall")
+      .get(Config.ApiUrl + 'api/agency/getall')
       .then((c) => {
         this.setState({ Agencies: c.data });
         this.setState({ AgencyId: this.state.Agencies[0].id });
@@ -343,7 +343,7 @@ class AddStudent extends Component {
         console.log(error.response);
       });
     await axios
-      .get(Config.ApiUrl + "api/studentfilestype/getall")
+      .get(Config.ApiUrl + 'api/studentfilestype/getall')
       .then((c) => {
         this.setState({ FileTypes: c.data });
         this.setState({ FileTypeId: c.data[0].id });
@@ -354,7 +354,7 @@ class AddStudent extends Component {
     await axios
       .get(
         Config.ApiUrl +
-          "api/users/getbyuserid?id=" +
+          'api/users/getbyuserid?id=' +
           parseInt(history.location.state.id)
       )
       .then((c) => {
@@ -367,16 +367,16 @@ class AddStudent extends Component {
     await axios
       .get(
         Config.ApiUrl +
-          "api/student/getbyuserid?userid=" +
+          'api/student/getbyuserid?userid=' +
           parseInt(history.location.state.id)
       )
       .then((c) => {
         //  this.setState({ User: c.data });
         //console.log(c.data);
-        if (c.data.message === "0") {
+        if (c.data.message === '0') {
         } else {
           this.setState({
-            date: new Date(moment(c.data.data.startDate).format("YYYY,MM,DD")),
+            date: new Date(moment(c.data.data.startDate).format('YYYY,MM,DD')),
           });
           this.setState({ IsAdd: false });
           this.setState({ StudentId: c.data.data.studentId });
@@ -403,7 +403,7 @@ class AddStudent extends Component {
     await axios
       .get(
         Config.ApiUrl +
-          "api/paymenttype/getallforinstutionid?instutionid=" +
+          'api/paymenttype/getallforinstutionid?instutionid=' +
           parseInt(this.props.user.institutionId)
       )
       .then((c) => {
@@ -417,7 +417,7 @@ class AddStudent extends Component {
     await axios
       .get(
         Config.ApiUrl +
-          "api/paymentmethod/getbyinstutionid?instutionid=" +
+          'api/paymentmethod/getbyinstutionid?instutionid=' +
           parseInt(this.props.user.institutionId)
       )
       .then((c) => {
@@ -440,7 +440,7 @@ class AddStudent extends Component {
     var status = false;
     this.setState({ FileLoading: true });
     var name = userfile.locationUrl.substring(
-      userfile.locationUrl.indexOf("StudentFile/") + 12,
+      userfile.locationUrl.indexOf('StudentFile/') + 12,
       userfile.locationUrl.length
     );
     await S3FileUpload.deleteFile(name, Config.S3StudentFileconfig)
@@ -453,7 +453,7 @@ class AddStudent extends Component {
         id: parseInt(userfile.id),
       };
       await axios
-        .post(Config.ApiUrl + "api/studentfile/delete", obj)
+        .post(Config.ApiUrl + 'api/studentfile/delete', obj)
         .then((response) => {
           alertify.success(response.data, 4);
           this.getFiles();
@@ -466,7 +466,7 @@ class AddStudent extends Component {
   }
   async getCity(statecode) {
     await axios
-      .get(Config.ApiUrl + "api/city/getbystatecode?statecode=" + statecode)
+      .get(Config.ApiUrl + 'api/city/getbystatecode?statecode=' + statecode)
       .then((c) => {
         this.setState({ Citys: c.data });
       })
@@ -490,7 +490,7 @@ class AddStudent extends Component {
     await axios
       .get(
         Config.ApiUrl +
-          "api/session/getactiveforbranch?branchid=" +
+          'api/session/getactiveforbranch?branchid=' +
           parseInt(value)
       )
       .then((c) => {
@@ -532,7 +532,7 @@ class AddStudent extends Component {
   };
   SaveFile = async (event) => {
     event.preventDefault();
-    if (this.state.File !== "" && this.state.FileName !== "") {
+    if (this.state.File !== '' && this.state.FileName !== '') {
       this.setState({ FileLoading: true });
       await S3FileUpload.uploadFile(this.state.File, Config.S3StudentFileconfig)
         .then((data) => {
@@ -546,7 +546,7 @@ class AddStudent extends Component {
         StudentFilesType: parseInt(this.state.FileTypeId),
       };
       await axios
-        .post(Config.ApiUrl + "api/studentfile/add", obj)
+        .post(Config.ApiUrl + 'api/studentfile/add', obj)
         .then((response) => {
           //console.log(response.data);
           alertify.success(response.data, 4);
@@ -556,7 +556,7 @@ class AddStudent extends Component {
           alertify.error(error.response.data, 4);
         });
     } else {
-      alertify.error("Fill in the required fields", 4);
+      alertify.error('Fill in the required fields', 4);
     }
     this.setState({ FileLoading: false });
   };
@@ -564,12 +564,12 @@ class AddStudent extends Component {
     var blob = e.target.files[0].slice(0, e.target.files[0].size);
     var type = e.target.files[0].type;
     var extension = e.target.files[0].name.substring(
-      e.target.files[0].name.indexOf("."),
+      e.target.files[0].name.indexOf('.'),
       e.target.files[0].name.length
     );
     var newFile = new File(
       [blob],
-      e.target.files[0].name.substring(0, e.target.files[0].name.indexOf(".")) +
+      e.target.files[0].name.substring(0, e.target.files[0].name.indexOf('.')) +
         Date.now() +
         extension,
       { type: type }
@@ -585,7 +585,7 @@ class AddStudent extends Component {
       Note: this.state.OutOfCountryNote,
     };
     await axios
-      .post(Config.ApiUrl + "api/outofcountry/add", obj)
+      .post(Config.ApiUrl + 'api/outofcountry/add', obj)
       .then((response) => {
         alertify.success(response.data.message, 4);
         this.setState({ IsVisibleOutOffCountry: false });
@@ -605,7 +605,7 @@ class AddStudent extends Component {
       Note: this.state.TimeOffNote,
     };
     await axios
-      .post(Config.ApiUrl + "api/timeoff/add", obj)
+      .post(Config.ApiUrl + 'api/timeoff/add', obj)
       .then((response) => {
         alertify.success(response.data.message, 4);
         this.setState({ IsVisibleTimeOff: false });
@@ -625,12 +625,12 @@ class AddStudent extends Component {
     };
     let IsAdded = false;
     await axios
-      .post(Config.ApiUrl + "api/studentcourse/add", obj)
+      .post(Config.ApiUrl + 'api/studentcourse/add', obj)
       .then((response) => {
         alertify.success(response.data, 4);
         this.setState({ IsVisibleNewCourse: false });
         this.getCourseView();
-        if (response.data !== "The existing course has been activated!")
+        if (response.data !== 'The existing course has been activated!')
           IsAdded = true;
       })
       .catch((error) => {
@@ -648,7 +648,7 @@ class AddStudent extends Component {
         Status: true,
       };
       await axios
-        .post(Config.ApiUrl + "api/invoice/add", paymentobj)
+        .post(Config.ApiUrl + 'api/invoice/add', paymentobj)
         .then((response) => {
           this.getInvoices();
         })
@@ -680,7 +680,7 @@ class AddStudent extends Component {
     };
 
     await axios
-      .post(Config.ApiUrl + "api/student/add", obj)
+      .post(Config.ApiUrl + 'api/student/add', obj)
       .then((response) => {
         alertify.success(response.data, 4);
       })
@@ -693,7 +693,7 @@ class AddStudent extends Component {
   async paymentdelete(paymentid) {
     await axios
       .get(
-        Config.ApiUrl + "api/payment/setpasive?paymentid=" + parseInt(paymentid)
+        Config.ApiUrl + 'api/payment/setpasive?paymentid=' + parseInt(paymentid)
       )
       .then((response) => {
         this.getpayments();
@@ -719,7 +719,7 @@ class AddStudent extends Component {
     };
 
     await axios
-      .post(Config.ApiUrl + "api/invoice/add", paymentobj)
+      .post(Config.ApiUrl + 'api/invoice/add', paymentobj)
       .then((response) => {
         alertify.success(response.data, 4);
         this.getInvoices();
@@ -731,8 +731,8 @@ class AddStudent extends Component {
   }
   acordionactiveclass(index) {
     if (parseInt(this.state.ActiveAcordion) === parseInt(index)) {
-      return "collapse show";
-    } else return "collapse";
+      return 'collapse show';
+    } else return 'collapse';
   }
   async paymentadd() {
     let obj = {
@@ -745,13 +745,13 @@ class AddStudent extends Component {
       Status: true,
     };
     await axios
-      .post(Config.ApiUrl + "api/payment/add", obj)
+      .post(Config.ApiUrl + 'api/payment/add', obj)
       .then((response) => {
         alertify.success(response.data, 4);
         this.getpayments();
         this.setState({
           paymentmodal: false,
-          PaymentDescription: "",
+          PaymentDescription: '',
           PaymentAmount: 0,
         });
       })
@@ -760,11 +760,11 @@ class AddStudent extends Component {
       });
   }
   async confirmok() {
-    if (this.state.deleteobj.Course === "TimeOff") {
+    if (this.state.deleteobj.Course === 'TimeOff') {
       await axios
         .get(
           Config.ApiUrl +
-            "api/timeoff/delete?timeoffid=" +
+            'api/timeoff/delete?timeoffid=' +
             this.state.deleteobj.Id
         )
         .then((c) => {
@@ -773,11 +773,11 @@ class AddStudent extends Component {
         .catch((error) => {
           console.log(error.response);
         });
-    } else if (this.state.deleteobj.Course === "Out Of Country") {
+    } else if (this.state.deleteobj.Course === 'Out Of Country') {
       await axios
         .get(
           Config.ApiUrl +
-            "api/outofcountry/delete?outofcountryid=" +
+            'api/outofcountry/delete?outofcountryid=' +
             this.state.deleteobj.Id
         )
         .then((c) => {
@@ -790,7 +790,7 @@ class AddStudent extends Component {
       await axios
         .get(
           Config.ApiUrl +
-            "api/studentcourse/delete?id=" +
+            'api/studentcourse/delete?id=' +
             this.state.deleteobj.Id
         )
         .then((c) => {
@@ -807,7 +807,7 @@ class AddStudent extends Component {
     await axios
       .get(
         Config.ApiUrl +
-          "api/studentcourse/conditionalpasschange?studentcourseid=" +
+          'api/studentcourse/conditionalpasschange?studentcourseid=' +
           parseInt(studentcourseid)
       )
       .then((c) => {
@@ -821,7 +821,7 @@ class AddStudent extends Component {
     await axios
       .get(
         Config.ApiUrl +
-          "api/studentcourse/incompletechange?studentcourseid=" +
+          'api/studentcourse/incompletechange?studentcourseid=' +
           parseInt(studentcourseid)
       )
       .then((c) => {
@@ -837,7 +837,7 @@ class AddStudent extends Component {
       Date: date,
     };
     await axios
-      .post(Config.ApiUrl + "api/studentcourse/datechange", obj)
+      .post(Config.ApiUrl + 'api/studentcourse/datechange', obj)
       .then((response) => {
         alertify.success(response.data, 4);
         this.getCourseView();
@@ -852,7 +852,7 @@ class AddStudent extends Component {
       Value: parseInt(e.target.value),
     };
     await axios
-      .post(Config.ApiUrl + "api/studentcourse/acedemicwarningchange", obj)
+      .post(Config.ApiUrl + 'api/studentcourse/acedemicwarningchange', obj)
       .then((response) => {
         alertify.success(response.data, 4);
         this.getCourseView();
@@ -867,7 +867,7 @@ class AddStudent extends Component {
       Value: parseInt(e.target.value),
     };
     await axios
-      .post(Config.ApiUrl + "api/studentcourse/behavioralwarningchange", obj)
+      .post(Config.ApiUrl + 'api/studentcourse/behavioralwarningchange', obj)
       .then((response) => {
         alertify.success(response.data, 4);
         this.getCourseView();
@@ -1005,10 +1005,10 @@ class AddStudent extends Component {
                 <NavItem>
                   <NavLink
                     className={classnames({
-                      active: this.state.activeTab === "1",
+                      active: this.state.activeTab === '1',
                     })}
                     onClick={() => {
-                      this.setState({ activeTab: "1" });
+                      this.setState({ activeTab: '1' });
                     }}
                   >
                     Student Information
@@ -1017,10 +1017,10 @@ class AddStudent extends Component {
                 <NavItem>
                   <NavLink
                     className={classnames({
-                      active: this.state.activeTab === "2",
+                      active: this.state.activeTab === '2',
                     })}
                     onClick={() => {
-                      this.setState({ activeTab: "2" });
+                      this.setState({ activeTab: '2' });
                     }}
                   >
                     Courses
@@ -1029,10 +1029,10 @@ class AddStudent extends Component {
                 <NavItem>
                   <NavLink
                     className={classnames({
-                      active: this.state.activeTab === "3",
+                      active: this.state.activeTab === '3',
                     })}
                     onClick={() => {
-                      this.setState({ activeTab: "3" });
+                      this.setState({ activeTab: '3' });
                     }}
                   >
                     Payments
@@ -1041,10 +1041,10 @@ class AddStudent extends Component {
                 <NavItem>
                   <NavLink
                     className={classnames({
-                      active: this.state.activeTab === "4",
+                      active: this.state.activeTab === '4',
                     })}
                     onClick={() => {
-                      this.setState({ activeTab: "4" });
+                      this.setState({ activeTab: '4' });
                     }}
                   >
                     Attendance
@@ -1053,10 +1053,10 @@ class AddStudent extends Component {
                 <NavItem>
                   <NavLink
                     className={classnames({
-                      active: this.state.activeTab === "5",
+                      active: this.state.activeTab === '5',
                     })}
                     onClick={() => {
-                      this.setState({ activeTab: "5" });
+                      this.setState({ activeTab: '5' });
                     }}
                   >
                     Applications
@@ -1065,10 +1065,10 @@ class AddStudent extends Component {
                 <NavItem>
                   <NavLink
                     className={classnames({
-                      active: this.state.activeTab === "6",
+                      active: this.state.activeTab === '6',
                     })}
                     onClick={() => {
-                      this.setState({ activeTab: "6" });
+                      this.setState({ activeTab: '6' });
                     }}
                   >
                     Files
@@ -1077,10 +1077,10 @@ class AddStudent extends Component {
                 <NavItem>
                   <NavLink
                     className={classnames({
-                      active: this.state.activeTab === "7",
+                      active: this.state.activeTab === '7',
                     })}
                     onClick={() => {
-                      this.setState({ activeTab: "7" });
+                      this.setState({ activeTab: '7' });
                     }}
                   >
                     Accomodation
@@ -1104,109 +1104,102 @@ class AddStudent extends Component {
               <TabPane tabId="1">
                 <form onSubmit={this.onSubmitHandler}>
                   <div className="row">
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="StudentId">StudentId</label>
-                      <input
-                        className="form-control"
-                        type="text"
-                        name="StudentId"
-                        id="StudentId"
-                        value={this.state.StudentId}
-                        onChange={this.onChangeHandler}
-                      />
-                    </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="StudentId">SevisNo</label>
-                      <input
-                        className="form-control"
-                        type="text"
-                        name="SevisNo"
-                        id="SevisNo"
-                        value={this.state.SevisNo}
-                        onChange={this.onChangeHandler}
-                      />
-                    </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="StudentId">PlacementScore</label>
-                      <input
-                        className="form-control"
-                        type="text"
-                        name="PlacementScore"
-                        id="PlacementScore"
-                        value={this.state.PlacementScore}
-                        onChange={this.onChangeHandler}
-                      />
-                    </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="VisaType">Visa Type:</label>
-                      <div className="form-select">
-                        <select
+                    <div className="col-12 col-md-3 col-lg-3">
+                      <div className="form-group">
+                        <label htmlFor="StudentId">StudentId</label>
+                        <input
                           className="form-control"
-                          value={this.state.VisaType}
-                          type="select"
-                          name="VisaType"
-                          id="VisaType"
+                          type="text"
+                          name="StudentId"
+                          id="StudentId"
+                          value={this.state.StudentId}
                           onChange={this.onChangeHandler}
-                        >
-                          {this.state.VisaTypes.map((visatype) => (
-                            <option key={visatype.id} value={visatype.id}>
-                              {visatype.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="VisaType">Agency:</label>
-                      <div className="form-select">
-                        <select
-                          className="form-control"
-                          value={this.state.AgencyId}
-                          type="select"
-                          name="AgencyId"
-                          id="AgencyId"
-                          onChange={this.onChangeHandler}
-                        >
-                          {this.state.Agencies.map((agency) => (
-                            <option key={agency.id} value={agency.id}>
-                              {agency.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="exampleDate">StartDate:</label>
-                      <div className="form-select">
-                        <DatePicker
-                          className="form-control"
-                          selected={this.state.date}
-                          onChange={this.handleChange}
                         />
                       </div>
+                      <div className="form-group">
+                        <label htmlFor="VisaType">Visa Type:</label>
+                        <div className="form-select">
+                          <select
+                            className="form-control"
+                            value={this.state.VisaType}
+                            type="select"
+                            name="VisaType"
+                            id="VisaType"
+                            onChange={this.onChangeHandler}
+                          >
+                            {this.state.VisaTypes.map((visatype) => (
+                              <option key={visatype.id} value={visatype.id}>
+                                {visatype.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
                     </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="Address">Note:</label>
-                      <textarea
-                        className="form-control"
-                        name="Note"
-                        id="Note"
-                        value={this.state.Note}
-                        onChange={this.onChangeHandler}
-                      />
+                    <div className="col-12 col-md-3 col-lg-3">
+                      <div className="form-group">
+                        <label htmlFor="Address">Emergency Call Person:</label>
+                        <textarea
+                          className="form-control single-line"
+                          name="EmergencyCallPerson"
+                          id="EmergencyCallPerson"
+                          value={this.state.EmergencyCallPerson}
+                          onChange={this.onChangeHandler}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="VisaType">State:</label>
+                        <div className="form-select">
+                          <select
+                            className="form-control"
+                            value={this.state.StateCode}
+                            type="select"
+                            name="StateCode"
+                            id="StateCode"
+                            onChange={this.onStateChangeHandler}
+                          >
+                            {this.state.States.map((state) => (
+                              <option key={state.id} value={state.state_code}>
+                                {state.state}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
                     </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="Address">Emergency Call Person:</label>
-                      <textarea
-                        className="form-control"
-                        name="EmergencyCallPerson"
-                        id="EmergencyCallPerson"
-                        value={this.state.EmergencyCallPerson}
-                        onChange={this.onChangeHandler}
-                      />
+                    <div className="col-12 col-md-3 col-lg-3">
+                      <div className="form-group">
+                        <label htmlFor="ZipCode">Zip Code</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="ZipCode"
+                          id="ZipCode"
+                          value={this.state.ZipCode}
+                          onChange={this.onChangeHandler}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="VisaType">City:</label>
+                        <div className="form-select">
+                          <select
+                            className="form-control"
+                            value={this.state.CityId}
+                            type="select"
+                            name="CityId"
+                            id="CityId"
+                            onChange={this.onChangeHandler}
+                          >
+                            {this.state.Citys.map((city) => (
+                              <option key={city.id} value={city.id}>
+                                {city.city}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
                     </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
+                    <div className="form-group col-12 col-md-3 col-lg-3">
                       <label htmlFor="Address">Usa Address:</label>
                       <textarea
                         className="form-control"
@@ -1216,54 +1209,69 @@ class AddStudent extends Component {
                         onChange={this.onChangeHandler}
                       />
                     </div>
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="VisaType">State:</label>
-                      <div className="form-select">
-                        <select
-                          className="form-control"
-                          value={this.state.StateCode}
-                          type="select"
-                          name="StateCode"
-                          id="StateCode"
-                          onChange={this.onStateChangeHandler}
-                        >
-                          {this.state.States.map((state) => (
-                            <option key={state.id} value={state.state_code}>
-                              {state.state}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
 
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="VisaType">City:</label>
-                      <div className="form-select">
-                        <select
+                    <div className="col-12 col-md-3 col-lg-3">
+                      <div className="form-group">
+                        <label htmlFor="StudentId">SevisNo</label>
+                        <input
                           className="form-control"
-                          value={this.state.CityId}
-                          type="select"
-                          name="CityId"
-                          id="CityId"
+                          type="text"
+                          name="SevisNo"
+                          id="SevisNo"
+                          value={this.state.SevisNo}
                           onChange={this.onChangeHandler}
-                        >
-                          {this.state.Citys.map((city) => (
-                            <option key={city.id} value={city.id}>
-                              {city.city}
-                            </option>
-                          ))}
-                        </select>
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="exampleDate">StartDate:</label>
+                        <div className="form-select">
+                          <DatePicker
+                            className="form-control"
+                            selected={this.state.date}
+                            onChange={this.handleChange}
+                          />
+                        </div>
                       </div>
                     </div>
-
-                    <div className="form-group col-4 col-sm-4 col-lg-4">
-                      <label htmlFor="ZipCode">Zip Code</label>
-                      <input
+                    <div className="col-12 col-md-3 col-lg-3">
+                      <div className="form-group">
+                        <label htmlFor="StudentId">PlacementScore</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="PlacementScore"
+                          id="PlacementScore"
+                          value={this.state.PlacementScore}
+                          onChange={this.onChangeHandler}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="VisaType">Agency:</label>
+                        <div className="form-select">
+                          <select
+                            className="form-control"
+                            value={this.state.AgencyId}
+                            type="select"
+                            name="AgencyId"
+                            id="AgencyId"
+                            onChange={this.onChangeHandler}
+                          >
+                            {this.state.Agencies.map((agency) => (
+                              <option key={agency.id} value={agency.id}>
+                                {agency.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="form-group col-12 col-md-6  col-lg-6">
+                      <label htmlFor="Address">Note:</label>
+                      <textarea
                         className="form-control"
-                        type="text"
-                        name="ZipCode"
-                        id="ZipCode"
-                        value={this.state.ZipCode}
+                        name="Note"
+                        id="Note"
+                        value={this.state.Note}
                         onChange={this.onChangeHandler}
                       />
                     </div>
@@ -1279,7 +1287,7 @@ class AddStudent extends Component {
                     )}
                     {!this.state.Loading && (
                       <span>
-                        {this.state.IsAdd === true ? "Add" : "Update"}
+                        {this.state.IsAdd === true ? 'Add' : 'Update'}
                       </span>
                     )}
                     {this.state.Loading && <span> Wait ...</span>}
@@ -1290,8 +1298,8 @@ class AddStudent extends Component {
                 <div className="d-flex">
                   <div
                     className={
-                      "course-tab" +
-                      (this.state.IsVisibleNewCourse ? " active" : "")
+                      'course-tab' +
+                      (this.state.IsVisibleNewCourse ? ' active' : '')
                     }
                     onClick={() => this.NewCourseVisibility()}
                   >
@@ -1300,8 +1308,8 @@ class AddStudent extends Component {
                   <div
                     onClick={() => this.TimeOffVisibility()}
                     className={
-                      "ml-4 course-tab" +
-                      (this.state.IsVisibleTimeOff ? " active" : "")
+                      'ml-4 course-tab' +
+                      (this.state.IsVisibleTimeOff ? ' active' : '')
                     }
                   >
                     Time Off
@@ -1309,8 +1317,8 @@ class AddStudent extends Component {
                   <div
                     onClick={() => this.OutOfCountryVisibility()}
                     className={
-                      "ml-4 course-tab" +
-                      (this.state.IsVisibleOutOffCountry ? " active" : "")
+                      'ml-4 course-tab' +
+                      (this.state.IsVisibleOutOffCountry ? ' active' : '')
                     }
                   >
                     Out Of Country
@@ -1491,14 +1499,14 @@ class AddStudent extends Component {
                               {courseview.StartDate} {courseview.EndDate}
                             </div>
                             <div className="td">
-                              {courseview.Course !== "TimeOff" &&
-                              courseview.Course !== "Out Of Country" ? (
+                              {courseview.Course !== 'TimeOff' &&
+                              courseview.Course !== 'Out Of Country' ? (
                                 <div className="form-select">
                                   <DatePicker
                                     className="form-control"
                                     selected={
                                       courseview.EarlyLeavingDate ===
-                                      "0001-01-01T00:00:00"
+                                      '0001-01-01T00:00:00'
                                         ? new Date()
                                         : new Date(courseview.EarlyLeavingDate)
                                     }
@@ -1523,8 +1531,8 @@ class AddStudent extends Component {
                             {/* <div className="td"></div> */}
                             <div className="td">{courseview.Comment}</div>
                             <div className="td">
-                              {courseview.Course !== "TimeOff" &&
-                              courseview.Course !== "Out Of Country" ? (
+                              {courseview.Course !== 'TimeOff' &&
+                              courseview.Course !== 'Out Of Country' ? (
                                 <label className="form-csCheck remember-me">
                                   <input
                                     className="form-check-input form-control validate"
@@ -1539,8 +1547,8 @@ class AddStudent extends Component {
                               ) : null}
                             </div>
                             <div className="td">
-                              {courseview.Course !== "TimeOff" &&
-                              courseview.Course !== "Out Of Country" ? (
+                              {courseview.Course !== 'TimeOff' &&
+                              courseview.Course !== 'Out Of Country' ? (
                                 <label className="form-csCheck remember-me">
                                   <input
                                     className="form-check-input form-control validate"
@@ -1556,8 +1564,8 @@ class AddStudent extends Component {
                             </div>
                             {/* <div className="Td"></div> */}
                             <div className="td">
-                              {courseview.Course !== "TimeOff" &&
-                              courseview.Course !== "Out Of Country" ? (
+                              {courseview.Course !== 'TimeOff' &&
+                              courseview.Course !== 'Out Of Country' ? (
                                 <div className="form-select">
                                   <select
                                     name="AcademicWarning"
@@ -1580,8 +1588,8 @@ class AddStudent extends Component {
                               ) : null}
                             </div>
                             <div className="td">
-                              {courseview.Course !== "TimeOff" &&
-                              courseview.Course !== "Out Of Country" ? (
+                              {courseview.Course !== 'TimeOff' &&
+                              courseview.Course !== 'Out Of Country' ? (
                                 <div className="form-select">
                                   <select
                                     name="BehavioralWarning"
@@ -1620,8 +1628,8 @@ class AddStudent extends Component {
               </TabPane>
               <TabPane tabId="3">
                 {this.state.CourseView.map((course, index) =>
-                  course.Course !== "TimeOff" &&
-                  course.Course !== "Out Of Country" ? (
+                  course.Course !== 'TimeOff' &&
+                  course.Course !== 'Out Of Country' ? (
                     <div
                       key={course.Order}
                       className="accordion mb-2"
@@ -1679,9 +1687,9 @@ class AddStudent extends Component {
                                         </div>
                                         <div className="col-2 mt-2">
                                           <h6>
-                                            Date:{" "}
+                                            Date:{' '}
                                             {moment(invoice.date).format(
-                                              "MM/DD/YYYY"
+                                              'MM/DD/YYYY'
                                             )}
                                           </h6>
                                         </div>
@@ -1706,7 +1714,7 @@ class AddStudent extends Component {
                                           </h6>
                                         </div>
                                         {invoice.paymentTypeName ===
-                                        "Tuttion Fee" ? (
+                                        'Tuttion Fee' ? (
                                           <div className="col-2"></div>
                                         ) : (
                                           <div className="col-2">
@@ -1770,13 +1778,13 @@ class AddStudent extends Component {
                                                         <div
                                                           className={
                                                             payment.isPayment
-                                                              ? "paymentin td"
-                                                              : "paymentout td"
+                                                              ? 'paymentin td'
+                                                              : 'paymentout td'
                                                           }
                                                         >
                                                           {payment.isPayment
-                                                            ? "+"
-                                                            : "-"}{" "}
+                                                            ? '+'
+                                                            : '-'}{' '}
                                                           {payment.amount}
                                                         </div>
                                                         <div className="td">
@@ -1878,7 +1886,7 @@ class AddStudent extends Component {
                         {this.state.FileLoading && (
                           <i className="ri-loader-4-line ri-spin"></i>
                         )}
-                        {!this.state.FileLoading && "File Save"}
+                        {!this.state.FileLoading && 'File Save'}
                         {this.state.FileLoading && <span> Wait ...</span>}
                       </Button>
                     </div>
@@ -1914,7 +1922,7 @@ class AddStudent extends Component {
                                 {this.state.FileLoading && (
                                   <i className="ri-loader-4-line ri-spin"></i>
                                 )}
-                                {!this.state.FileLoading && "Delete"}
+                                {!this.state.FileLoading && 'Delete'}
                                 {this.state.FileLoading && (
                                   <span> Wait ...</span>
                                 )}
