@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Collapse,
   Navbar,
@@ -9,48 +9,50 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-} from 'reactstrap';
-import { Router, Route } from 'react-router-dom';
-import axios from 'axios';
-import history from '../../history';
-import { bindActionCreators } from 'redux';
-import { logaut } from '../../redux/actions/authAction';
-import { connect } from 'react-redux';
-import jwtDecode from 'jwt-decode';
-import '../../../src/App.css';
+} from "reactstrap";
+import { Router, Route } from "react-router-dom";
+import axios from "axios";
+import history from "../../history";
+import { bindActionCreators } from "redux";
+import { logaut } from "../../redux/actions/authAction";
+import { connect } from "react-redux";
+import jwtDecode from "jwt-decode";
+import "../../../src/App.css";
 // import avatar from "../../images/avatar.png";
-import Main from '../pages/Main';
-import NewUser from '../pages/NewUser';
-import Groups from '../pages/Groups';
-import UserSearch from '../pages/UserSearch';
-import AddClassroom from '../pages/AddClassroom';
-import AddCourse from '../pages/AddCourse';
-import AddSession from '../pages/AddSession';
-import ClassroomSearch from '../pages/ClassroomSearch';
-import CourseSearch from '../pages/CourseSearch';
-import AddEvaluation from '../pages/AddEvaluation';
-import EvaluationSearch from '../pages/EvaluationSearch';
-import SessionSearch from '../pages/SessionSearch';
-import AgencySearch from '../pages/AgencySearch';
-import AddAgency from '../pages/AddAgency';
-import StudentSearch from '../pages/StudentSearch';
-import TeacherSearch from '../pages/TeacherSearch';
-import AssignmentSearch from '../pages/AssignmentSearch';
-import AddStudent from '../pages/AddStudent';
-import AddTeacher from '../pages/AddTeacher';
-import NewAssignment from '../pages/NewAssignment';
-import StudentAssessment from '../pages/StudentAssessment';
-import DailyAttendance from '../pages/DailyAttendance';
-import AttendanceAdmin from '../pages/AttendanceAdmin';
-import AttendanceSheet from '../pages/AttendanceSheet';
-import AddPaymentType from '../pages/AddPaymentType';
-import PaymentTypeSearch from '../pages/PaymentTypeSearch';
-import TeacherAssignment from '../pages/TeacherAssignment';
-import Switch from '../../components/Switch';
-import * as Config from '../../config';
+import Main from "../pages/Main";
+import NewUser from "../pages/NewUser";
+import Groups from "../pages/Groups";
+import UserSearch from "../pages/UserSearch";
+import AddClassroom from "../pages/AddClassroom";
+import AddCourse from "../pages/AddCourse";
+import AddSession from "../pages/AddSession";
+import ClassroomSearch from "../pages/ClassroomSearch";
+import CourseSearch from "../pages/CourseSearch";
+import AddEvaluation from "../pages/AddEvaluation";
+import EvaluationSearch from "../pages/EvaluationSearch";
+import SessionSearch from "../pages/SessionSearch";
+import AgencySearch from "../pages/AgencySearch";
+import AddAgency from "../pages/AddAgency";
+import StudentSearch from "../pages/StudentSearch";
+import TeacherSearch from "../pages/TeacherSearch";
+import AssignmentSearch from "../pages/AssignmentSearch";
+import AddStudent from "../pages/AddStudent";
+import AddTeacher from "../pages/AddTeacher";
+import NewAssignment from "../pages/NewAssignment";
+import StudentAssessment from "../pages/StudentAssessment";
+import DailyAttendance from "../pages/DailyAttendance";
+import AttendanceAdmin from "../pages/AttendanceAdmin";
+import AttendanceSheet from "../pages/AttendanceSheet";
+import AddPaymentType from "../pages/AddPaymentType";
+import PaymentTypeSearch from "../pages/PaymentTypeSearch";
+import TeacherAssignment from "../pages/TeacherAssignment";
+import AddBuilding from "../pages/AddBuilding";
+import BuildingSearch from "../pages/BuildingSearch";
+import Switch from "../../components/Switch";
+import * as Config from "../../config";
 
-import Logo from '../../images/mentora-toronto-logo.svg';
-import { changeTheme } from '../../redux/actions/rootAction';
+import Logo from "../../images/mentora-toronto-logo.svg";
+import { changeTheme } from "../../redux/actions/rootAction";
 class layout extends Component {
   state = {
     operationClaims: [],
@@ -68,12 +70,12 @@ class layout extends Component {
   async componentDidMount() {
     if (this.props.token) {
       axios.defaults.headers.common[
-        'Authorization'
+        "Authorization"
       ] = `Bearer ${this.props.token}`;
       await axios
         .get(
           Config.ApiUrl +
-            'api/users/getbyuseremail?email=' +
+            "api/users/getbyuseremail?email=" +
             jwtDecode(this.props.token).email
         )
         .then((r) => {
@@ -87,80 +89,84 @@ class layout extends Component {
     }
   }
   onClick = (event) => {
-    sessionStorage.removeItem('Token');
+    sessionStorage.removeItem("Token");
     this.props.actions.logaut();
   };
   pageChange(page) {
-    history.push('/' + page);
+    history.push("/" + page);
   }
 
   toggleSwitch = (value) => {
-    let valueToStore = value ? 'light' : 'dark';
+    let valueToStore = value ? "light" : "dark";
     this.props.actions.changeTheme(valueToStore);
 
     if (!value) {
-      document.body.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
+      document.body.classList.add("dark");
+      localStorage.setItem("theme", "dark");
     } else {
-      document.body.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+      document.body.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
   };
 
   returncomponent(componentname) {
     switch (componentname) {
-      case 'UserSearch':
+      case "UserSearch":
         return <UserSearch user={this.state.user} />;
-      case 'NewUser':
+      case "NewUser":
         return <NewUser user={this.state.user} />;
-      case 'Groups':
+      case "Groups":
         return <Groups user={this.state.user} />;
-      case 'AddClassroom':
+      case "AddClassroom":
         return <AddClassroom user={this.state.user} />;
-      case 'ClassroomSearch':
+      case "ClassroomSearch":
         return <ClassroomSearch user={this.state.user} />;
-      case 'AddCourse':
+      case "AddCourse":
         return <AddCourse user={this.state.user} />;
-      case 'CourseSearch':
+      case "CourseSearch":
         return <CourseSearch user={this.state.user} />;
-      case 'AddEvaluation':
+      case "AddEvaluation":
         return <AddEvaluation user={this.state.user} />;
-      case 'EvaluationSearch':
+      case "EvaluationSearch":
         return <EvaluationSearch user={this.state.user} />;
-      case 'AddSession':
+      case "AddSession":
         return <AddSession user={this.state.user} />;
-      case 'SessionSearch':
+      case "SessionSearch":
         return <SessionSearch user={this.state.user} />;
-      case 'AgencySearch':
+      case "AgencySearch":
         return <AgencySearch user={this.state.user} />;
-      case 'AddAgency':
+      case "AddAgency":
         return <AddAgency user={this.state.user} />;
-      case 'StudentSearch':
+      case "StudentSearch":
         return <StudentSearch user={this.state.user} />;
-      case 'AddStudent':
+      case "AddStudent":
         return <AddStudent user={this.state.user} />;
-      case 'TeacherSearch':
+      case "TeacherSearch":
         return <TeacherSearch user={this.state.user} />;
-      case 'AddTeacher':
+      case "AddTeacher":
         return <AddTeacher user={this.state.user} />;
-      case 'NewAssignment':
+      case "NewAssignment":
         return <NewAssignment user={this.state.user} />;
-      case 'AssignmentSearch':
+      case "AssignmentSearch":
         return <AssignmentSearch user={this.state.user} />;
-      case 'StudentAssessment':
+      case "StudentAssessment":
         return <StudentAssessment user={this.state.user} />;
-      case 'DailyAttendance':
+      case "DailyAttendance":
         return <DailyAttendance user={this.state.user} />;
-      case 'AttendanceAdmin':
+      case "AttendanceAdmin":
         return <AttendanceAdmin user={this.state.user} />;
-      case 'AttendanceSheet':
+      case "AttendanceSheet":
         return <AttendanceSheet user={this.state.user} />;
-      case 'AddPaymentType':
+      case "AddPaymentType":
         return <AddPaymentType user={this.state.user} />;
-      case 'PaymentTypeSearch':
+      case "PaymentTypeSearch":
         return <PaymentTypeSearch user={this.state.user} />;
-      case 'TeacherAssignment':
+      case "TeacherAssignment":
         return <TeacherAssignment user={this.state.user} />;
+      case "AddBuilding":
+        return <AddBuilding user={this.state.user} />;
+      case "BuildingSearch":
+        return <BuildingSearch user={this.state.user} />;
       default:
         break;
     }
@@ -170,14 +176,14 @@ class layout extends Component {
     this.setState({ isOpen: !this.state.isOpen });
   }
   render() {
-    console.log('test');
+    console.log("test");
     return (
       <div>
         <header>
           <div className="container">
             <Navbar className="navbar navbar-light navbar-expand-xl col-12">
               <NavbarBrand>
-                {' '}
+                {" "}
                 <img className="profile-img" src={Logo} alt="" />
               </NavbarBrand>
               <NavbarToggler onClick={() => this.toggle()} />
@@ -213,7 +219,7 @@ class layout extends Component {
                                   <DropdownItem
                                     onClick={() =>
                                       this.pageChange(
-                                        child.name.replace(' ', '')
+                                        child.name.replace(" ", "")
                                       )
                                     }
                                   >
@@ -255,7 +261,7 @@ class layout extends Component {
                           <span className="switch-text">Dark Mode</span>
                           <Switch
                             toggleSwitch={(value) => this.toggleSwitch(value)}
-                            value={this.props.theme === 'dark'}
+                            value={this.props.theme === "dark"}
                           />
                         </div>
                       </div>
@@ -293,11 +299,11 @@ class layout extends Component {
                   r.parentId !== null ? (
                     <Route
                       component={() =>
-                        this.returncomponent(r.name.replace(' ', ''))
+                        this.returncomponent(r.name.replace(" ", ""))
                       }
                       key={r.id}
                       exact
-                      path={'/' + r.name.replace(' ', '')}
+                      path={"/" + r.name.replace(" ", "")}
                     />
                   ) : null
                 )}
