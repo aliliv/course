@@ -48,6 +48,7 @@ import PaymentTypeSearch from "../pages/PaymentTypeSearch";
 import TeacherAssignment from "../pages/TeacherAssignment";
 import AddBuilding from "../pages/AddBuilding";
 import BuildingSearch from "../pages/BuildingSearch";
+import BuildingReport from "../pages/BuildingReport";
 import Switch from "../../components/Switch";
 import * as Config from "../../config";
 
@@ -167,6 +168,8 @@ class layout extends Component {
         return <AddBuilding user={this.state.user} />;
       case "BuildingSearch":
         return <BuildingSearch user={this.state.user} />;
+        case "BuildingReport":
+          return <BuildingReport user={this.state.user} />;
       default:
         break;
     }
@@ -176,7 +179,6 @@ class layout extends Component {
     this.setState({ isOpen: !this.state.isOpen });
   }
   render() {
-    console.log("test");
     return (
       <div>
         <header>

@@ -87,6 +87,12 @@ class AddBuilding extends Component {
       });
     this.setState({ Loading: false });
   };
+  async onfloorlist(){
+    this.setState({Floors:[]});
+        for (let index = 1; index <= parseInt(this.state.Floor); index++) {
+          this.state.Floors.push(index);
+        }
+  }
   onSubmitHandler = async (event) => {
     event.preventDefault();
     this.setState({ Loading: true });
@@ -101,9 +107,7 @@ class AddBuilding extends Component {
     await axios
       .post(Config.ApiUrl + "api/building/add", obj)
       .then((response) => {
-        for (let index = 1; index <= parseInt(this.state.Floor); index++) {
-          this.state.Floors.push(index);
-        }
+       this.onfloorlist();
         if(this.state.IsAdd===true)
         {
           this.setState({ Id: response.data.data.id });
@@ -143,6 +147,7 @@ class AddBuilding extends Component {
         .catch(error => {
           console.log(error.response);
         });
+       this.onfloorlist();
         this.getRooms();
       
       }
