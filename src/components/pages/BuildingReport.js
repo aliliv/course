@@ -5,11 +5,9 @@ import { connect } from "react-redux";
 import { Button } from "reactstrap";
 import history from "../../history";
 import * as Config from "../../config";
+import DatePicker from 'react-datepicker';
+import * as moment from 'moment';
 class BuildingReport extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.BookingCheck = this.BookingCheck.bind(this);
-  // }
   state = {
     Buildings: [],
     Loading: false,
@@ -17,11 +15,18 @@ class BuildingReport extends Component {
     Floors: [],
     Floor: 0,
     Rooms:[],
+    Bookingdate: new Date(),
+    BookingList:[],
   };
   onChangeHandler = (event) => {
     let name = event.target.name;
     let value = event.target.value;
     this.setState({ [name]: value });
+  };
+   dateChange = (date) => {
+    this.setState({
+      Bookingdate: date,
+    });
   };
 
   async getRooms() {
@@ -65,15 +70,40 @@ class BuildingReport extends Component {
      
       return floorlist;
   }
-  returnbed(capacity){
+  bookingcheck(room,bad)
+  {
+    var obj={'bedno':bad,color:'bg-white',id:0};
+    for (let index = 0; index < this.state.BookingList.length; index++) {
+      if(parseInt(this.state.BookingList[index].bed)===parseInt(bad) &&
+      parseInt(this.state.BookingList[index].building)===parseInt(this.state.Building) &&
+      parseInt(this.state.BookingList[index].room)===parseInt(room))
+      {
+        obj.bedno=this.state.BookingList[index].name+"  "+this.state.BookingList[index].lastName;
+        obj.color='bg-info';
+        obj.id=this.state.BookingList[index].id;
+      }
+    }
+    return obj;
+  }
+  returnbed(capacity,roomid){
     let bedlist=[];
     var obj;
     for (let index = 1; index <= capacity; index++) {
-      obj={'bedno':index}
+      var data=this.bookingcheck(roomid,index);
+      obj={'bedno':data.bedno,'key':roomid,'color':data.color,'id':data.id}
       bedlist.push(obj);
     }
     return bedlist;
   }
+  // returnbed(capacity,roomnumber){
+  //   let bedlist=[];
+  //   var obj;
+  //   for (let index = 1; index <= capacity; index++) {
+  //     obj={'bedno':index,'key':roomnumber}
+  //     bedlist.push(obj);
+  //   }
+  //   return bedlist;
+  // }
 
   async getFloorList(){
     let floorlist = [];
@@ -98,9 +128,38 @@ class BuildingReport extends Component {
       });
       await this.getFloorList();
       await this.getRooms();
-
-
+      let obj = {
+        BuildingId: parseInt(this.state.Building),
+        Date: moment(this.state.Bookingdate).format('YYYY,MM,DD'),
+      };
+      await axios
+      .post(Config.ApiUrl + 'api/booking/buildingbookinglist', obj)
+      .then((r) => {
+        this.setState({BookingList:r.data});
+      })
+      .catch((error) => {
+        alertify.error(error.response.data, 4);
+      });
   };
+  async bookingredirect(buildingid,roomid,bedno,bookingid){
+    if(parseInt(bookingid)===0)
+    {
+      history.push({
+        pathname: '/AddBooking',
+        search: '',
+        state: { 'buildingid': buildingid,'roomid':roomid,'bedno':bedno,'bookingDate': this.state.Bookingdate },
+      });
+    }
+    else{
+      history.push({
+        pathname: '/AddBooking',
+        search: '',
+        state: { 'buildingid': buildingid,'roomid':roomid,'bedno':bedno,'bookingDate': this.state.Bookingdate,'id':bookingid},
+      });
+    }
+ 
+  }
+
   async componentDidMount() {
     this.setState({ Loading: true });
     await axios
@@ -118,7 +177,6 @@ class BuildingReport extends Component {
   render() {
     return (
       <div>
-        
         <form onSubmit={this.onSubmitHandler}>
           <div className="row align-items-end">
             <div className="form-group col-12 col-sm-6 col-lg-3">
@@ -141,6 +199,16 @@ class BuildingReport extends Component {
               </div>
             </div>
             <div className="form-group col-12 col-sm-6 col-lg-3">
+              <label htmlFor="Bookingdate">Booking Date:</label>
+              <div className="form-select">
+                <DatePicker
+                  className="form-control"
+                  selected={this.state.Bookingdate}
+                  onChange={this.dateChange}
+                />
+              </div>
+            </div>
+            <div className="form-group col-12 col-sm-6 col-lg-3">
               <Button
                 type="submit"
                 color="success"
@@ -157,14 +225,18 @@ class BuildingReport extends Component {
         </form>
         <div className="row">
           {this.state.Floors.map((floor) => (
-            <div className="row col-12 border border-dark" key={floor} value={floor}>
+            <div className="row col-12 border border-dark" key={floor+"floor"} value={floor}>
               <div className="col-1 border-right border-dark">{floor}</div>
               <div className="col-11 row">
-              {/* <div dangerouslySetInnerHTML={{ __html: this.returnroomview(floor) }} />                   */}
+              {/* <div dangerouslySetInnerHTML={{ __html: this.returnroomview(floor) }} />*/}
               {this.floorRender(floor).map((room) => (
-                <div className="border border-info ml-1 mt-1 mb-1 col" key={room.id}>Room Number:{room.roomNumber}
-                {this.returnbed(room.roomCapacity).map((bed) => (
-                    <div className="border border-dark col-1">{bed.bedno}</div>
+                <div className="border border-info ml-1 mt-1 mb-1 col" key={`${room.id}-room-${room.roomNumber}`}>Room Number:{room.roomNumber}
+                {this.returnbed(room.roomCapacity,room.id).map((bed) => (
+                    <div className={"border border-dark col baddiv "+bed.color} key={`${bed.bedno}-bed-${bed.key}`}  
+                    onClick={()=>this.bookingredirect(room.buildingId,room.id,bed.bedno,bed.id)}>
+                     {/* {()=>this.bookingcheck(room.id,bed.bedno)} */}
+                      {bed.bedno}
+                      </div>
                  ))}
                 </div>
               ))}

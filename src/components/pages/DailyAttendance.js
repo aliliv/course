@@ -62,12 +62,12 @@ class DailyAttendance extends Component {
         console.log(error.response);
       });
     this.setState({ Loading: false });
-    history.push("/SessionSearch");
+   // history.push("/SessionSearch");
   }
   onChangeHandler = async (event) => {
     let value = parseInt(event.target.value);
     this.setState({ Week: value });
-    await this.getView(value);
+    await this.getView(value,this.state.SessionId);
   };
   async RadioChange(userid, date, lesson, attendancestatusid) {
     var datalist = this.state.DataList;
@@ -93,9 +93,9 @@ class DailyAttendance extends Component {
     datalist.push(obj);
     this.setState({ DataList: datalist });
   }
-  async getView(week) {
+  async getView(week,sessionid) {
     var dailyAttendanceGetDto = {
-      SessionId: parseInt(history.location.state.id),
+      SessionId: parseInt(sessionid),
       Week: week,
     };
     await axios
@@ -121,41 +121,48 @@ class DailyAttendance extends Component {
       this.setState({ activeTab: tab });
     }
   }
+  async getdata(sessionid){
+    this.setState({ Loading: true });
+    this.setState({ SessionId: parseInt(sessionid) });
+    await this.getView(this.state.Week,sessionid);
+    await axios
+      .get(
+        Config.ApiUrl +
+          "api/dailyattendance/getall?sessionid=" +
+          parseInt(sessionid)
+      )
+      .then((r) => {
+        var datalist = this.state.DataList;
+        for (let i = 0; i < r.data.length; i++) {
+          var obj = {
+            UserId: parseInt(r.data[i].userId),
+            SessionId: parseInt(r.data[i].sessionId),
+            Lesson: parseInt(r.data[i].lesson),
+            Date: r.data[i].date,
+            AttendanceStatusId: parseInt(r.data[i].attendanceStatusId),
+            AttendanceAdminStatusId: parseInt(
+              r.data[i].attendanceAdminStatusId
+            ),
+          };
+          datalist.push(obj);
+        }
+        if (r.data.length > 0) {
+          this.setState({ DataList: datalist });
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+    this.setState({ Loading: false });
+  }
   async componentDidMount() {
     if (this.props.token) {
       if (history.location.state) {
-        this.setState({ Loading: true });
-        this.setState({ SessionId: parseInt(history.location.state.id) });
-        await this.getView(this.state.Week);
-        await axios
-          .get(
-            Config.ApiUrl +
-              "api/dailyattendance/getall?sessionid=" +
-              parseInt(history.location.state.id)
-          )
-          .then((r) => {
-            var datalist = this.state.DataList;
-            for (let i = 0; i < r.data.length; i++) {
-              var obj = {
-                UserId: parseInt(r.data[i].userId),
-                SessionId: parseInt(r.data[i].sessionId),
-                Lesson: parseInt(r.data[i].lesson),
-                Date: r.data[i].date,
-                AttendanceStatusId: parseInt(r.data[i].attendanceStatusId),
-                AttendanceAdminStatusId: parseInt(
-                  r.data[i].attendanceAdminStatusId
-                ),
-              };
-              datalist.push(obj);
-            }
-            if (r.data.length > 0) {
-              this.setState({ DataList: datalist });
-            }
-          })
-          .catch((error) => {
-            console.log(error.response);
-          });
-        this.setState({ Loading: false });
+        this.getdata(history.location.state.id);
+      }
+      else
+      {
+        this.getdata(this.props.sessionid);
       }
     }
   }

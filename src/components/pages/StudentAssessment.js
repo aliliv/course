@@ -5,16 +5,37 @@ import { connect } from "react-redux";
 import history from "../../history";
 import * as Config from "../../config";
 class StudentAssessment extends Component {
-
   state = {
     Titles: [],
     Students: [],
     SavedList: [],
     AssessmentList:[],
+    CommentList:[],
     Loading:false,
   };
   async Save(){
     this.setState({ Loading: true });
+    let sendlist=[];
+    for (let index = 0; index < this.state.CommentList.length; index++) {
+      
+     if(this.state.CommentList[index].edit)
+     {
+        let obj={
+          UserId:parseInt(this.state.CommentList[index].userId),
+          SessionId:parseInt(this.state.CommentList[index].sessionId),
+          Comment:this.state.CommentList[index].comment,
+        }
+        sendlist.push(obj);
+     } 
+    }
+    await axios
+    .post(Config.ApiUrl + "api/studentcourse/comentsave", sendlist)
+    .then((response) => {
+    })
+    .catch((error) => {
+      alertify.error(error.response.data, 4);
+    });
+
     await axios
     .post(Config.ApiUrl + "api/studentassessment/saveassessments", this.state.SavedList)
     .then((response) => {
@@ -23,8 +44,9 @@ class StudentAssessment extends Component {
     .catch((error) => {
       alertify.error(error.response.data, 4);
     });
+
   this.setState({ Loading: false });
-  history.push("/SessionSearch");
+      //history.push("/SessionSearch");
   }
   getnote(assessment,student){
 
@@ -35,46 +57,75 @@ class StudentAssessment extends Component {
      }
      return 0;
   }
+  getcomment(userid)
+  {
+    for (let index = 0; index < this.state.CommentList.length; index++) {
+      if (parseInt(userid)===parseInt(this.state.CommentList[index].userId)) {
+        return this.state.CommentList[index].comment;
+      }
+     }
+     return "";
+  }
+  async getdata(sessionid)
+  {
+    await axios
+    .get(
+      Config.ApiUrl +
+        "api/studentassessment/getbysessionid?sessionid=" +
+        sessionid
+    )
+    .then((r) => {
+      this.setState({ Titles: r.data.evaluationAssessments });
+      this.setState({ Students: r.data.users });
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+    await axios
+    .get(
+      Config.ApiUrl +
+        "api/studentassessment/getbyassessmentsessionid?sessionid=" +
+        sessionid
+    )
+    .then((r) => {
+      this.setState({AssessmentList:r.data});
+      var OldSavedList=[];
+      for (let index = 0; index < r.data.length; index++) {
+        var saveobj = {
+          AssessmentId: parseInt(r.data[index].assessmentId),
+          SessionId: parseInt(r.data[index].sessionId),
+          UserId: parseInt(r.data[index].userId),
+          Note: parseInt(r.data[index].note),
+        };
+        OldSavedList.push(saveobj);
+      }
+      this.setState({SavedList:OldSavedList});
+      
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+    await axios
+    .get(
+      Config.ApiUrl +
+        "api/studentcourse/getcommentlist?sessionid=" +
+        sessionid
+    )
+    .then((r) => {
+      this.setState({CommentList:r.data});
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+  }
   async componentDidMount() {
     if (this.props.token) {
       if (history.location.state) {
-        await axios
-          .get(
-            Config.ApiUrl +
-              "api/studentassessment/getbysessionid?sessionid=" +
-              history.location.state.id
-          )
-          .then((r) => {
-            this.setState({ Titles: r.data.evaluationAssessments });
-            this.setState({ Students: r.data.users });
-          })
-          .catch((error) => {
-            console.log(error.response);
-          });
-          await axios
-          .get(
-            Config.ApiUrl +
-              "api/studentassessment/getbyassessmentsessionid?sessionid=" +
-              history.location.state.id
-          )
-          .then((r) => {
-            this.setState({AssessmentList:r.data});
-            var OldSavedList=[];
-            for (let index = 0; index < r.data.length; index++) {
-              var saveobj = {
-                AssessmentId: parseInt(r.data[index].assessmentId),
-                SessionId: parseInt(r.data[index].sessionId),
-                UserId: parseInt(r.data[index].userId),
-                Note: parseInt(r.data[index].note),
-              };
-              OldSavedList.push(saveobj);
-            }
-            this.setState({SavedList:OldSavedList});
-            
-          })
-          .catch((error) => {
-            console.log(error.response);
-          });
+        this.getdata(history.location.state.id);
+      }
+      else
+      {
+        this.getdata(this.props.sessionid);
       }
     }
   }
@@ -97,13 +148,31 @@ class StudentAssessment extends Component {
     if (add === true) {
       let saveobj = {
         AssessmentId: parseInt(assessmentid),
-        SessionId: parseInt(history.location.state.id),
+        SessionId:history.location.state? parseInt(history.location.state.id):parseInt(this.props.sessionid),
         UserId: parseInt(studentid),
         Note: note,
       };
       oldlist.push(saveobj);
     }
     this.setState({ SavedList: oldlist });
+  };
+  commendChange = (userid, e) => {
+    let comment = e.target.value;
+    let newlist=[];
+    for (let index = 0; index < this.state.CommentList.length; index++) {
+      if (parseInt(userid)===parseInt(this.state.CommentList[index].userId)) {
+        let obj=this.state.CommentList[index];
+        obj.comment=comment;
+        obj.edit=true;
+        newlist.push(obj);
+      }
+      else
+      {
+        let obj=this.state.CommentList[index];
+        newlist.push(obj);
+      }
+     }
+     this.setState({CommentList:newlist});
   };
   render() {
     return (
@@ -122,6 +191,7 @@ class StudentAssessment extends Component {
                           {val.assessment} (%{val.effectRation})
                         </div>
                       ))}
+                    <div className="td">Comment</div>
                     </div>
                   </div>
                   <div className="tbody">
@@ -150,6 +220,18 @@ class StudentAssessment extends Component {
                             />
                           </div>
                         ))}
+                         <div className="td">
+                         <textarea
+                              className="form-control"
+                              value={this.getcomment(student.id)}
+                              onChange={(e) =>
+                                this.commendChange(
+                                  student.id,
+                                  e
+                                )
+                              }
+                         />
+                         </div>
                       </div>
                     ))}
                   </div>

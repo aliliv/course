@@ -229,7 +229,7 @@ class AddStudent extends Component {
             AssessmentGrade: c.data[index].assessmentGrade,
             ParticipationGrade: '',
             TotalGrade: '',
-            Comment: c.data[index].note,
+            Comment: c.data[index].comment,
             ConditionalPass: c.data[index].conditionalPass,
             Incomplete: c.data[index].incomplete,
             AttendanceProbation: '',
@@ -436,6 +436,7 @@ class AddStudent extends Component {
 
     this.getFiles();
   }
+
   async fileDelete(userfile) {
     var status = false;
     this.setState({ FileLoading: true });
@@ -443,6 +444,7 @@ class AddStudent extends Component {
       userfile.locationUrl.indexOf('StudentFile/') + 12,
       userfile.locationUrl.length
     );
+    console.log(name);
     await S3FileUpload.deleteFile(name, Config.S3StudentFileconfig)
       .then((response) => {
         status = true;
@@ -1612,12 +1614,12 @@ class AddStudent extends Component {
                               ) : null}
                             </div>
                             <div className="td">
-                              <a
+                              <div
                                 className="btn text-danger"
                                 onClick={() => this.deletecourse(courseview)}
                               >
                                 Delete
-                              </a>
+                              </div>
                             </div>
                           </div>
                         ))}
@@ -1639,17 +1641,17 @@ class AddStudent extends Component {
                         <div className="card-header" id="headingOne">
                           <div className="row">
                             <div className="col-12 col-md-9">
-                              <a
+                              <div
                                 className="btn pl-0 text-default"
                                 type="button"
                                 onClick={() => this.ActiveSet(index)}
                               >
                                 {course.Course} ({course.StartDate}-
                                 {course.EndDate})
-                              </a>
+                              </div>
                             </div>
                             <div className="col-12 col-md-3 text-md-right">
-                              <a
+                              <div
                                 className="btn d-flex aling-items-center justify-content-end pr-0"
                                 onClick={() =>
                                   this.setState({
@@ -1659,7 +1661,7 @@ class AddStudent extends Component {
                                 }
                               >
                                 <i className="ri-add-line"></i> Add Invoice
-                              </a>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -1698,7 +1700,7 @@ class AddStudent extends Component {
                                         </div>
                                         <div className="col-3">
                                           <h6>
-                                            <a
+                                            <div
                                               className="btn"
                                               onClick={() =>
                                                 this.setState({
@@ -1710,7 +1712,7 @@ class AddStudent extends Component {
                                               }
                                             >
                                               Add Payment
-                                            </a>
+                                            </div>
                                           </h6>
                                         </div>
                                         {invoice.paymentTypeName ===
@@ -1718,14 +1720,14 @@ class AddStudent extends Component {
                                           <div className="col-2"></div>
                                         ) : (
                                           <div className="col-2">
-                                            <a
+                                            <div
                                               className="btn text-danger"
                                               onClick={() =>
                                                 this.invoicedelete(invoice.id)
                                               }
                                             >
                                               Delete
-                                            </a>
+                                            </div>
                                           </div>
                                         )}
                                       </div>
@@ -1795,7 +1797,7 @@ class AddStudent extends Component {
                                                           </p>
                                                         </div>
                                                         <div className="td">
-                                                          <a
+                                                          <div
                                                             className="btn text-danger"
                                                             onClick={() =>
                                                               this.paymentdelete(
@@ -1804,7 +1806,7 @@ class AddStudent extends Component {
                                                             }
                                                           >
                                                             Delete
-                                                          </a>
+                                                          </div>
                                                         </div>
                                                       </div>
                                                     ) : null
@@ -1914,7 +1916,7 @@ class AddStudent extends Component {
                               {userfile.studentFilesType}
                             </div>
                             <div className="td">
-                              <a
+                              <div
                                 disabled={this.state.FileLoading}
                                 onClick={() => this.fileDelete(userfile)}
                                 className="btn text-danger"
@@ -1926,7 +1928,7 @@ class AddStudent extends Component {
                                 {this.state.FileLoading && (
                                   <span> Wait ...</span>
                                 )}
-                              </a>
+                              </div>
                             </div>
                           </div>
                         ))}

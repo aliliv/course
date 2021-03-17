@@ -19,7 +19,6 @@ import { connect } from "react-redux";
 import jwtDecode from "jwt-decode";
 import "../../../src/App.css";
 // import avatar from "../../images/avatar.png";
-import Main from "../pages/Main";
 import NewUser from "../pages/NewUser";
 import Groups from "../pages/Groups";
 import UserSearch from "../pages/UserSearch";
@@ -50,6 +49,11 @@ import AddBuilding from "../pages/AddBuilding";
 import BuildingSearch from "../pages/BuildingSearch";
 import BuildingReport from "../pages/BuildingReport";
 import Switch from "../../components/Switch";
+import AddBooking from "../pages/AddBooking";
+import BookingSearch from "../pages/BookingSearch";
+import AdminMain from "../pages/AdminMain";
+import StudentMain from "../pages/StudentMain";
+import TeacherMain from "../pages/TeacherMain";
 import * as Config from "../../config";
 
 import Logo from "../../images/mentora-toronto-logo.svg";
@@ -168,8 +172,18 @@ class layout extends Component {
         return <AddBuilding user={this.state.user} />;
       case "BuildingSearch":
         return <BuildingSearch user={this.state.user} />;
-        case "BuildingReport":
-          return <BuildingReport user={this.state.user} />;
+      case "BuildingReport":
+        return <BuildingReport user={this.state.user} />;
+      case "AddBooking":
+        return <AddBooking user={this.state.user} />;
+      case "BookingSearch":
+        return <BookingSearch user={this.state.user} />;
+      case "AdminMain":
+          return <AdminMain user={this.state.user} />;
+      case "StudentMain":
+            return <StudentMain user={this.state.user} />;
+      case "TeacherMain":
+            return <TeacherMain user={this.state.user} />;
       default:
         break;
     }
@@ -195,6 +209,7 @@ class layout extends Component {
               >
                 <Nav className="navbar-nav m-auto mt-2">
                   {this.state.operationClaims.map((menuitem) =>
+                    menuitem.visibility ===true &&
                     menuitem.parentId === null ? (
                       <UncontrolledDropdown
                         className="nav-item position-static dropdown"
@@ -294,20 +309,16 @@ class layout extends Component {
                   </li>
                 </ol>
               </nav>
-
               <Router history={history}>
-                <Route exact path="/" component={Main} />
                 {this.state.operationClaims.map((r) =>
-                  r.parentId !== null ? (
                     <Route
                       component={() =>
                         this.returncomponent(r.name.replace(" ", ""))
                       }
                       key={r.id}
                       exact
-                      path={"/" + r.name.replace(" ", "")}
+                      path={r.url.replace(" ", "")}
                     />
-                  ) : null
                 )}
               </Router>
             </div>
@@ -329,7 +340,6 @@ class layout extends Component {
     );
   }
 }
-
 function mapDispatchToProps(dispatch) {
   return {
     actions: {

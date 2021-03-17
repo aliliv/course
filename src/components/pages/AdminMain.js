@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-export default class Main extends Component {
+
+export default class AdminMain extends Component {
     render() {
         return (
             <div>
-                <div className="content-title">Main</div>
+                <div className="content-title">Staff Main</div>     
             </div>
         )
     }

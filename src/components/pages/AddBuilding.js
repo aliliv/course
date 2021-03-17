@@ -304,9 +304,9 @@ class AddBuilding extends Component {
                             <div className="td">{title.floorLocation}</div>
                             <div className="td">{title.roomNumber}</div>
                             <div className="td">{title.roomCapacity}</div>
-                            <div className="td"><a  className="btn text-danger" onClick={()=>this.roomdelete(title)}>
+                            <div className="td"><div  className="btn text-danger" onClick={()=>this.roomdelete(title)}>
                               Delete
-                            </a>
+                            </div>
                               </div>
 
                           </div>;

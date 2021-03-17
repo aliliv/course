@@ -15,7 +15,7 @@ class AddAgency extends Component {
     Phone: '',
     Fax: '',
     Email: '',
-    Commission: 0,
+    Commission: '',
     Status: true,
     Address: '',
     IsAdd: true,
@@ -48,7 +48,7 @@ class AddAgency extends Component {
       Phone: this.state.Phone,
       Fax: this.state.Fax,
       Email: this.state.Email,
-      Commission: parseInt(this.state.Commission),
+      Commission: this.state.Commission,
       Status: this.state.Status,
       Address: this.state.Address,
     };
@@ -90,7 +90,7 @@ class AddAgency extends Component {
             this.setState({ Phone: r.data.phone });
             this.setState({ Fax: r.data.fax });
             this.setState({ Email: r.data.email });
-            this.setState({ Commission: parseInt(r.data.commission) });
+            this.setState({ Commission: r.data.commission });
             this.setState({ Status: r.data.status });
             this.setState({ Address: r.data.address });
           })
@@ -196,12 +196,10 @@ class AddAgency extends Component {
               </div>
             </div>
             <div className="form-group col-12 col-md-3 col-lg-3">
-              <label htmlFor="Commission">Commission(%)</label>
+              <label htmlFor="Commission">Commission</label>
               <input
                 className="form-control"
-                min="0"
-                max="100"
-                type="number"
+                type="text"
                 name="Commission"
                 id="Commission"
                 value={this.state.Commission}

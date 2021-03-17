@@ -14,3 +14,10 @@ export const S3UserImageconfig = {
     accessKeyId: "AKIAIJZPF2OTRRYJM4TQ",
     secretAccessKey: "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",
   };
+  export const S3CourseFileconfig  = {
+    bucketName: 'awslivtecbucket',
+    dirName: 'CourseFile' /* optional */,
+    region: 'eu-north-1',
+    accessKeyId: 'AKIAIJZPF2OTRRYJM4TQ',
+    secretAccessKey: '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',
+  };

@@ -6,13 +6,6 @@ import alertify from 'alertifyjs';
 import { connect } from 'react-redux';
 import S3FileUpload from 'react-s3';
 import * as Config from '../../config';
-const config = {
-  bucketName: 'awslivtecbucket',
-  dirName: 'CourseFile' /* optional */,
-  region: 'eu-north-1',
-  accessKeyId: 'AKIAIJZPF2OTRRYJM4TQ',
-  secretAccessKey: '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',
-};
 class AddCourse extends Component {
   onActiveHandler = (event) => {
     switch (event.target.value) {
@@ -51,7 +44,6 @@ class AddCourse extends Component {
     FileTypeId: '',
     Loading: false,
     IsAdd: true,
-
     Name: '',
     Title: '',
     Types: [],
@@ -83,7 +75,6 @@ class AddCourse extends Component {
   async fileDelete(file) {
     if (!this.state.Loading) {
       this.setState({ Loading: true });
-
       var count = parseInt(this.state.DeletedCount);
       count++;
       this.setState({ DeletedCount: count });
@@ -95,7 +86,7 @@ class AddCourse extends Component {
           file.S3Location.indexOf('CourseFile/') + 11,
           file.S3Location.length
         );
-        await S3FileUpload.deleteFile(name, config)
+        await S3FileUpload.deleteFile(name, Config.S3CourseFileconfig)
           .then((response) => {
             status = true;
           })
@@ -274,7 +265,7 @@ class AddCourse extends Component {
       var courseFiles = [];
       for (let index = 0; index < this.state.FileList.length; index++) {
         if (this.state.FileList[index].S3Location === '') {
-          await S3FileUpload.uploadFile(this.state.FileList[index].File, config)
+          await S3FileUpload.uploadFile(this.state.FileList[index].File, Config.S3CourseFileconfig)
             .then((data) => {
               var obj = {
                 Name: this.state.FileList[index].Name,
@@ -662,12 +653,12 @@ class AddCourse extends Component {
                         {this.getFileTypeName(file.FileTypeId)}
                       </div>
                       <div className="td">
-                        <a
+                        <div
                           className="btn p-0 text-danger"
                           onClick={() => this.fileDelete(file)}
                         >
                           Delete
-                        </a>
+                        </div>
                       </div>
                     </div>
                   ))}

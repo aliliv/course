@@ -9,22 +9,29 @@ class AttendanceSheet extends Component {
     Students: [],
     Dates: [],
   };
+  async getattendancesheet(sessionid){
+    await axios
+    .get(
+      Config.ApiUrl +
+        "api/dailyattendance/getattendancesheet?sessionid=" +
+        sessionid,
+    )
+    .then((r) => {
+      this.setState({ Students: r.data.users });
+      this.setState({ Dates: r.data.dates });
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+  }
   async componentDidMount() {
     if (this.props.token) {
       if (history.location.state) {
-        await axios
-          .get(
-            Config.ApiUrl +
-              "api/dailyattendance/getattendancesheet?sessionid=" +
-              history.location.state.id
-          )
-          .then((r) => {
-            this.setState({ Students: r.data.users });
-            this.setState({ Dates: r.data.dates });
-          })
-          .catch((error) => {
-            console.log(error.response);
-          });
+        this.getattendancesheet(history.location.state.id);
+      }
+      else//teachermainredirect
+      {
+        this.getattendancesheet(this.props.sessionid);
       }
     }
   }
